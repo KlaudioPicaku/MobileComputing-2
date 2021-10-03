@@ -5,18 +5,26 @@ using UnityEngine;
 public class Character2Dcontroller : MonoBehaviour
 {
     public float MovementSpeed = 1;
-    public float JumpForce = 1;
-    RigidBody2d rb;
+    Rigidbody2D rb;
+    Joystick joystick;
+    float horizontalValue;
     void Start()
     {
-        rb = GetComponent<RigidBody2d>();
+        rb = GetComponent<Rigidbody2D>();
     }
     void Update()
     {
-        
+        horizontalValue = joystick.Horizontal;
     }
     void FixedUpdate()
     {
-       
+        Move(horizontalValue);
+    }
+    void Move(float dir)
+    {
+        float xVal = dir * MovementSpeed * Time.deltaTime;
+        Vector2 targetVelocity = new Vector2(xVal, rb.velocity.y);
+        rb.velocity = targetVelocity;
+
     }
 }
