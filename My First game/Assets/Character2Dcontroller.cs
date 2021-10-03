@@ -6,7 +6,7 @@ public class Character2Dcontroller : MonoBehaviour
 {
     public float MovementSpeed = 1;
     Rigidbody2D rb;
-    Joystick joystick;
+    public Joystick joystick;
     float horizontalValue;
     void Start()
     {
