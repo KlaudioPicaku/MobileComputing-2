@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class Character2Dcontroller : MonoBehaviour
 {
+    public Joystick joystick;
     public float MovementSpeed = 1;
     Rigidbody2D rb;
-    public Joystick joystick;
+    Animator animator;
+    [SerializeField] Transform groundCheckCollider;
+    [SerializeField] LayerMask groundLayer;
+    [SerializeField] float jmpPow = 500;
     float horizontalValue;
     float runSpeedModifier = 2f;
     bool isRunning = false;
     bool facingRight = true;
-    Animator animator;
+    bool isGrounded = false;
+    bool jumping=false;
+    bool jumper=false;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -30,15 +36,48 @@ public class Character2Dcontroller : MonoBehaviour
         {
             isRunning = false;
         }
+        if (jumper) 
+        {
+            jumping = true;
+        } else{
+            jumping = false;
+        }
     }
     void FixedUpdate()
     {
-        Move(horizontalValue);
+        GroundCheck();
+        Move(horizontalValue,jumping);
     }
-    void Move(float dir)
+    void GroundCheck()
     {
-
-        float xVal = dir * MovementSpeed* 100 * Time.deltaTime;
+        // set isGrounded to  false to avoid endless jumping
+        isGrounded = false;
+        //checking if Grouncheck obj is colliding with platform
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheckCollider.position, 0.2f,groundLayer);
+        if (colliders.Length > 0)
+        {
+            isGrounded = true;
+        }
+    }
+    public void Jump()
+    {
+        jumper = true;
+    }
+    public void stopJump()
+    {
+        jumper = false;
+    }
+    void Move(float dir, bool airFlag)
+    {
+        //if player is on the ground he can jump
+        if (isGrounded && airFlag)
+        {
+            isGrounded = false;
+            airFlag = true;
+            rb.AddForce(new Vector2(0f, jmpPow));
+        }
+        #region Movement
+        float xVal = dir * MovementSpeed* 100 * Time.fixedDeltaTime;
         if (isRunning)
         {
             xVal *= runSpeedModifier;
@@ -56,5 +95,6 @@ public class Character2Dcontroller : MonoBehaviour
             facingRight = true;
         }
         animator.SetFloat("xVelocity", Mathf.Abs(rb.velocity.x));
+        #endregion
     }
 }
