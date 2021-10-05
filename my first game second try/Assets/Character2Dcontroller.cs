@@ -59,13 +59,16 @@ public class Character2Dcontroller : MonoBehaviour
             isGrounded = true;
         }
     }
+  
     public void Jump()
     {
         jumper = true;
+        animator.SetBool("IsJumping", true);
     }
     public void stopJump()
     {
         jumper = false;
+        animator.SetBool("IsJumping", false);
     }
     void Move(float dir, bool airFlag)
     {
