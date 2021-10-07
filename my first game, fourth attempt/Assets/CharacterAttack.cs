@@ -50,5 +50,13 @@ public class CharacterAttack : MonoBehaviour
         attacker = false;
         animator.SetBool("IsAttacking",false);
     }
+    private void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null)
+        {
+            return;
+        }
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
 
 }
