@@ -11,10 +11,11 @@ public class EnemyAI : MonoBehaviour
     public Transform Goal;
     public int nextID;
     int idChangeValue = 1;
-    [SerializeField] bool isMoving = true;
+    bool isMoving = true;
     Animator animator;
     float minAttackDistance = 1f;
     bool enemyInRange = false;
+    bool isAttacking = true;
     public float speed = 0.5f;
     Vector2 locate;
     HealthBar_controller playerHealth;
@@ -60,10 +61,9 @@ public class EnemyAI : MonoBehaviour
             MoveToNextPoint();
             Debug.Log("enemy not in range");
         }
-        else
+        else if (enemyInRange && isAttacking)
         {
-            Debug.Log("in range");
-            //AttackEnemy();
+            AttackEnemy();
         }
     }
     void CheckEnemyRange()
@@ -72,14 +72,27 @@ public class EnemyAI : MonoBehaviour
         float distance = Vector2.Distance(skeleton, Goal.position);
         if (distance <= minAttackDistance)
         {
+            isAttacking = true;
             enemyInRange = true;
         }
         else if(distance <= (3f * minAttackDistance) && distance > minAttackDistance )
         {
+            enemyInRange = true;
             transform.localScale = new Vector3(-1, 1, 1);
-            animator.SetBool("IsMoving",false);
-            isMoving = false;
+            animator.SetBool("IsMoving",false); 
             animator.SetBool("Alerted", true );
+            isMoving = false;
+
+        }
+        else if (distance > (3f * minAttackDistance))
+        {
+            enemyInRange = false;
+            isAttacking = false;
+            animator.SetBool("IsMoving", true);
+            animator.SetBool("Alerted", false);
+            animator.SetBool("IsAttacking", false);
+            MoveToNextPoint();
+            
         }
 
     }
@@ -87,12 +100,29 @@ public class EnemyAI : MonoBehaviour
      speed = 1f;
         animator.SetBool("IsAttacking", true);
         Invoke("DecreasePlayerHealth", 0.7f);
-    }
+    }*/
     void AttackEnemy()
     {
-        MoveToEnemy();        
+        isAttacking = true;
+        MoveToPlayer();
+        animator.SetBool("IsMoving", false);
+        animator.SetBool("IsAttacking", true);
+        //Invoke("DecreasePlayerHealth", 0.7f);      
     }
-    void DecreasePlayerHealth()
+    void MoveToPlayer()
+    {
+        speed = 1;
+        if (Goal.transform.position.x < transform.position.x)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else
+            transform.localScale = new Vector3(1, 1, 1);
+        animator.SetBool("IsMoving", true);
+        transform.position = Vector2.MoveTowards(transform.position,Goal.position, speed * Time.deltaTime);
+
+    }
+    /*void DecreasePlayerHealth()
     {
         playerHealth.SetDamage(Random.Range(1f, 10f));
     }*/
@@ -117,6 +147,7 @@ public class EnemyAI : MonoBehaviour
     }
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(transform.position, 3f * minAttackDistance);
+        Gizmos.DrawWireSphere(transform.position, 4f * minAttackDistance);
+        Gizmos.DrawWireSphere(transform.position, minAttackDistance);
     }
 }
