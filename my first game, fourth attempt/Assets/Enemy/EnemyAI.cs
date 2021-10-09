@@ -80,7 +80,6 @@ public class EnemyAI : MonoBehaviour
             animator.SetBool("IsMoving",false);
             isMoving = false;
             animator.SetBool("Alerted", true );
-            Update();
         }
 
     }
