@@ -18,8 +18,10 @@ public class Character2Dcontroller : MonoBehaviour
     bool isGrounded = false;
     bool jumping=false;
     bool jumper=false;
+
     void Start()
     {
+
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
@@ -46,7 +48,7 @@ public class Character2Dcontroller : MonoBehaviour
     void FixedUpdate()
     {
         GroundCheck();
-        Move(horizontalValue,jumping);
+        Move(horizontalValue,jumping, !animator.GetBool("KnockBack"));
     }
     void GroundCheck()
     {
@@ -70,34 +72,38 @@ public class Character2Dcontroller : MonoBehaviour
         jumper = false;
         animator.SetBool("IsJumping", false);
     }
-    void Move(float dir, bool airFlag)
+    void Move(float dir, bool airFlag, bool notKnockedBack)
     {
-        //if player is on the ground he can jump
-        if (isGrounded && airFlag)
+        if (notKnockedBack)
         {
-            isGrounded = false;
-            airFlag = true;
-            rb.AddForce(new Vector2(0f, jmpPow));
+            //if player is on the ground he can jump
+            if (isGrounded && airFlag)
+            {
+                isGrounded = false;
+                airFlag = true;
+                rb.AddForce(new Vector2(0f, jmpPow));
+            }
+            #region Movement
+            float xVal = dir * MovementSpeed * 100 * Time.fixedDeltaTime;
+            if (isRunning)
+            {
+                xVal *= runSpeedModifier;
+            }
+            Vector2 targetVelocity = new Vector2(xVal, rb.velocity.y);
+            rb.velocity = targetVelocity;
+            if (facingRight && dir < 0)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+                facingRight = false;
+            }
+            else if (!facingRight && dir > 0)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+                facingRight = true;
+            }
+            animator.SetFloat("xVelocity", Mathf.Abs(rb.velocity.x));
+           
         }
-        #region Movement
-        float xVal = dir * MovementSpeed* 100 * Time.fixedDeltaTime;
-        if (isRunning)
-        {
-            xVal *= runSpeedModifier;
-        }
-        Vector2 targetVelocity = new Vector2(xVal, rb.velocity.y);
-        rb.velocity = targetVelocity;
-        if(facingRight && dir < 0)
-        {
-            transform.localScale = new Vector3(-1, 1, 1);
-            facingRight = false;
-        }
-        else if(!facingRight && dir > 0)
-        {
-            transform.localScale = new Vector3(1, 1, 1);
-            facingRight = true;
-        }
-        animator.SetFloat("xVelocity", Mathf.Abs(rb.velocity.x));
         #endregion
     }
 }

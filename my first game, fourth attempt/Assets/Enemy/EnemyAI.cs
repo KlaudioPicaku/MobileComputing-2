@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,16 +15,20 @@ public class EnemyAI : MonoBehaviour
     int idChangeValue = 1;
     bool isMoving = true;
     Animator animator;
-    float minAttackDistance = 1f;
+    float minAttackDistance = 0.65f;
     bool enemyInRange = false;
     bool isAttacking = true;
+    bool flag = false;
     public float speed = 0.5f;
     Vector2 locate;
-    HealthBar_controller playerHealth;
+    [SerializeField] HealthBarController playerHealth;
+    public float cooldown = 2f;
+    private float nextFireTime=0;
+    private float nextAnimationTime = 0.7f;
+    private float animationCooldown = 0.3f;
     private void Start()
     {
        
-        playerHealth = GameObject.FindObjectOfType<HealthBar_controller>();
         Vector2 position = GameObject.FindWithTag("Player").transform.position;
         locate = position;
         animator = GetComponent<Animator>();
@@ -50,6 +56,7 @@ public class EnemyAI : MonoBehaviour
         points = new List<Transform>();
         points.Add(p1.transform);
         points.Add(p2.transform);
+        
 
     }
     private void Update()
@@ -61,53 +68,72 @@ public class EnemyAI : MonoBehaviour
             MoveToNextPoint();
             Debug.Log("enemy not in range");
         }
-        else if (enemyInRange && isAttacking)
+        else if (isAttacking && !flag && enemyInRange)
         {
-            AttackEnemy();
+            if (Time.time > nextFireTime)
+            {
+                nextFireTime = Time.time + cooldown;
+                AttackEnemy();
+            }
         }
     }
     void CheckEnemyRange()
     {
         Vector2 skeleton = new Vector2(transform.position.x, transform.position.y);
         float distance = Vector2.Distance(skeleton, Goal.position);
+        /*player is within attack distance, enemy can attack*/
         if (distance <= minAttackDistance)
         {
             isAttacking = true;
             enemyInRange = true;
+            flag = false;
         }
-        else if(distance <= (3f * minAttackDistance) && distance > minAttackDistance )
+        /*check if player is within twice the attack distance and react to it*/
+        else if (distance <= (2f * minAttackDistance) && distance > minAttackDistance )
         {
             enemyInRange = true;
             transform.localScale = new Vector3(-1, 1, 1);
             animator.SetBool("IsMoving",false); 
             animator.SetBool("Alerted", true );
             isMoving = false;
+            isAttacking = false;
+            flag = true;
 
         }
-        else if (distance > (3f * minAttackDistance))
+        /*check if player is within 20% distance and move closer then attack*/
+        else if (distance <= (1.2f * minAttackDistance) && distance > minAttackDistance)
+        {
+            enemyInRange = true;
+            transform.localScale = new Vector3(-1, 1, 1);
+            animator.SetBool("IsMoving", true);
+            animator.SetBool("Alerted", false);
+            isMoving = true;
+            isAttacking = false;
+            flag = true;
+            MoveToPlayer();
+        }
+        /*player is nowhere near to be a threat continue patrolling the spots*/
+        else
         {
             enemyInRange = false;
             isAttacking = false;
+            flag = true;
             animator.SetBool("IsMoving", true);
             animator.SetBool("Alerted", false);
             animator.SetBool("IsAttacking", false);
             MoveToNextPoint();
-            
         }
 
     }
-   /* void MoveToEnemy()  {
-     speed = 1f;
-        animator.SetBool("IsAttacking", true);
-        Invoke("DecreasePlayerHealth", 0.7f);
-    }*/
+
     void AttackEnemy()
-    {
-        isAttacking = true;
-        MoveToPlayer();
-        animator.SetBool("IsMoving", false);
-        animator.SetBool("IsAttacking", true);
-        //Invoke("DecreasePlayerHealth", 0.7f);      
+    {     
+           isAttacking = true;
+           MoveToPlayer();
+           animator.SetBool("IsMoving", false);   
+           DecreasePlayerHealth();
+           flag = true;
+
     }
     void MoveToPlayer()
     {
@@ -122,10 +148,17 @@ public class EnemyAI : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position,Goal.position, speed * Time.deltaTime);
 
     }
-    /*void DecreasePlayerHealth()
+    void DecreasePlayerHealth()
     {
-        playerHealth.SetDamage(Random.Range(1f, 10f));
-    }*/
+        float randomnum = Random.Range(1f, 5f);
+        animator.SetBool("IsAttacking", true);
+        if (Time.time > nextAnimationTime) {
+            nextAnimationTime = Time.time + animationCooldown;
+            playerHealth.SetDamage(randomnum);
+        }
+        isAttacking = false;
+        return;
+    }
     void MoveToNextPoint()
     {
         Transform goalPoint = points[nextID];
@@ -147,7 +180,7 @@ public class EnemyAI : MonoBehaviour
     }
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(transform.position, 4f * minAttackDistance);
+        Gizmos.DrawWireSphere(transform.position, 3f * minAttackDistance);
         Gizmos.DrawWireSphere(transform.position, minAttackDistance);
     }
 }
