@@ -4,23 +4,14 @@ using UnityEngine;
 
 public class CharacterAttack : MonoBehaviour
 {
-    public Animator animator;
-    public Transform attackPoint;
-    public float attackRange = 0.5f;
-    public LayerMask enemyLayer;
-    public bool isAttacking = false;
-    bool attacker = false;
+    [SerializeField] Animator animator;
+    [SerializeField] Transform attackPoint;
+    [SerializeField] float attackRange = 0.5f;
+    [SerializeField] LayerMask enemyLayer;
+    private bool attacker = false;
     public void Start()
     {
         animator = GetComponent<Animator>();
-        if (isAttacking)
-        {
-            attacker = true;
-        }
-        else
-        {
-            attacker = false;
-        }
     }
     void FixedUpdate()
     {
@@ -33,10 +24,11 @@ public class CharacterAttack : MonoBehaviour
             animator.SetBool("IsAttacking", true);
 
             Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
-
+            
             foreach (Collider2D enemy in hitEnemies)
             {
                 Debug.Log("We hit" + enemy.name);
+                break;
             }
         }
     }
