@@ -402,6 +402,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &419405096
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 419405097}
+  m_Layer: 6
+  m_Name: Attack Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &419405097
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419405096}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.09000397, y: 0.060001373, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1647754746}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &456306450
 GameObject:
   m_ObjectHideFlags: 0
@@ -842,7 +872,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1024195145}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1041,7 +1071,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1633022304}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1107,6 +1137,7 @@ GameObject:
   - component: {fileID: 1647754748}
   - component: {fileID: 1647754743}
   - component: {fileID: 1647754749}
+  - component: {fileID: 1647754750}
   m_Layer: 6
   m_Name: Basic Skeleton
   m_TagString: Untagged
@@ -1129,11 +1160,8 @@ MonoBehaviour:
   points:
   - {fileID: 1646063547}
   - {fileID: 872551594}
-  Goal: {fileID: 2061324314}
   nextID: 0
   speed: 0.5
-  playerHealth: {fileID: 2000742411}
-  cooldown: 4
 --- !u!50 &1647754744
 Rigidbody2D:
   serializedVersion: 4
@@ -1214,9 +1242,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1647754742}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -89.98, y: 63.08, z: 0}
+  m_LocalPosition: {x: -90.01, y: 63.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 419405097}
   m_Father: {fileID: 1422435515}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1291,6 +1320,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5476074, y: 0.81025696}
   m_EdgeRadius: 0
+--- !u!114 &1647754750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647754742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c7de0284171c144381f23335d79fc9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPoint: {fileID: 419405097}
+  Goal: {fileID: 2061324314}
+  attackRange: 0.5
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  isAttacking: 0
+  playerHealth: {fileID: 2000742411}
+  cooldown: 1.08
 --- !u!1001 &1675296847
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2269,9 +2319,8 @@ GameObject:
   - component: {fileID: 2061324315}
   - component: {fileID: 2061324311}
   - component: {fileID: 2061324316}
-  - component: {fileID: 2061324317}
   - component: {fileID: 2061324318}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -2467,19 +2516,6 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
-  isAttacking: 0
---- !u!114 &2061324317
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2061324308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cd90494437cd344499fa2e48e37609b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2061324318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2496,4 +2532,7 @@ MonoBehaviour:
   currentHealth: 0
   previousHealth: 0
   animator: {fileID: 2061324310}
-  knockBackSpeed: 2
+  knockBackSpeed: 20
+  knockBackLocation: {x: 0, y: 0}
+  knockBackValue: {x: 0, y: 0}
+  knockBack: {x: 0, y: 0}
