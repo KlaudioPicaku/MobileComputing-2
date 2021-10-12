@@ -33,7 +33,7 @@ public class TakeDamage : MonoBehaviour
         Vector2 knockBackLocation = new Vector2(transform.position.x , transform.position.y);
         Vector2 knockBackValue = new Vector2((float)-0.35, (float)-0.35);
         Vector2 knockBack = knockBackLocation + knockBackValue;
-        transform.position = Vector2.MoveTowards(transform.position, knockBack ,knockBackSpeed);
+        transform.position = Vector2.MoveTowards(transform.position, knockBack ,Time.deltaTime*knockBackSpeed);
         if(transform.position.x == knockBack.x && transform.position.y == knockBack.y)
         {
             animator.SetBool("KnockBack", false);
