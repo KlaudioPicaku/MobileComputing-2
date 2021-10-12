@@ -47,7 +47,6 @@ public class EnemyAttack : MonoBehaviour
             if ((animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) && Time.time> nextFireTime) {
                 Debug.Log("We hit" + avatar.name);
                 playerHealth.SetDamage(Random.Range(1f, 5f));
-                //animator.SetBool("IsAttacking", false);
                 nextFireTime = Time.time + cooldown;
             }
             break;
@@ -73,7 +72,9 @@ public class EnemyAttack : MonoBehaviour
         {
             animator.SetBool("IsMoving", false);
             playerInRange = true;
-            transform.localScale = new Vector3(-1, 1, 1);
+            if (transform.position.x==-1) {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
             animator.SetBool("Alerted", true);
 
         }

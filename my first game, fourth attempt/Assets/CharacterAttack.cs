@@ -17,11 +17,20 @@ public class CharacterAttack : MonoBehaviour
     {
         Attack(attacker);
     }
+    void NotAlerted()
+    {
+        animator.SetBool("IsAlerted",false);
+    }
+    void Alerted()
+    {
+        animator.SetBool("IsAlerted", true);
+    }
     void Attack(bool attack)
     {
         if (attack)
         {
             animator.SetBool("IsAttacking", true);
+            //animator.SetBool("IsAlerted",true);
 
             Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
             

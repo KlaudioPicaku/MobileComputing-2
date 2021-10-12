@@ -8,13 +8,19 @@ public class TakeDamage : MonoBehaviour
     [SerializeField] float currentHealth;
     [SerializeField] float previousHealth;
     [SerializeField] Animator animator;
-    [SerializeField] float knockBackSpeed = 2f;
+    [SerializeField] float knockBackSpeed = 0.05f;
+    [SerializeField] Vector2 knockBackLocation;
+    [SerializeField] Vector2 knockBackValue;
+    [SerializeField] Vector2 knockBack;
     void Start()
     {
         //health = GetComponent<HealthBarController>();
         currentHealth = health.GetHealth();
         previousHealth = currentHealth;
         animator = GetComponent<Animator>();
+        knockBackLocation = new Vector2(transform.position.x, transform.position.y);
+        knockBackValue = new Vector2((float)-0.35, (float)-0.35);
+      
     }
 
     // Update is called once per frame
@@ -23,20 +29,23 @@ public class TakeDamage : MonoBehaviour
         currentHealth = health.GetHealth();
         if (currentHealth < previousHealth)
         {
+            knockBackLocation = transform.position;
+            knockBack = knockBackLocation + knockBackValue;
             previousHealth = currentHealth;
             animator.SetBool("KnockBack", true);
-            KnockBackPlayer();
+            //KnockBackPlayer();
         }
+    }
+    void StopKnockBack()
+    {
+        // animation handler
+       animator.SetBool("KnockBack", false);
     }
     void KnockBackPlayer()
     {
-        Vector2 knockBackLocation = new Vector2(transform.position.x , transform.position.y);
-        Vector2 knockBackValue = new Vector2((float)-0.35, (float)-0.35);
-        Vector2 knockBack = knockBackLocation + knockBackValue;
+        /* change player location based on damage inflicted*/
+
         transform.position = Vector2.MoveTowards(transform.position, knockBack ,Time.deltaTime*knockBackSpeed);
-        if(transform.position.x == knockBack.x && transform.position.y == knockBack.y)
-        {
-            animator.SetBool("KnockBack", false);
-        }
+       
     }
 }
