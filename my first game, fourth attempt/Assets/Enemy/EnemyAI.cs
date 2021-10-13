@@ -50,9 +50,8 @@ public class EnemyAI : MonoBehaviour
     private void Update()
     {
         // CheckEnemyRangePeace();
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Alert"))
+        if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Walk"))
         {
-          
             MoveToNextPoint();
         }
     }
@@ -60,21 +59,28 @@ public class EnemyAI : MonoBehaviour
     void MoveToNextPoint()
     {
         Transform goalPoint = points[nextID];
-        if (goalPoint.transform.position.x < transform.position.x)
+        if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Walk"))
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            if (goalPoint.transform.position.x < transform.position.x)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+            else
+                transform.localScale = new Vector3(1, 1, 1);
+            transform.position = Vector2.MoveTowards(transform.position, goalPoint.position, speed * Time.deltaTime);
+            if (Vector2.Distance(transform.position, goalPoint.position) < 0.2f)
+            {
+                if (nextID == points.Count - 1)
+                    idChangeValue = -1;
+                if (nextID == 0)
+                    idChangeValue = 1;
+                nextID += idChangeValue;
+            }
         }
-        else
-            transform.localScale = new Vector3(1, 1, 1);
-        transform.position = Vector2.MoveTowards(transform.position,goalPoint.position,speed*Time.deltaTime);
-        if (Vector2.Distance(transform.position, goalPoint.position) < 0.2f)
-        {
-            if (nextID == points.Count - 1)
-                idChangeValue = -1;
-            if (nextID == 0)
-                idChangeValue = 1;
-            nextID += idChangeValue;
-        }
+    }
+    private void stopMovement()
+    {
+        animator.SetBool("IsMoving",false);
     }
     private void OnDrawGizmosSelected()
     {

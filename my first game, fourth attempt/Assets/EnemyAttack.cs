@@ -68,12 +68,16 @@ public class EnemyAttack : MonoBehaviour
             animator.SetBool("IsAttacking", true);
         }
         /*check if player is within thrice  the attack distance and then react */
-        else if (distance <= (3f * attackRange) && distance > attackRange)
+        else if (distance <= (4f * attackRange) && distance > attackRange)
         {
             animator.SetBool("IsMoving", false);
             playerInRange = true;
-            if (transform.position.x==-1) {
-                transform.localScale = new Vector3(-1, 1, 1);
+            if (Goal.position.x>transform.position.x) {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            else
+            {
+                transform.localScale = new Vector3(-1,1,1);
             }
             animator.SetBool("Alerted", true);
 
@@ -95,6 +99,7 @@ public class EnemyAttack : MonoBehaviour
             return;
         }
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        Gizmos.DrawWireSphere(attackPoint.position, 4f*attackRange);
     }
 
 }

@@ -8,6 +8,7 @@ public class CharacterAttack : MonoBehaviour
     [SerializeField] Transform attackPoint;
     [SerializeField] float attackRange = 0.5f;
     [SerializeField] LayerMask enemyLayer;
+    private EnemyHealthController enemyHealth;
     private bool attacker = false;
     public void Start()
     {
@@ -37,14 +38,24 @@ public class CharacterAttack : MonoBehaviour
             foreach (Collider2D enemy in hitEnemies)
             {
                 Debug.Log("We hit" + enemy.name);
+                enemyHealth = enemy.GetComponent<EnemyHealthController>();
                 break;
             }
         }
+    }
+    public void setEnemyHealth()
+    {
+        if (enemyHealth != null)
+        {
+            enemyHealth.setHealth(Random.Range(5f, 20f));
+        }
+        return;
     }
     public void startAttack()
     {
         attacker = true;
         animator.SetBool("IsAttacking", true);
+
     }
     public void stopAttacking()
     {

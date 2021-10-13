@@ -857,7 +857,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 872551593}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -89.25, y: 62.8, z: 0}
+  m_LocalPosition: {x: -89.25, y: 62.99, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 188446040}
@@ -1116,7 +1116,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1646063546}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -91.87, y: 62.83, z: 0}
+  m_LocalPosition: {x: -91.87, y: 63.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 188446040}
@@ -1132,12 +1132,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1647754746}
   - component: {fileID: 1647754745}
-  - component: {fileID: 1647754744}
   - component: {fileID: 1647754747}
-  - component: {fileID: 1647754748}
-  - component: {fileID: 1647754743}
   - component: {fileID: 1647754749}
+  - component: {fileID: 1647754743}
+  - component: {fileID: 1647754748}
   - component: {fileID: 1647754750}
+  - component: {fileID: 1647754751}
   m_Layer: 6
   m_Name: Basic Skeleton
   m_TagString: Untagged
@@ -1162,27 +1162,6 @@ MonoBehaviour:
   - {fileID: 872551594}
   nextID: 0
   speed: 0.5
---- !u!50 &1647754744
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647754742}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 0.5
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!212 &1647754745
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1242,7 +1221,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1647754742}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -90.01, y: 63.1, z: 0}
+  m_LocalPosition: {x: -90.01, y: 63.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 419405097}
@@ -1341,6 +1320,21 @@ MonoBehaviour:
   isAttacking: 0
   playerHealth: {fileID: 2000742411}
   cooldown: 1.08
+--- !u!114 &1647754751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647754742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e67cd70093d16eb40951af27f86350ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+  previousHealth: 0
 --- !u!1001 &1675296847
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1566,8 +1560,8 @@ EdgeCollider2D:
   - {x: 3.0042293, y: 1.0128065}
   - {x: 3.8903444, y: 0.33929485}
   - {x: 5.1257524, y: 0.35560906}
-  - {x: 5.671941, y: 0.7351638}
-  - {x: 8.8960905, y: 0.7336855}
+  - {x: 5.65833, y: 0.85768044}
+  - {x: 8.8960905, y: 0.8698168}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
