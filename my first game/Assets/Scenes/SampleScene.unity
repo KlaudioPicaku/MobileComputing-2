@@ -2475,7 +2475,7 @@ MonoBehaviour:
   currentHealth: 0
   previousHealth: 0
   animator: {fileID: 0}
-  knockBackSpeed: 0.05
+  knockBackSpeed: 200
   knockBackLocation: {x: 0, y: 0}
   knockBackValue: {x: 0, y: 0}
   knockBack: {x: 0, y: 0}

@@ -32,7 +32,7 @@ public class TakeDamage : MonoBehaviour
             knockBackLocation = transform.position;
             knockBack = knockBackLocation + knockBackValue;
             previousHealth = currentHealth;
-            animator.SetBool("KnockBack", true);
+            animator.Play("player_hurt");
             //KnockBackPlayer();
         }
     }

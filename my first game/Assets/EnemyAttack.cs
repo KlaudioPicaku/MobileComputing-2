@@ -12,7 +12,7 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField] bool isAttacking = false;
     bool playerInRange = false;
     [SerializeField] HealthBarController playerHealth;
-    public float cooldown = 2.08f;
+    public float cooldown = 1.1f;
     private float nextFireTime = 0;
     Vector2 locate;
     // Start is called before the first frame update
@@ -26,16 +26,13 @@ public class EnemyAttack : MonoBehaviour
     void Update()
     {
         CheckRange();
-        if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+        if (Time.time > nextFireTime)
         {
-            if (isAttacking && playerInRange)
-            {
-                if (Time.time > nextFireTime)
+                if (isAttacking && playerInRange)
                 {
-                    animator.SetBool("IsAttacking", true);
+                    animator.Play("basic_skeleton_attack");
                     //Attack();
                 }
-            }
         }
     }
     void Attack()
@@ -65,7 +62,7 @@ public class EnemyAttack : MonoBehaviour
             playerInRange = true;
             isAttacking = true;
             animator.SetBool("IsMoving",false);
-            animator.SetBool("IsAttacking", true);
+            //animator.SetBool("IsAttacking", true);
         }
         /*check if player is within thrice  the attack distance and then react */
         else if (distance <= (4f * attackRange) && distance > attackRange)
