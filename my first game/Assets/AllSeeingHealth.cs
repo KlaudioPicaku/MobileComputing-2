@@ -21,20 +21,20 @@ public class AllSeeingHealth : MonoBehaviour
         if (currentHealth <= 0 && !isDead)
         {
             DieEye();
-            isDead = true;
+            isDead = true; //avoid animation loop
         }
     }
     private void DieEye()
     {
         if (!isDead)
         {
+            //Destroy object
             animator.Play("AllSeeing_die");
             animator.SetBool("IsDead", true);
             GetComponent<AllSeeingAI>().enabled = false;
             GetComponent<BoxCollider2D>().enabled = false;
             this.enabled = false;
-            Destroy(GameObject.Find("Waypoints"));
-            Destroy(gameObject);
+            Destroy(GameObject.FindWithTag("AllSeeingRoot"),10f);
             isDead = true;
         }
 

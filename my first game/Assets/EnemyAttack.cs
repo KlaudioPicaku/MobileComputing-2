@@ -10,7 +10,6 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField] float attackRange = 0.55f;
     [SerializeField] LayerMask enemyLayer;
     [SerializeField] bool isAttacking = false;
-    bool playerInRange = false;
     bool playerInCloseRange = false;
     [SerializeField] HealthBarController playerHealth;
     public float cooldown = 1.1f;

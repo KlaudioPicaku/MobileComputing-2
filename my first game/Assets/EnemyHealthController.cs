@@ -39,8 +39,7 @@ public class EnemyHealthController : MonoBehaviour
             GetComponent<BoxCollider2D>().enabled = false;
             GetComponent<EnemyAttack>().enabled = false;
             this.enabled = false;
-            Destroy(GameObject.Find("Waypoints"),10);
-            Destroy(gameObject, 10);
+            Destroy(GameObject.FindWithTag("SkeletonRoot"),10f);
             isDead = true;
         }
 
