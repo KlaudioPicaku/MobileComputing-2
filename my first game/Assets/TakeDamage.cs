@@ -12,6 +12,7 @@ public class TakeDamage : MonoBehaviour
     [SerializeField] Vector2 knockBackLocation;
     [SerializeField] Vector2 knockBackValue;
     [SerializeField] Vector2 knockBack;
+    [SerializeField] LayerMask enemy;
     void Start()
     {
         //health = GetComponent<HealthBarController>();
@@ -29,10 +30,22 @@ public class TakeDamage : MonoBehaviour
         currentHealth = health.GetHealth();
         if (currentHealth < previousHealth)
         {
+            Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, 0.55f,enemy);
             knockBackLocation = transform.position;
-            knockBack = knockBackLocation + knockBackValue;
+            foreach(Collider2D enem in enemies){
+                if (transform.position.x < enem.transform.position.x)
+                {
+                 knockBack = knockBackLocation + knockBackValue;
+                }
+                else
+                {
+
+                  knockBack = knockBackLocation - knockBackValue;
+                   
+                }
+            }
             previousHealth = currentHealth;
-            animator.Play("player_hurt");
+            animator.SetTrigger("KnockBack");
             //KnockBackPlayer();
         }
     }
