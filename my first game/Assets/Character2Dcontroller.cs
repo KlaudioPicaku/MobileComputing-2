@@ -27,23 +27,23 @@ public class Character2Dcontroller : MonoBehaviour
     }
     void Update()
     {
-        //Store horizontal value
-        horizontalValue = joystick.Horizontal;
-        // if joystick is pushed beyond a certaing point(player is running)
-        if (Mathf.Abs(joystick.Horizontal) >= 0.2)
-        {
-            isRunning = true;
-        }
-        else
-        {
-            isRunning = false;
-        }
-        if (jumper) 
-        {
-            jumping = true;
-        } else{
-            jumping = false;
-        }
+            //Store horizontal value
+            horizontalValue = joystick.Horizontal;
+            // if joystick is pushed beyond a certaing point(player is running)
+            if (Mathf.Abs(joystick.Horizontal) >= 0.2 && !animator.GetCurrentAnimatorStateInfo(0).IsName("player_hurt"))
+            {
+                isRunning = true;
+            }
+            else
+            {
+                isRunning = false;
+            }
+            if (jumper)
+            {
+                jumping = true;
+            } else {
+                jumping = false;
+            }
     }
     void FixedUpdate()
     {
