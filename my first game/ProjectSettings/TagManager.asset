@@ -7,6 +7,8 @@ TagManager:
   - HealthBar
   - SkeletonRoot
   - AllSeeingRoot
+  - Eye
+  - Ground
   layers:
   - Default
   - TransparentFX

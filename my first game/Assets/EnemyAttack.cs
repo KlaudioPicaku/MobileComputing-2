@@ -9,8 +9,8 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField] Transform Goal;
     [SerializeField] float attackRange = 0.55f;
     [SerializeField] LayerMask enemyLayer;
-    [SerializeField] bool isAttacking = false;
-    bool playerInCloseRange = false;
+    //[SerializeField] bool isAttacking = false;
+   // bool playerInCloseRange = false;
     [SerializeField] HealthBarController playerHealth;
     public float cooldown = 1.1f;
     private float nextFireTime = 0;
@@ -61,8 +61,8 @@ public class EnemyAttack : MonoBehaviour
         /*player is within attack distance, enemy can attack*/
         if (distance <= attackRange && Time.time > nextFireTime)
         {
-            playerInCloseRange = true;
-            isAttacking = true;
+            //playerInCloseRange = true;
+           // isAttacking = true;
             animator.SetBool("Alerted", false);
             animator.SetBool("IsAttacking",true);
             animator.SetBool("IsMoving",false);

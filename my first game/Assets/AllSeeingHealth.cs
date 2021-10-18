@@ -34,7 +34,7 @@ public class AllSeeingHealth : MonoBehaviour
             GetComponent<AllSeeingAI>().enabled = false;
             GetComponent<BoxCollider2D>().enabled = false;
             this.enabled = false;
-            Destroy(GameObject.FindWithTag("AllSeeingRoot"),10f);
+            Destroy(GameObject.FindWithTag("AllSeeingRoot"),2f);
             isDead = true;
         }
 
