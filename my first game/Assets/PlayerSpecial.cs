@@ -55,6 +55,10 @@ public class PlayerSpecial : MonoBehaviour
             animator.SetBool("IsAttacking", true);
             specialAttack();
         }
+        else
+        {
+            return;
+        }
 
     }
     public void stopSpecialAttack()

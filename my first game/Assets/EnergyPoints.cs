@@ -9,7 +9,6 @@ public class EnergyPoints : MonoBehaviour
     [SerializeField] Transform Goal;
     [SerializeField] LayerMask playerMask;
     [SerializeField] float triggerRange = 2f;
-    [SerializeField] float automaticLockOn = 10f;
     [SerializeField] float smoothSpeed = 0.125f;
     [SerializeField] Vector3 offset;
     bool energyIsSpent = false;
@@ -60,6 +59,7 @@ public class EnergyPoints : MonoBehaviour
             Destroy(this.gameObject,5f);
         }
     }
+    //locks on player and gives him 10 energy points
     void LockOn()
     {
 
@@ -74,7 +74,6 @@ public class EnergyPoints : MonoBehaviour
                 Collider2D[] players = Physics2D.OverlapCircleAll(transform.position, triggerRange, playerMask);
                 foreach (Collider2D player in players)
                 {
-                    print("Should be getting energy");
                     player.GetComponent<EnergyBarController>().SetGain(10f);
                     energyIsSpent = true;
                     GetComponent<Animator>().Play("energyCollected");
