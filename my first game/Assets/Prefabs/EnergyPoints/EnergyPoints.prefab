@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3190345026394102900}
-  - component: {fileID: -8536103576442986248}
   - component: {fileID: -6458201317431124381}
+  - component: {fileID: -8536103576442986248}
   - component: {fileID: -6590225418961442749}
   m_Layer: 8
   m_Name: EnergyPoints
@@ -33,6 +33,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-6458201317431124381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494797352036343627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8405c0f62c838f4e805e9e607425c11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Goal: {fileID: 0}
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  triggerRange: 2
+  automaticLockOn: 10
+  smoothSpeed: 0.125
+  offset: {x: 0, y: 0, z: 0}
+  energyGain: 10
 --- !u!212 &-8536103576442986248
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -84,29 +105,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-6458201317431124381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 494797352036343627}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8405c0f62c838f4e805e9e607425c11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  energy: {fileID: 0}
-  player:
-    serializedVersion: 2
-    m_Bits: 0
-  Goal: {fileID: 0}
-  triggerPoint: {fileID: 0}
-  triggerRange: 0.025
-  automaticLockOn: 10
-  smoothSpeed: 0.125
-  offset: {x: 0, y: 0, z: 0}
-  energyGain: 10
 --- !u!95 &-6590225418961442749
 Animator:
   serializedVersion: 3
@@ -117,7 +115,7 @@ Animator:
   m_GameObject: {fileID: 494797352036343627}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cedaf47d85e88054c9a2d2e1d84da125, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

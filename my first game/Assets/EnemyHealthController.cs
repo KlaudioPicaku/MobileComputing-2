@@ -6,6 +6,7 @@ public class EnemyHealthController : MonoBehaviour
 {
     [SerializeField] float maxHealth = 60f;
     [SerializeField] float currentHealth;
+    [SerializeField] GameObject energyPointsPrefab;
     [SerializeField] float previousHealth;
     private Animator animator;
     private bool isDead = false;
@@ -22,9 +23,12 @@ public class EnemyHealthController : MonoBehaviour
         {
             animator.SetTrigger("Hurt");
             previousHealth = currentHealth;
+            Instantiate(energyPointsPrefab, GetComponent<Transform>());
+            
         }
         else if (currentHealth <= 0 && !isDead)
         {
+            GameObject b = Instantiate(energyPointsPrefab, GetComponent<Transform>()) as GameObject;
             Die();
             isDead = true;
         }

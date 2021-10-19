@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerSpecial : MonoBehaviour
 {
@@ -8,36 +9,52 @@ public class PlayerSpecial : MonoBehaviour
     [SerializeField] AllSeeingHealth flyingEnemy;
     [SerializeField] LayerMask enemyLayer;
     [SerializeField] Transform attackPoint;
-    [SerializeField] float attackRange = 0.5f;
+    [SerializeField] float attackRange = 2f;
     [SerializeField] Animator animator;
-
-    // Start is called before the first frame update
- /*   void Start()
+    [SerializeField] EnergyBarController energy;
+    [SerializeField] Button button;
+   /* private void Start()
     {
-        groundEnemy = GetComponent<EnemyHealthController>();
-        flyingEnemy = GetComponent<AllSeeingHealth>();
+        energy = GetComponent<EnergyBarController>().GetComponent<Slider>();
     }*/
-
+    private void Update()
+    {
+        if(energy.GetEnergy() < 100)
+        {
+            button.interactable = false;
+        }
+        else
+        {
+            button.interactable = true;
+        }
+    }
     void specialAttack()
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, 4*attackRange, enemyLayer);
-        foreach(Collider2D enemy in hitEnemies){
-            if (enemy.tag.Equals("Eye"))
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, 2*attackRange, enemyLayer);
+        if (energy.GetEnergy() == 100)
+        {
+            foreach (Collider2D enemy in hitEnemies)
             {
-                flyingEnemy.setHealth(10f);
-            }
-            else if(enemy.tag.Equals("Ground"))
-            {
-                groundEnemy.setHealth(30f);
-            }
+                if (enemy.tag.Equals("Eye"))
+                {
+                    flyingEnemy.setHealth(10f);
+                }
+                else if (enemy.tag.Equals("Ground"))
+                {
+                    groundEnemy.setHealth(30f);
+                }
 
+            }
         }
 
     }
     public void startSpecialAttack()
     {
-        animator.SetBool("IsAttacking", true);
-        specialAttack();
+        if (button.interactable)
+        {
+            animator.SetBool("IsAttacking", true);
+            specialAttack();
+        }
 
     }
     public void stopSpecialAttack()

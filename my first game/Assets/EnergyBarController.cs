@@ -6,10 +6,6 @@ using UnityEngine.UI;
 public class EnergyBarController : MonoBehaviour
 {
     [SerializeField] Slider slider;
-    private void Start()
-    {
-        slider = GetComponent<Slider>();
-    }
     public void setMaxEnergy(float energy)
     {
         slider.maxValue = energy;
