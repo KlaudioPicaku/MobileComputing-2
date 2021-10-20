@@ -10,6 +10,7 @@ TagManager:
   - Eye
   - Ground
   - EnergyPoints
+  - Key
   layers:
   - Default
   - TransparentFX

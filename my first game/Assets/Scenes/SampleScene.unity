@@ -3234,8 +3234,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a7f31e1bcd1b24aa43afafd481d004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundEnemy: {fileID: 1647754743}
-  flyingEnemy: {fileID: 272676817}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64

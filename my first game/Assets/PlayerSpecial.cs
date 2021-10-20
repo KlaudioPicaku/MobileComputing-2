@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class PlayerSpecial : MonoBehaviour
 {
-    [SerializeField] EnemyHealthController groundEnemy;
-    [SerializeField] AllSeeingHealth flyingEnemy;
     [SerializeField] LayerMask enemyLayer;
     [SerializeField] Transform attackPoint;
     [SerializeField] float attackRange = 2f;
@@ -28,7 +26,7 @@ public class PlayerSpecial : MonoBehaviour
             button.interactable = true;
         }
     }
-    void specialAttack()
+    public void specialAttack()
     {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, 2*attackRange, enemyLayer);
         if (energy.GetEnergy() == 100)
@@ -37,14 +35,15 @@ public class PlayerSpecial : MonoBehaviour
             {
                 if (enemy.tag.Equals("Eye"))
                 {
-                    flyingEnemy.setHealth(10f);
+                    enemy.GetComponent<AllSeeingHealth>().setHealth(10f) ;
                 }
                 else if (enemy.tag.Equals("Ground"))
                 {
-                    groundEnemy.setHealth(30f);
+                    enemy.GetComponent <EnemyHealthController>().setHealth(30f);
                 }
 
             }
+            energy.SetEnergy(-100);
         }
 
     }
@@ -52,8 +51,8 @@ public class PlayerSpecial : MonoBehaviour
     {
         if (button.interactable)
         {
-            animator.SetBool("IsAttacking", true);
-            specialAttack();
+            animator.Play("specialAttack");
+            //specialAttack();
         }
         else
         {

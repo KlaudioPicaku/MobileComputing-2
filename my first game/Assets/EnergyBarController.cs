@@ -17,6 +17,10 @@ public class EnergyBarController : MonoBehaviour
         {
             slider.value = slider.value + energy;
         }
+        else if (slider.value==100 && energy < 0) 
+        {
+            slider.value = slider.value + energy;
+        }
         else
         {
             return;
