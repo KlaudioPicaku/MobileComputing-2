@@ -16,6 +16,7 @@ public class EnergyPoints : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+
         Vector3 throwVal;
         //vector to move energy point dropped by enemy
         if (transform.localScale.x < 0)
@@ -48,6 +49,7 @@ public class EnergyPoints : MonoBehaviour
                 Vector3 smoothPosition = Vector3.Lerp(transform.position, offsetPosition, 5 * smoothSpeed * Time.deltaTime);
                 transform.position = smoothPosition;
                 transform.position = Vector3.Lerp(transform.position, Goal.position, 5 * smoothSpeed * Time.deltaTime);
+                
             }
             if (!energyIsSpent && distance <= 0.025 * triggerRange)
             {

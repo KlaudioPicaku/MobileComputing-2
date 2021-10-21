@@ -11,6 +11,7 @@ public class PlayerSpecial : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] EnergyBarController energy;
     [SerializeField] Button button;
+    [SerializeField] GameObject specialEffect;
    /* private void Start()
     {
         energy = GetComponent<EnergyBarController>().GetComponent<Slider>();
@@ -44,6 +45,7 @@ public class PlayerSpecial : MonoBehaviour
 
             }
             energy.SetEnergy(-100);
+            GameObject a = Instantiate(specialEffect, GetComponent<Transform>()) as GameObject;
         }
 
     }

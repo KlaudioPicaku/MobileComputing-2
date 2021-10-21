@@ -11,6 +11,7 @@ TagManager:
   - Ground
   - EnergyPoints
   - Key
+  - Special
   layers:
   - Default
   - TransparentFX

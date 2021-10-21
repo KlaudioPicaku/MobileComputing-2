@@ -220,7 +220,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85bf3be603548374ca46f521a3aa7fda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: B
 --- !u!114 &69142776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1319,7 +1318,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85bf3be603548374ca46f521a3aa7fda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 
 --- !u!114 &1321130364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1566,7 +1564,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85bf3be603548374ca46f521a3aa7fda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Y
 --- !u!114 &1434639615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2686,7 +2683,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85bf3be603548374ca46f521a3aa7fda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: A
 --- !u!114 &1825312953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3238,10 +3234,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   attackPoint: {fileID: 1024195145}
-  attackRange: 2
+  attackRange: 1.9
   animator: {fileID: 2061324310}
   energy: {fileID: 2061324320}
   button: {fileID: 1434639613}
+  specialEffect: {fileID: 1202523533120650530, guid: 4520ee012205d1c468fab2c155c96d7e, type: 3}
 --- !u!212 &2061324313
 SpriteRenderer:
   m_ObjectHideFlags: 0
