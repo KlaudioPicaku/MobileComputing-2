@@ -5,7 +5,7 @@ using UnityEngine;
 public class Totem : ItemObject
 {
     public string effects;
-    public void Awake()
+    public void awake()
     {
         type = ItemType.Totem;
     }

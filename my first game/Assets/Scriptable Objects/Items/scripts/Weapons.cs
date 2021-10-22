@@ -6,7 +6,7 @@ public class Weapons : ItemObject
 {
     public int attack;
     public int defense;
-    public void Awake()
+    public void awake()
     {
         type = ItemType.Weapons;
     }
