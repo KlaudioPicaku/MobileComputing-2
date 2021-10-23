@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6e29f82468c5b043a2fcd0c0eafa422, type: 3}
   m_Name: Totem
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 8506983041728625905, guid: 914282bde12bcd24ea08c74e8a17f329, type: 3}
   type: 0
   description: 
-  effects: 
+  effects: Grants the player swag
