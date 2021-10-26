@@ -14,9 +14,11 @@ public class DisplayInventory : MonoBehaviour
     public float Y_SPACE_BETWEEN_ITEMS;
     public bool IsExpanded = false;
     bool flag = false;
+    bool flag2 = false;
     [SerializeField] GameObject expandButton;
     [SerializeField] GameObject floatingJoystick;
     [SerializeField] GameObject expanded;
+    [SerializeField] GameObject expandedMask;
     [SerializeField] GameObject inventoryObject;
     Dictionary<InventorySlot, GameObject> itemsDisplayed = new Dictionary<InventorySlot, GameObject>();
     // Start is called before the first frame update
@@ -30,22 +32,23 @@ public class DisplayInventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {  
-        if (IsExpanded && !flag)
+        /*if (IsExpanded && !flag)
         {
 
             //NUMBER_OF_COLUMN = 10;
             createExpanded();
             flag = true;
         }
-       /* else
+        else*/ if (flag2)
         {
-            UpdateDisplay();
-        }*/
+            CreateDisplay();
+            flag2 = false;
+        }
        
-        /* else
+         else
          {
-             UpdateDisplayMinimized();
-         }*/
+            UpdateDisplay();
+         }
     }
     public void UpdateDisplay()
     {
@@ -163,11 +166,14 @@ public class DisplayInventory : MonoBehaviour
     {
         for (int i = 0; i < inventory.Container.Count; i++)
         {
-            var obj = Instantiate(inventory.Container[i].item.prefab, Vector3.zero, Quaternion.identity, transform);
-            obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
+            var obj = Instantiate(inventory.Container[i].item.prefab, Vector3.zero, Quaternion.identity, expandedMask.transform);
+            //obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
             obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.Container[i].amount.ToString("n0");
             obj.tag = "Max";
-            obj.transform.localScale = obj.transform.localScale * 2;
+           // obj.transform.localScale = obj.transform.localScale * 2;
+            obj.transform.SetParent(expandedMask.transform);
+            //obj.transform.localScale = obj.transform.localScale * 0.2f;
+            //expandedMask.transform.localScale = expandedMask.transform.localScale * 0.2f;
             itemsDisplayed.Add(inventory.Container[i], obj);
         }
     }
@@ -176,25 +182,44 @@ public class DisplayInventory : MonoBehaviour
         DestroyMinimized();
         expandButton.SetActive(false);
         floatingJoystick.SetActive(false);
-        X_START = -465f;
-        Y_START = 345f;
+        /*X_START = -465f;
+        Y_START = 340f;
         X_SPACE_BETWEEN_ITEM = 80f;
         Y_SPACE_BETWEEN_ITEMS = 75f;
+        NUMBER_OF_COLUMN = 8;*/
         IsExpanded = true;
         expanded.SetActive(true);
+        createExpanded();
         Time.timeScale = 0f;
     }
-    /*public void setMinimized()
+    private void DestroyMax()
     {
-        IsExpanded = false;
+        itemsDisplayed.Clear();
+        foreach (Transform child in expandedMask.transform)
+        {
+            if (child.tag.Equals("Max"))
+            {
+                Destroy(child.gameObject);
+            }
+        }
+
+    }
+    public void setMinimized()
+    {
+        DestroyMax();
+        DestroyMinimized();
         expandButton.SetActive(true);
+        IsExpanded = false;
         floatingJoystick.SetActive(true);
         expanded.SetActive(false);
+        flag2 = true;
         X_START = -306.5f;
         Y_START = 0.8f;
-        NUMBER_OF_COLUMN = 8;
-        UpdateDisplayMinimized();
-    }*/
+        Y_SPACE_BETWEEN_ITEMS = 40f;
+        X_SPACE_BETWEEN_ITEM = 40f;
+        NUMBER_OF_COLUMN = 1;
+        Time.timeScale = 1f;
+    }
     public Vector3 GetPosition(int i)
     {
         return new Vector3(X_START+(X_SPACE_BETWEEN_ITEM*(i % NUMBER_OF_COLUMN)),Y_START + (-Y_SPACE_BETWEEN_ITEMS*(i/NUMBER_OF_COLUMN)),0f);
