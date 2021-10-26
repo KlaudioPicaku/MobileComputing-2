@@ -11,6 +11,7 @@ public enum ItemType
     Weapons,
     Money,
     Totem,
+    Note,
 }
 public abstract class ItemObject : ScriptableObject
 {

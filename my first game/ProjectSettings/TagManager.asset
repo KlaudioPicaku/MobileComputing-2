@@ -12,6 +12,8 @@ TagManager:
   - EnergyPoints
   - Key
   - Special
+  - Min
+  - Max
   layers:
   - Default
   - TransparentFX
