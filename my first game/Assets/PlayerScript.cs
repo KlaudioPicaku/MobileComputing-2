@@ -15,4 +15,8 @@ public class PlayerScript : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
+    /*private void Update()
+    {
+        
+    }*/
 }

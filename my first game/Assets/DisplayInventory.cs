@@ -85,6 +85,7 @@ public class DisplayInventory : MonoBehaviour
                     var obj = Instantiate(inventory.Container[i].item.prefab, Vector3.zero, Quaternion.identity, transform);
                     obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
                     obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.Container[i].amount.ToString("n0");
+                    obj.tag = "Min";
                     itemsDisplayed.Add(inventory.Container[i], obj);
                 }
             }
@@ -217,7 +218,7 @@ public class DisplayInventory : MonoBehaviour
         Y_START = 0.8f;
         Y_SPACE_BETWEEN_ITEMS = 40f;
         X_SPACE_BETWEEN_ITEM = 40f;
-        NUMBER_OF_COLUMN = 1;
+        NUMBER_OF_COLUMN = 8;
         Time.timeScale = 1f;
     }
     public Vector3 GetPosition(int i)
