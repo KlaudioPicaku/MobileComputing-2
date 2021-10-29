@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2cb209aa26b7034faf3ba6f491acf13, type: 3}
   m_Name: Golden Key
   m_EditorClassIdentifier: 
-  prefab: {fileID: 4460916013265348509, guid: 3c7769244a587234eaa88962bc202694, type: 3}
+  Id: 4
+  uiDisplay: {fileID: -7671052155170596780, guid: 214ee1c46affb104eb8e811073b24006, type: 3}
   type: 2
   description: 

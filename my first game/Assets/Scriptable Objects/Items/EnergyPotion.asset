@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bdc48a0c485ef74a8649e3850dd6b94, type: 3}
   m_Name: EnergyPotion
   m_EditorClassIdentifier: 
-  prefab: {fileID: 4899857545844130009, guid: 89ab7fa4bc555e8488c855058d6d74de, type: 3}
-  type: 0
+  Id: 2
+  uiDisplay: {fileID: -4924265470664458407, guid: ad65e65656f79e041bdf9143218c3430, type: 3}
+  type: 3
   description: Recharges Player Energy
   restoreEnergyValue: 100

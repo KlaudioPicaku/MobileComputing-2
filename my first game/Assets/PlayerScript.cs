@@ -7,11 +7,11 @@ public class PlayerScript : MonoBehaviour
     public InventoryObject inventory;
   public void OnTriggerEnter2D(Collider2D other)
     {
-        var item = other.GetComponent<Item>();
+        var item = other.GetComponent<GroundItem>();
         if (item)
         {
             print("Item in now ?!");
-            inventory.AddItem(item.item, 1);
+            inventory.AddItem(new Item (item.item), 1);
             Destroy(other.gameObject);
         }
     }

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb65e174b72cef4da57d9a7231d4f00, type: 3}
   m_Name: Collectable
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1054782613346186594, guid: af4369e626db3084983d9831d33d54ec, type: 3}
+  Id: 1
+  uiDisplay: {fileID: 1932801135296565577, guid: 4c8b856812c6ce742ae3a85c7cde4296, type: 3}
   type: 1
   description: 'Shiny! '

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62c78ba018d2e524ab4c4bb0b60026b4, type: 3}
   m_Name: New Weapon
   m_EditorClassIdentifier: 
-  prefab: {fileID: 757973210734276417, guid: ec6fa50ef3f8c7945adbed045da277ac, type: 3}
+  Id: 5
+  uiDisplay: {fileID: -6682419677213701485, guid: 4c8b856812c6ce742ae3a85c7cde4296, type: 3}
   type: 4
   description: 
   attack: 100

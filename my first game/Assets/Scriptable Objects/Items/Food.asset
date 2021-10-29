@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6e879ed140d66147b788665f08dd8c3, type: 3}
   m_Name: Food
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6814758128939067156, guid: 0baade61708c4a341830e72b7e0f292a, type: 3}
+  Id: 3
+  uiDisplay: {fileID: 3811710216997549189, guid: 4c8b856812c6ce742ae3a85c7cde4296, type: 3}
   type: 0
   description: Yummy!
   restoreHealthValue: 30
