@@ -28,7 +28,7 @@ public class DisplayInventory : MonoBehaviour
     {
         print(inventory.Container.Items.Count);
         expanded.SetActive(false);
-        CreateDisplay();
+        //CreateDisplay();
     }
 
     // Update is called once per frame
@@ -71,6 +71,7 @@ public class DisplayInventory : MonoBehaviour
                     obj.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[slot.item.Id].uiDisplay;
                     obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
                     obj.GetComponentInChildren<TextMeshProUGUI>().text = slot.amount.ToString("n0");
+                    print(slot.amount);
                     obj.tag = "Min";
                     itemsDisplayed.Add(inventory.Container.Items[i], obj);
                 }
@@ -177,19 +178,18 @@ public class DisplayInventory : MonoBehaviour
     }
     private void createExpanded()
     {
-        for (int i = 0; i < inventory.Container.Items.Count; i++)
-        {
-            InventorySlot slot = inventory.Container.Items[i];
-            var obj = Instantiate(inventoryPrefab, Vector3.zero, Quaternion.identity, expandedMask.transform);
-            obj.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[slot.item.Id].uiDisplay;
-            //obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
-            obj.GetComponentInChildren<TextMeshProUGUI>().text = slot.amount.ToString("n0");
-            obj.tag = "Max";
-            // obj.transform.localScale = obj.transform.localScale * 2;
-            obj.transform.SetParent(expandedMask.transform);
-            //obj.transform.localScale = obj.transform.localScale * 0.2f;
-            //expandedMask.transform.localScale = expandedMask.transform.localScale * 0.2f;
-            itemsDisplayed.Add(slot, obj);
+          {
+            for (int i = 0; i < inventory.Container.Items.Count; i++)
+            {
+                InventorySlot slot = inventory.Container.Items[i];
+                var obj = Instantiate(inventoryPrefab, Vector3.zero, Quaternion.identity, transform);
+                obj.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[slot.item.Id].uiDisplay;
+                obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
+                obj.GetComponentInChildren<TextMeshProUGUI>().text = slot.amount.ToString("n0");
+                obj.transform.SetParent(expandedMask.transform);
+                obj.tag = "Max";
+                itemsDisplayed.Add(slot, obj);
+            }
         }
     }
     public void setExpanded()
@@ -197,11 +197,11 @@ public class DisplayInventory : MonoBehaviour
         DestroyMinimized();
         expandButton.SetActive(false);
         floatingJoystick.SetActive(false);
-        /*X_START = -465f;
-        Y_START = 340f;
-        X_SPACE_BETWEEN_ITEM = 80f;
-        Y_SPACE_BETWEEN_ITEMS = 75f;
-        NUMBER_OF_COLUMN = 8;*/
+        //X_START = -465f;
+        //Y_START = 340f; 
+        // X_SPACE_BETWEEN_ITEM = 80f;
+        //Y_SPACE_BETWEEN_ITEMS = 75f;
+        //NUMBER_OF_COLUMN = 8;
         IsExpanded = true;
         expanded.SetActive(true);
         createExpanded();

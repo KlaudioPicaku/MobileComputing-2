@@ -7,6 +7,8 @@ public class locatePlayer : MonoBehaviour
     [SerializeField] Transform Goal;
     [SerializeField] float triggerRange = 10f;
     [SerializeField] LayerMask playerMask;
+    bool flag = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,14 +20,18 @@ public class locatePlayer : MonoBehaviour
             break;
         }
     }
-        // Update is called once per frame
-        void Update()
+    // Update is called once per frame
+    void Update()
+    {
+        if (Goal != null)
         {
             transform.position = Goal.position;
-
         }
+        return;
+            }
     public void destroyObject()
     {
-        Destroy(this.gameObject);
+        flag = true;
+        Destroy(this.gameObject,0.1f);
     }
 }
