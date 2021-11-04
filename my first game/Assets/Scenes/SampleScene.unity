@@ -2019,7 +2019,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryPrefab: {fileID: 1891953696804986358, guid: eb9a241e6920e1243874f1d279871395, type: 3}
-  inventory: {fileID: 11400000, guid: 49c17b44a51fb374da6d7b336391044d, type: 2}
+  inventory: {fileID: 11400000, guid: 3578e50129ec76c47a2b39fc3bf395b9, type: 2}
   X_START: -306.5
   Y_START: 0.8
   X_SPACE_BETWEEN_ITEM: 40
@@ -2030,7 +2030,7 @@ MonoBehaviour:
   floatingJoystick: {fileID: 403291207}
   expanded: {fileID: 1196164704}
   expandedMask: {fileID: 894154601}
-  inventoryObject: {fileID: 0}
+  inventoryObject: {fileID: 1048378736}
 --- !u!114 &1048378739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5037,7 +5037,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1937c2185a42e03459d454951b146e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 11400000, guid: 49c17b44a51fb374da6d7b336391044d, type: 2}
+  inventory: {fileID: 11400000, guid: 3578e50129ec76c47a2b39fc3bf395b9, type: 2}
 --- !u!1 &2084087332
 GameObject:
   m_ObjectHideFlags: 0

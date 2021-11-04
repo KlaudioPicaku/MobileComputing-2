@@ -10,49 +10,44 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2aa70ec9f28847148acf29ccadd0b6d0, type: 3}
-  m_Name: Player Inventory
+  m_Name: Inventory
   m_EditorClassIdentifier: 
   savePath: /inventory.save
   database: {fileID: 11400000, guid: 02ec7b2923cfe2a41a9e45cb6799d8a6, type: 2}
   Container:
     Items:
-    - ID: 4
+    - ID: -1
       item:
-        Name: Golden Key
-        Id: 4
-      amount: 2
-    - ID: 1
-      item:
-        Name: Collectable
-        Id: 1
-      amount: 2
-    - ID: 3
-      item:
-        Name: Food
-        Id: 3
-      amount: 2
-    - ID: 2
-      item:
-        Name: EnergyPotion
-        Id: 2
-      amount: 2
-    - ID: 6
-      item:
-        Name: Note
-        Id: 6
-      amount: 2
-    - ID: 5
-      item:
-        Name: New Weapon
-        Id: 5
-      amount: 2
-    - ID: 7
-      item:
-        Name: Totem
-        Id: 7
-      amount: 2
-    - ID: 0
-      item:
-        Name: Coin
+        Name: 
         Id: 0
-      amount: 2
+      amount: 0
+    - ID: -1
+      item:
+        Name: 
+        Id: 0
+      amount: 0
+    - ID: -1
+      item:
+        Name: 
+        Id: 0
+      amount: 0
+    - ID: -1
+      item:
+        Name: 
+        Id: 0
+      amount: 0
+    - ID: -1
+      item:
+        Name: 
+        Id: 0
+      amount: 0
+    - ID: -1
+      item:
+        Name: 
+        Id: 0
+      amount: 0
+    - ID: -1
+      item:
+        Name: 
+        Id: 0
+      amount: 0
