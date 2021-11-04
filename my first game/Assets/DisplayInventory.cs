@@ -178,7 +178,7 @@ public class DisplayInventory : MonoBehaviour
     }
     private void createExpanded()
     {
-          {
+          
             for (int i = 0; i < inventory.Container.Items.Count; i++)
             {
                 InventorySlot slot = inventory.Container.Items[i];
@@ -190,7 +190,7 @@ public class DisplayInventory : MonoBehaviour
                 obj.tag = "Max";
                 itemsDisplayed.Add(slot, obj);
             }
-        }
+        
     }
     public void setExpanded()
     {

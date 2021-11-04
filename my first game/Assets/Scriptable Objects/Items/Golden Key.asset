@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Golden Key
   m_EditorClassIdentifier: 
   Id: 4
-  uiDisplay: {fileID: -7671052155170596780, guid: 214ee1c46affb104eb8e811073b24006, type: 3}
+  uiDisplay: {fileID: -5334345791326727151, guid: 4c8b856812c6ce742ae3a85c7cde4296, type: 3}
   type: 2
   description: 
