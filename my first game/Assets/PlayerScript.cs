@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    public InventoryObject inventory;
+    [SerializeField] InventoryObject inventory;
+    [SerializeField] InventoryObject expandedInventory;
   public void OnTriggerEnter2D(Collider2D other)
     {
         var item = other.GetComponent<GroundItem>();
-        if (item)
+        if (item )
         {
-            print("Item in now ?!");
             inventory.AddItem(new Item (item.item), 1);
+            Destroy(other.gameObject);
+        }
+        else
+        {
+            expandedInventory.AddItem(new Item(item.item), 1);
             Destroy(other.gameObject);
         }
     }

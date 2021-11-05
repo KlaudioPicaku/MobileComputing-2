@@ -4,11 +4,14 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 public class DisplayInventory : MonoBehaviour
 {
-    public GameObject inventoryPrefab;
-    public InventoryObject inventory;
+    [SerializeField] GameObject inventoryPrefab;
+   [SerializeField] InventoryObject inventory;
+    [SerializeField] InventoryObject expandedInventory;
 
     public float X_START;
     public float Y_START;
@@ -23,12 +26,14 @@ public class DisplayInventory : MonoBehaviour
     [SerializeField] GameObject expanded;
     [SerializeField] GameObject expandedMask;
     [SerializeField] GameObject inventoryObject;
-    Dictionary<GameObject, InventorySlot> itemsDisplayed=new Dictionary<GameObject, InventorySlot>();
-    
+    Dictionary<GameObject, InventorySlot> itemsDisplayed=new Dictionary<GameObject, InventorySlot >();
+    Dictionary<GameObject, InventorySlot> itemsDisplayedExpanded= new Dictionary<GameObject, InventorySlot>();
+
     // Start is called before the first frame update
     void Start()
-    {
-        inventory.Container.Items = new InventorySlot[7];
+    { 
+        //inventory.Container.Items = new InventorySlot[7];
+
         expanded.SetActive(false);
         CreateSlots();
     }
@@ -36,15 +41,13 @@ public class DisplayInventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateSlots();
-    
+            UpdateSlots();
     }
      void UpdateSlots()
     {
         foreach ( KeyValuePair<GameObject, InventorySlot> _slot in itemsDisplayed)
         {
-            print(_slot.Value.ID);
-            /*if (_slot.Value.ID >= 0)
+            if (_slot.Value.ID >= 0)
             {
                 _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[_slot.Value.item.Id].uiDisplay;
                 _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
@@ -55,10 +58,28 @@ public class DisplayInventory : MonoBehaviour
                 _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
                 _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
                 _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "";
-            }*/
+            }
         }
     }
-   
+    void UpdateExpanded()
+    {
+        foreach (KeyValuePair<GameObject, InventorySlot> _slot in itemsDisplayed)
+        {
+            if (_slot.Value.ID >= 0)
+            {
+                _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[_slot.Value.item.Id].uiDisplay;
+                _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
+                _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = _slot.Value.amount == 1 ? "" : _slot.Value.amount.ToString("n0");
+            }
+            else
+            {
+                _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
+                _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
+                _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "";
+            }
+        }
+    }
+
     //public void UpdateDisplayMinimized()
     //{
     //    if (inventory.Container.Items.Count >= 7)
@@ -102,9 +123,15 @@ public class DisplayInventory : MonoBehaviour
         {
             var obj = Instantiate(inventoryPrefab, Vector3.zero, Quaternion.identity, transform);
             obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
+            obj.tag = "Min";
+
+            //AddEvent(obj, EventTriggerType.PointerClick, delegate { OnClick(obj); });
+            //AddEvent(obj, EventTriggerType.BeginDrag, delegate { OnDragStart(obj); });
+            //AddEvent(obj, EventTriggerType.EndDrag, delegate { OnDragEnd(obj); });
+            //AddEvent(obj, EventTriggerType.Drag, delegate { OnDrag(obj); });
 
             itemsDisplayed.Add(obj, inventory.Container.Items[i]);
-
+            
         }
     }
     private void DestroyMinimized()
@@ -121,23 +148,78 @@ public class DisplayInventory : MonoBehaviour
     }
     private void createExpanded()
     {
-          
-           /* for (int i = 0; i < inventory.Container.Items.Count; i++)
+
+        /* for (int i = 0; i < inventory.Container.Items.Count; i++)
+         {
+             InventorySlot slot = inventory.Container.Items[i];
+             var obj = Instantiate(inventoryPrefab, Vector3.zero, Quaternion.identity, transform);
+             obj.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[slot.item.Id].uiDisplay;
+             obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
+             obj.GetComponentInChildren<TextMeshProUGUI>().text = slot.amount.ToString("n0");
+             obj.transform.SetParent(expandedMask.transform);
+             obj.tag = "Max";
+             itemsDisplayed.Add(slot, obj);
+         }*/
+        for (int i = 0; i < expandedInventory.Container.Items.Length  ; i++)
+        {
+            itemsDisplayedExpanded = new Dictionary<GameObject, InventorySlot>();
+            var obj = Instantiate(inventoryPrefab, Vector3.zero, Quaternion.identity, transform);
+            if (i < 7)
             {
-                InventorySlot slot = inventory.Container.Items[i];
-                var obj = Instantiate(inventoryPrefab, Vector3.zero, Quaternion.identity, transform);
-                obj.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[slot.item.Id].uiDisplay;
+                
                 obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
-                obj.GetComponentInChildren<TextMeshProUGUI>().text = slot.amount.ToString("n0");
                 obj.transform.SetParent(expandedMask.transform);
                 obj.tag = "Max";
-                itemsDisplayed.Add(slot, obj);
-            }*/
+
+                itemsDisplayedExpanded.Add(obj, inventory.Container.Items[i]);
+            }
+            else
+            {
+                obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
+                obj.transform.SetParent(expandedMask.transform);
+                obj.tag = "Max";
+
+                itemsDisplayedExpanded.Add(obj, expandedInventory.Container.Items[i]);
+            }
+        }
         
+        
+    }
+    private void AddEvent(GameObject obj, EventTriggerType type, UnityAction<BaseEventData> action)
+    {
+        EventTrigger trigger = obj.GetComponent<EventTrigger>();
+        var eventTrigger = new EventTrigger.Entry();
+        eventTrigger.eventID = type;
+        eventTrigger.callback.AddListener(action);
+        trigger.triggers.Add(eventTrigger);
+    }
+    public void OnClick(GameObject obj)
+    {
+        
+    }
+    public void OnDragStart(GameObject obj)
+    {
+        var mouseObject = new GameObject();
+        var rt = mouseObject.AddComponent<RectTransform>();
+        rt.sizeDelta = new Vector2(10,10);
+        mouseObject.transform.SetParent(transform.parent);
+        if (itemsDisplayed[obj].ID >= 0)
+        {
+            var img = mouseObject.AddComponent<Image>();
+            img.sprite = inventory.database.GetItem[itemsDisplayed[obj].ID].uiDisplay;
+            img.raycastTarget = false;
+        }
+    }
+    public void OnDragEnd(GameObject obj)
+    {
+
+    }
+    public void OnDrag(GameObject obj)
+    {
+
     }
     public void setExpanded()
     {
-        DestroyMinimized();
         expandButton.SetActive(false);
         floatingJoystick.SetActive(false);
         //X_START = -465f;
@@ -165,7 +247,7 @@ public class DisplayInventory : MonoBehaviour
     public void setMinimized()
     {
         DestroyMax();
-        DestroyMinimized();
+        //DestroyMinimized();
         expandButton.SetActive(true);
         IsExpanded = false;
         floatingJoystick.SetActive(true);
