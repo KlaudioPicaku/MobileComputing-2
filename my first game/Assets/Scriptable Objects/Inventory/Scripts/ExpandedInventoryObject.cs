@@ -6,13 +6,13 @@ using System.IO;
 using UnityEditor;
 using System.Runtime.Serialization;
 
-[CreateAssetMenu(fileName = "New Inventory", menuName = "Inventory System/Inventory")]
-public class InventoryObject : ScriptableObject
+[CreateAssetMenu(fileName = "New Expanded Inventory", menuName = "Inventory System/Expanded Inventory")]
+public class ExpandedInventoryObject : ScriptableObject
 {
     public string savePath;
-    public itemsDatabaseObject database;
-    public Inventory Container;
-    int freeSlots=0;
+    [SerializeField] itemsDatabaseObject database;
+    public InventoryExpanded Container;
+    int freeSlots = 0;
 
 
     public void AddItem(Item _item, int _amount)
@@ -83,7 +83,7 @@ public class InventoryObject : ScriptableObject
     }
     [ContextMenu("Load")]
     public void Load()
-    {
+ {
         if (File.Exists(string.Concat(Application.persistentDataPath, savePath)))
         {
             //BinaryFormatter bf = new BinaryFormatter();
@@ -93,7 +93,7 @@ public class InventoryObject : ScriptableObject
 
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream(string.Concat(Application.persistentDataPath, savePath), FileMode.Open, FileAccess.Read);
-            Inventory newContainer = (Inventory)formatter.Deserialize(stream);
+            InventoryExpanded newContainer = (InventoryExpanded)formatter.Deserialize(stream);
             for (int i = 0; i < Container.Items.Length; i++)
             {
                 Container.Items[i].UpdateSlot(newContainer.Items[i].ID, newContainer.Items[i].item, newContainer.Items[i].amount);
@@ -104,7 +104,7 @@ public class InventoryObject : ScriptableObject
     [ContextMenu("Clear")]
     public void Clear()
     {
-        Container = new Inventory();
+        Container = new InventoryExpanded();
     }
     public int isFree()
     {
@@ -121,36 +121,7 @@ public class InventoryObject : ScriptableObject
 
 }
 [System.Serializable]
-public class Inventory
+public class InventoryExpanded
 {
-    public InventorySlot[] Items = new InventorySlot[7];
-}
-[System.Serializable]
-public class InventorySlot
-{
-    public int ID = -1;
-    public Item item;
-    public int amount;
-    public InventorySlot()
-    {
-        ID = -1;
-        item = null;
-        amount = 0;
-    }
-    public InventorySlot(int _id, Item _item, int _amount)
-    {
-        ID = _id;
-        item = _item;
-        amount = _amount;
-    }
-    public void UpdateSlot(int _id, Item _item, int _amount)
-    {
-        ID = _id;
-        item = _item;
-        amount = _amount;
-    }
-    public void AddAmount(int value)
-    {
-        amount += value;
-    }
+    public InventorySlot[] Items = new InventorySlot[49];
 }
