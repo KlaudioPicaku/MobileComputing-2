@@ -11,6 +11,8 @@ public class DisplayInventory : MonoBehaviour
 {
 
     int capacity = 56;
+    //bool popupBool = false;
+    bool isPopped = false;
 
     public float X_START;
     public float Y_START;
@@ -29,6 +31,8 @@ public class DisplayInventory : MonoBehaviour
     [SerializeField] GameObject inventoryObject;
     [SerializeField] GameObject capience;
     [SerializeField] GameObject popup;
+    [SerializeField] GameObject popupParent;
+    [SerializeField] GameObject previousSelected;
     Dictionary<GameObject, InventorySlot> itemsDisplayed=new Dictionary<GameObject, InventorySlot >();
     Dictionary<GameObject, InventorySlot> itemsDisplayedExpanded= new Dictionary<GameObject, InventorySlot>();
     // Start is called before the first frame update
@@ -43,8 +47,7 @@ public class DisplayInventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-  
-            UpdateSlots();
+         UpdateSlots();
     }
      void UpdateSlots()
     {
@@ -57,6 +60,7 @@ public class DisplayInventory : MonoBehaviour
                     _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[_slot.Value.item.Id].uiDisplay;
                     _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
                     _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = _slot.Value.amount == 1 ? "" : _slot.Value.amount.ToString("n0");
+                  
                 }
                 else
                 {
@@ -140,7 +144,57 @@ public class DisplayInventory : MonoBehaviour
     {
         capacity = inventory.isFree() + expandedInventory.isFree();
     }
+    private void OnClickOpen(GameObject obj,GameObject popupLocal)
+    {
+        obj.GetComponent<Button>().onClick.RemoveAllListeners();
+        obj.GetComponent<Button>().onClick.AddListener(() => onClickDestroy(obj,popupLocal));
+    }
+    private void onClickDestroy(GameObject obj, GameObject popupLocal)
+    {
+        Destroy(popupLocal);
 
+        obj.transform.GetChild(2).gameObject.SetActive(false);
+        obj.GetComponent<Button>().onClick.RemoveAllListeners();
+        obj.GetComponent<Button>().onClick.AddListener(() => OnClick(obj));
+
+    }   
+    private void OnClick(GameObject obj)
+    {
+//previousSelected = obj;
+        /*if (previousSelected != null)
+        {
+            previousSelected.transform.GetChild(2).gameObject.SetActive(false);
+        }*/
+        isWindowPopped(obj);
+        if (!isPopped)
+        {
+            previousSelected = obj;
+            obj.transform.GetChild(2).gameObject.SetActive(true);
+            popupParent.transform.position = obj.transform.position;
+            GameObject popupWindow = Instantiate(popup, popupParent.transform);
+            OnClickOpen(obj, popupWindow);
+        }
+        else
+        {
+            //previousSelected.transform.GetChild(2).gameObject.SetActive(false);
+            onClickDestroy(previousSelected, popupParent.transform.GetChild(0).gameObject);
+        }
+    }
+    private void isWindowPopped(GameObject obj)
+    {
+        if (popupParent.transform.childCount > 0)
+        {
+            Transform popupWindow = popupParent.transform.GetChild(0);
+            if (popupWindow)
+            {
+               //previousSelected.transform.GetChild(2).gameObject.SetActive(false);
+                isPopped = true;
+                //previousSelected=obj;
+            }
+        }
+        else
+            isPopped = false;
+    }
     private void AddEvent(GameObject obj, EventTriggerType type, UnityAction<BaseEventData> action)
     {
         EventTrigger trigger = obj.GetComponent<EventTrigger>();
@@ -149,11 +203,7 @@ public class DisplayInventory : MonoBehaviour
         eventTrigger.callback.AddListener(action);
         trigger.triggers.Add(eventTrigger);
     }
-    public void OnClick(GameObject obj)
-    {
-        obj.transform.GetChild(2).gameObject.SetActive(true);
-        GameObject popupWindow = Instantiate(popup,obj.transform); 
-    }
+
     public void OnDragStart(GameObject obj)
     {
         var mouseObject = new GameObject();

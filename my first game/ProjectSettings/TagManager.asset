@@ -15,6 +15,7 @@ TagManager:
   - Min
   - Max
   - popup
+  - glow
   layers:
   - Default
   - TransparentFX
