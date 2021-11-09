@@ -11,14 +11,18 @@ public class DisplayInventory : MonoBehaviour
 {
 
     int capacity = 56;
-    //bool popupBool = false;
+    //bools for interactivity with inventory
     bool isPopped = false;
+    bool isOnSwap = false;
+    bool itemWaiting = false;
 
-    public float X_START;
-    public float Y_START;
-    public float X_SPACE_BETWEEN_ITEM;
-    public int NUMBER_OF_COLUMN;
-    public float Y_SPACE_BETWEEN_ITEMS;
+    List<int> ItemsID = new List<int>();
+
+    [SerializeField] float X_START;
+    [SerializeField] float Y_START;
+    [SerializeField] float X_SPACE_BETWEEN_ITEM;
+    [SerializeField] int NUMBER_OF_COLUMN;
+    [SerializeField] float Y_SPACE_BETWEEN_ITEMS;
     public bool IsExpanded = false;
 
     [SerializeField] InventoryObject inventory;
@@ -33,6 +37,9 @@ public class DisplayInventory : MonoBehaviour
     [SerializeField] GameObject popup;
     [SerializeField] GameObject popupParent;
     [SerializeField] GameObject previousSelected;
+    [SerializeField] GameObject minimiseButton;
+    [SerializeField] GameObject toBeSwapped;
+    [SerializeField] GameObject selectedObject;
     Dictionary<GameObject, InventorySlot> itemsDisplayed=new Dictionary<GameObject, InventorySlot >();
     Dictionary<GameObject, InventorySlot> itemsDisplayedExpanded= new Dictionary<GameObject, InventorySlot>();
     // Start is called before the first frame update
@@ -48,7 +55,11 @@ public class DisplayInventory : MonoBehaviour
     void Update()
     {
          UpdateSlots();
+        //Debug.Log(isOnSwap);
+        Swapping();
+
     }
+    //updates slot image sprite and quantity
      void UpdateSlots()
     {
         if (!IsExpanded)
@@ -89,8 +100,29 @@ public class DisplayInventory : MonoBehaviour
             }
             capience.GetComponentInChildren<TextMeshProUGUI>().text = "Free " + capacity + "/56";
         }
+        if (popupParent.transform.childCount>0)
+        {
+            expandButton.SetActive(false);
+            if (IsExpanded)
+            {
+                Transform shiftedPosition = popupParent.transform;
+                //Vector3 shifted =  Vector3.Lerp(popupParent.transform.position, shiftedPosition, 1);
+                popupParent.transform.GetChild(0).position = new Vector3(popupParent.transform.GetChild(0).position.x, popupParent.transform.position.y-24.5f, popupParent.transform.position.z);
+                minimiseButton.SetActive(false);
+            }
+        }
+        else
+        {
+            expandButton.SetActive(true);
+            if (IsExpanded)
+            {
+                minimiseButton.SetActive(true);
+            }
+
+        }
+        
     }
-   
+   //creates slots for inventory, both expanded and not depending on bool IsExpanded
     public void CreateSlots()
     {
         if (!IsExpanded)
@@ -98,10 +130,11 @@ public class DisplayInventory : MonoBehaviour
             itemsDisplayed = new Dictionary<GameObject, InventorySlot>();
             for (int i = 0; i < inventory.Container.Items.Length; i++)
             {
+                int itemId = inventory.Container.Items[i].ID;
                 var obj = Instantiate(inventoryPrefab, Vector3.zero, Quaternion.identity, transform);
                 obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
                 obj.tag = "Min";
-                obj.GetComponent<Button>().onClick.AddListener(() => OnClick(obj));
+                obj.GetComponent<Button>().onClick.AddListener(() => OnClick(obj,itemId));
                   //AddEvent(obj, EventTriggerType.PointerClick, delegate { OnClick(obj); });
                 //AddEvent(obj, EventTriggerType.BeginDrag, delegate { OnDragStart(obj); });
                 //AddEvent(obj, EventTriggerType.EndDrag, delegate { OnDragEnd(obj); });
@@ -116,49 +149,64 @@ public class DisplayInventory : MonoBehaviour
             itemsDisplayedExpanded = new Dictionary<GameObject, InventorySlot>();
             for (int i = 0; i < inventory.Container.Items.Length ; i++)
             {
-
+                int itemId = inventory.Container.Items[i].ID;
                 var obj = Instantiate(inventoryPrefab, Vector3.zero, Quaternion.identity, transform);
               
 
                     obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
                     obj.transform.SetParent(expandedMask.transform);
                     obj.tag = "Max";
-
-                    itemsDisplayedExpanded.Add(obj, inventory.Container.Items[i]);
+                obj.GetComponent<Button>().onClick.AddListener(() => OnClick(obj,itemId));
+                itemsDisplayedExpanded.Add(obj, inventory.Container.Items[i]);
             }
             for (int i = 0; i < expandedInventory.Container.Items.Length; i++)
             {
+                int itemId = expandedInventory.Container.Items[i].ID;
                 var obj = Instantiate(inventoryPrefab, Vector3.zero, Quaternion.identity, transform);
 
 
                 obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
                 obj.transform.SetParent(expandedMask.transform);
                 obj.tag = "Max";
-
+                obj.GetComponent<Button>().onClick.AddListener(() => OnClick(obj,itemId));
                 itemsDisplayedExpanded.Add(obj, expandedInventory.Container.Items[i]);
             }
         }
         UpdateCapience();
     }
+    private void Swapping()
+    {
+        if (isOnSwap)
+        {
+            if (itemWaiting)
+            {
+                GameObject temp = toBeSwapped;
+                toBeSwapped = selectedObject;
+                selectedObject = temp;
+                isOnSwap = false;
+                itemWaiting = false;
+            }
+        }
+    }
     private void UpdateCapience()
     {
         capacity = inventory.isFree() + expandedInventory.isFree();
     }
-    private void OnClickOpen(GameObject obj,GameObject popupLocal)
+    private void OnClickOpen(GameObject obj,GameObject popupLocal,int itemId)
     {
         obj.GetComponent<Button>().onClick.RemoveAllListeners();
-        obj.GetComponent<Button>().onClick.AddListener(() => onClickDestroy(obj,popupLocal));
+        obj.GetComponent<Button>().onClick.AddListener(() => onClickDestroy(obj,popupLocal,itemId));
     }
-    private void onClickDestroy(GameObject obj, GameObject popupLocal)
+    private void onClickDestroy(GameObject obj, GameObject popupLocal,int itemId)
     {
         Destroy(popupLocal);
 
         obj.transform.GetChild(2).gameObject.SetActive(false);
         obj.GetComponent<Button>().onClick.RemoveAllListeners();
-        obj.GetComponent<Button>().onClick.AddListener(() => OnClick(obj));
+        obj.GetComponent<Button>().onClick.AddListener(() => OnClick(obj,itemId));
 
     }   
-    private void OnClick(GameObject obj)
+    private void OnClick(GameObject obj, int itemId)
     {
 //previousSelected = obj;
         /*if (previousSelected != null)
@@ -170,15 +218,20 @@ public class DisplayInventory : MonoBehaviour
         {
             previousSelected = obj;
             obj.transform.GetChild(2).gameObject.SetActive(true);
+            expandButton.SetActive(true);
             popupParent.transform.position = obj.transform.position;
             GameObject popupWindow = Instantiate(popup, popupParent.transform);
-            OnClickOpen(obj, popupWindow);
+            popupWindow.GetComponentInChildren<ContentSizeFitter>().transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => OnSwap(obj, popupWindow, itemId));
+            OnClickOpen(obj, popupWindow, itemId);
+        }
+        else if (!isOnSwap && !isPopped)
+        {
+
+            //previousSelected.transform.GetChild(2).gameObject.SetActive(false);
+            onClickDestroy(previousSelected, popupParent.transform.GetChild(0).gameObject, itemId);
         }
         else
-        {
-            //previousSelected.transform.GetChild(2).gameObject.SetActive(false);
-            onClickDestroy(previousSelected, popupParent.transform.GetChild(0).gameObject);
-        }
+            readyEnvironment(obj, popupParent.transform.GetChild(0).gameObject, itemId);
     }
     private void isWindowPopped(GameObject obj)
     {
@@ -190,11 +243,48 @@ public class DisplayInventory : MonoBehaviour
                //previousSelected.transform.GetChild(2).gameObject.SetActive(false);
                 isPopped = true;
                 //previousSelected=obj;
+
             }
         }
         else
             isPopped = false;
     }
+    private bool readyEnvironment(GameObject selected,GameObject popUpWindow,int itemId)
+    {
+        Destroy(popUpWindow);
+        //selectedObject.transform.GetChild(2).gameObject.SetActive(false);
+        if (!IsExpanded)
+        {
+            setExpanded();
+        }
+        bool flag = false;// true if object is highlighted
+        bool flag2 = false;
+        for (int i = 0; i < expandedMask.transform.childCount; i++)
+        {
+            GameObject Go = expandedMask.transform.GetChild(i).gameObject;
+            foreach (var item in itemsDisplayedExpanded) 
+            {
+                if (item.Value.ID == itemId)
+                {
+                    item.Key.transform.GetChild(2).gameObject.SetActive(true);
+                }
+            }
+        }
+        if (isOnSwap)
+        {
+            toBeSwapped = selected;
+            itemWaiting = true;
+        }
+        return flag;
+    }
+    private void OnSwap(GameObject selected,GameObject popUpWindow,int itemId)
+    {
+        toBeSwapped = selected;
+        selectedObject = selected;
+        isOnSwap = true;
+        readyEnvironment(selectedObject,popUpWindow,itemId);
+    }
+    
     private void AddEvent(GameObject obj, EventTriggerType type, UnityAction<BaseEventData> action)
     {
         EventTrigger trigger = obj.GetComponent<EventTrigger>();
