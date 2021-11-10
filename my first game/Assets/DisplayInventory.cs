@@ -16,7 +16,7 @@ public class DisplayInventory : MonoBehaviour
     bool isOnSwap = false;
     bool itemWaiting = false;
 
-    List<int> ItemsID = new List<int>();
+    int IDtoBeSwapped;
 
     [SerializeField] float X_START;
     [SerializeField] float Y_START;
@@ -39,7 +39,6 @@ public class DisplayInventory : MonoBehaviour
     [SerializeField] GameObject previousSelected;
     [SerializeField] GameObject minimiseButton;
     [SerializeField] GameObject toBeSwapped;
-    [SerializeField] GameObject selectedObject;
     Dictionary<GameObject, InventorySlot> itemsDisplayed=new Dictionary<GameObject, InventorySlot >();
     Dictionary<GameObject, InventorySlot> itemsDisplayedExpanded= new Dictionary<GameObject, InventorySlot>();
     // Start is called before the first frame update
@@ -56,7 +55,6 @@ public class DisplayInventory : MonoBehaviour
     {
          UpdateSlots();
         //Debug.Log(isOnSwap);
-        Swapping();
 
     }
     //updates slot image sprite and quantity
@@ -106,7 +104,6 @@ public class DisplayInventory : MonoBehaviour
             if (IsExpanded)
             {
                 Transform shiftedPosition = popupParent.transform;
-                //Vector3 shifted =  Vector3.Lerp(popupParent.transform.position, shiftedPosition, 1);
                 popupParent.transform.GetChild(0).position = new Vector3(popupParent.transform.GetChild(0).position.x, popupParent.transform.position.y-24.5f, popupParent.transform.position.z);
                 minimiseButton.SetActive(false);
             }
@@ -134,29 +131,32 @@ public class DisplayInventory : MonoBehaviour
                 var obj = Instantiate(inventoryPrefab, Vector3.zero, Quaternion.identity, transform);
                 obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
                 obj.tag = "Min";
-                obj.GetComponent<Button>().onClick.AddListener(() => OnClick(obj,itemId));
-                  //AddEvent(obj, EventTriggerType.PointerClick, delegate { OnClick(obj); });
-                //AddEvent(obj, EventTriggerType.BeginDrag, delegate { OnDragStart(obj); });
-                //AddEvent(obj, EventTriggerType.EndDrag, delegate { OnDragEnd(obj); });
-                //AddEvent(obj, EventTriggerType.Drag, delegate { OnDrag(obj); });
+                obj.GetComponent<Button>().onClick.AddListener(() => OnClick(obj, itemId));
 
                 itemsDisplayed.Add(obj, inventory.Container.Items[i]);
-
             }
         }
+
         else
         {
             itemsDisplayedExpanded = new Dictionary<GameObject, InventorySlot>();
-            for (int i = 0; i < inventory.Container.Items.Length ; i++)
+            for (int i = 0; i < inventory.Container.Items.Length; i++)
             {
                 int itemId = inventory.Container.Items[i].ID;
                 var obj = Instantiate(inventoryPrefab, Vector3.zero, Quaternion.identity, transform);
-              
 
-                    obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
-                    obj.transform.SetParent(expandedMask.transform);
-                    obj.tag = "Max";
-                obj.GetComponent<Button>().onClick.AddListener(() => OnClick(obj,itemId));
+
+                obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
+                obj.transform.SetParent(expandedMask.transform);
+                obj.tag = "Max";
+                if (isOnSwap)
+                {
+                    obj.GetComponent<Button>().onClick.AddListener(() => OnSwapping(obj, itemId));
+                }
+                else
+                {
+                    obj.GetComponent<Button>().onClick.AddListener(() => OnClick(obj, itemId));
+                }
                 itemsDisplayedExpanded.Add(obj, inventory.Container.Items[i]);
             }
             for (int i = 0; i < expandedInventory.Container.Items.Length; i++)
@@ -168,25 +168,100 @@ public class DisplayInventory : MonoBehaviour
                 obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
                 obj.transform.SetParent(expandedMask.transform);
                 obj.tag = "Max";
-                obj.GetComponent<Button>().onClick.AddListener(() => OnClick(obj,itemId));
+                if (isOnSwap)
+                {
+                    obj.GetComponent<Button>().onClick.AddListener(() => OnSwapping(obj, itemId));
+                }
+                else
+                {
+                    obj.GetComponent<Button>().onClick.AddListener(() => OnClick(obj, itemId));
+                }
                 itemsDisplayedExpanded.Add(obj, expandedInventory.Container.Items[i]);
             }
         }
         UpdateCapience();
     }
-    private void Swapping()
+    private void OnSwapping(GameObject swapping, int itemId)
     {
-        if (isOnSwap)
+        InventorySlot temp;
+        bool flag = false;
+        for (int i = 0; i < inventory.Container.Items.Length; i++)
         {
-            if (itemWaiting)
+            if (inventory.Container.Items[i].ID == IDtoBeSwapped)
             {
-                GameObject temp = toBeSwapped;
-                toBeSwapped = selectedObject;
-                selectedObject = temp;
-                isOnSwap = false;
-                itemWaiting = false;
+                temp = inventory.Container.Items[i];
+                for (int j = 0; j < inventory.Container.Items.Length; j++)
+                {
+                    if (inventory.Container.Items[j].ID == itemId)
+                    { 
+                        inventory.Container.Items[i] = inventory.Container.Items[j];
+                        inventory.Container.Items[j] = temp;
+                        flag = true;
+                        isOnSwap = false;
+                        break;
+                    }
+                }
+                if (!flag)
+                {
+                    for (int j = 0; j < expandedInventory.Container.Items.Length; j++)
+                    {
+                        if (expandedInventory.Container.Items[j].ID == itemId)
+                        {
+                            inventory.Container.Items[i] = expandedInventory.Container.Items[j];
+                            expandedInventory.Container.Items[j] = temp;
+                            flag = true;
+                            isOnSwap = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (flag)
+            {
+                break;
             }
         }
+        if (!flag)
+        {
+            for (int i = 0; i < expandedInventory.Container.Items.Length; i++)
+            {
+                if (expandedInventory.Container.Items[i].ID==IDtoBeSwapped)
+                {
+                    temp = expandedInventory.Container.Items[i];
+                    for (int j=0; j<inventory.Container.Items.Length;j++)
+                    {
+                        if (inventory.Container.Items[j].ID == itemId)
+                        {
+                            expandedInventory.Container.Items[i] = inventory.Container.Items[j];
+                            inventory.Container.Items[j] = temp;
+                            flag = true;
+                            isOnSwap = false;
+                            break;
+                        }
+                    }
+                    if (!flag)
+                    {
+                        for (int j = 0; j < expandedInventory.Container.Items.Length; j++)
+                        {
+                            if (expandedInventory.Container.Items[j].ID==itemId)
+                            {
+                                expandedInventory.Container.Items[i] = expandedInventory.Container.Items[j];
+                                expandedInventory.Container.Items[j] = temp;
+                                flag = true;
+                                isOnSwap = false;
+                                break;
+                            }
+                        }
+                    }
+                   
+                }
+                if (flag)
+                {
+                    break;
+                }
+            }
+        }
+
     }
     private void UpdateCapience()
     {
@@ -208,13 +283,8 @@ public class DisplayInventory : MonoBehaviour
     }   
     private void OnClick(GameObject obj, int itemId)
     {
-//previousSelected = obj;
-        /*if (previousSelected != null)
-        {
-            previousSelected.transform.GetChild(2).gameObject.SetActive(false);
-        }*/
         isWindowPopped(obj);
-        if (!isPopped)
+        if (!isPopped && !isOnSwap)
         {
             previousSelected = obj;
             obj.transform.GetChild(2).gameObject.SetActive(true);
@@ -224,14 +294,8 @@ public class DisplayInventory : MonoBehaviour
             popupWindow.GetComponentInChildren<ContentSizeFitter>().transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => OnSwap(obj, popupWindow, itemId));
             OnClickOpen(obj, popupWindow, itemId);
         }
-        else if (!isOnSwap && !isPopped)
-        {
-
-            //previousSelected.transform.GetChild(2).gameObject.SetActive(false);
-            onClickDestroy(previousSelected, popupParent.transform.GetChild(0).gameObject, itemId);
-        }
         else
-            readyEnvironment(obj, popupParent.transform.GetChild(0).gameObject, itemId);
+            onClickDestroy(previousSelected, popupParent.transform.GetChild(0).gameObject, itemId);
     }
     private void isWindowPopped(GameObject obj)
     {
@@ -240,10 +304,7 @@ public class DisplayInventory : MonoBehaviour
             Transform popupWindow = popupParent.transform.GetChild(0);
             if (popupWindow)
             {
-               //previousSelected.transform.GetChild(2).gameObject.SetActive(false);
                 isPopped = true;
-                //previousSelected=obj;
-
             }
         }
         else
@@ -251,14 +312,13 @@ public class DisplayInventory : MonoBehaviour
     }
     private bool readyEnvironment(GameObject selected,GameObject popUpWindow,int itemId)
     {
+        isPopped = false;
         Destroy(popUpWindow);
-        //selectedObject.transform.GetChild(2).gameObject.SetActive(false);
         if (!IsExpanded)
         {
             setExpanded();
         }
         bool flag = false;// true if object is highlighted
-        bool flag2 = false;
         for (int i = 0; i < expandedMask.transform.childCount; i++)
         {
             GameObject Go = expandedMask.transform.GetChild(i).gameObject;
@@ -267,22 +327,18 @@ public class DisplayInventory : MonoBehaviour
                 if (item.Value.ID == itemId)
                 {
                     item.Key.transform.GetChild(2).gameObject.SetActive(true);
+                    break;
                 }
             }
-        }
-        if (isOnSwap)
-        {
-            toBeSwapped = selected;
-            itemWaiting = true;
         }
         return flag;
     }
     private void OnSwap(GameObject selected,GameObject popUpWindow,int itemId)
     {
         toBeSwapped = selected;
-        selectedObject = selected;
+        IDtoBeSwapped = itemId;
         isOnSwap = true;
-        readyEnvironment(selectedObject,popUpWindow,itemId);
+        readyEnvironment(selected,popUpWindow,itemId);
     }
     
     private void AddEvent(GameObject obj, EventTriggerType type, UnityAction<BaseEventData> action)
@@ -319,11 +375,6 @@ public class DisplayInventory : MonoBehaviour
     {
         expandButton.SetActive(false);
         floatingJoystick.SetActive(false);
-        //X_START = -465f;
-        //Y_START = 340f; 
-        // X_SPACE_BETWEEN_ITEM = 80f;
-        //Y_SPACE_BETWEEN_ITEMS = 75f;
-        //NUMBER_OF_COLUMN = 8;
         IsExpanded = true;
         expanded.SetActive(true);
         DestroyMin();
@@ -358,8 +409,6 @@ public class DisplayInventory : MonoBehaviour
     public void setMinimized()
     {
         DestroyMax();
-        
-        //DestroyMinimized();
         expandButton.SetActive(true);
         IsExpanded = false;
         floatingJoystick.SetActive(true);
