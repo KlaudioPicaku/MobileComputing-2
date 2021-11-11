@@ -38,7 +38,7 @@ public class DisplayInventory : MonoBehaviour
     [SerializeField] GameObject popupParent;
     [SerializeField] GameObject previousSelected;
     [SerializeField] GameObject minimiseButton;
-    [SerializeField] GameObject toBeSwapped;
+
     Dictionary<GameObject, InventorySlot> itemsDisplayed=new Dictionary<GameObject, InventorySlot >();
     Dictionary<GameObject, InventorySlot> itemsDisplayedExpanded= new Dictionary<GameObject, InventorySlot>();
     // Start is called before the first frame update
@@ -335,7 +335,6 @@ public class DisplayInventory : MonoBehaviour
     }
     private void OnSwap(GameObject selected,GameObject popUpWindow,int itemId)
     {
-        toBeSwapped = selected;
         IDtoBeSwapped = itemId;
         isOnSwap = true;
         readyEnvironment(selected,popUpWindow,itemId);
@@ -425,5 +424,4 @@ public class DisplayInventory : MonoBehaviour
     {
         return new Vector3(X_START + (X_SPACE_BETWEEN_ITEM * (i % NUMBER_OF_COLUMN)), Y_START + (-Y_SPACE_BETWEEN_ITEMS * (i / NUMBER_OF_COLUMN)), 0f);
     }
-
 }

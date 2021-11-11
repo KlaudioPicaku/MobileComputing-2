@@ -2342,7 +2342,6 @@ MonoBehaviour:
   popupParent: {fileID: 647542735}
   previousSelected: {fileID: 0}
   minimiseButton: {fileID: 1821366553}
-  toBeSwapped: {fileID: 0}
 --- !u!114 &1048378739
 MonoBehaviour:
   m_ObjectHideFlags: 0
