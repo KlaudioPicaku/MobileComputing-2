@@ -658,7 +658,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8170153791668043268, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 960
+      value: 682.54
       objectReference: {fileID: 0}
     - target: {fileID: 8170153791668043268, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
       propertyPath: m_SizeDelta.y
@@ -2245,6 +2245,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &856673640 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8170153791668043269, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
+  m_PrefabInstance: {fileID: 215667098}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &872551593
 GameObject:
   m_ObjectHideFlags: 0
@@ -2441,7 +2446,7 @@ MonoBehaviour:
   expandedInventory: {fileID: 11400000, guid: 55c937074604ffc4eaee097a2b3588fd, type: 2}
   inventoryPrefab: {fileID: 1891953696804986358, guid: eb9a241e6920e1243874f1d279871395, type: 3}
   expandButton: {fileID: 132603187}
-  floatingJoystick: {fileID: 0}
+  floatingJoystick: {fileID: 856673640}
   expanded: {fileID: 1196164704}
   expandedMask: {fileID: 894154601}
   inventoryObject: {fileID: 1048378736}
@@ -4767,7 +4772,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8170153791668043265, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
   m_PrefabInstance: {fileID: 215667098}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 856673640}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a47f546fc70ec8428172694e78e4288, type: 3}

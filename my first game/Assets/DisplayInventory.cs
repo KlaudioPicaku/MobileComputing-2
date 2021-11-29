@@ -258,10 +258,19 @@ public class DisplayInventory : MonoBehaviour
                 if (flag)
                 {
                     break;
+                    
                 }
             }
         }
-
+        for (int i = 0; i < expandedMask.transform.childCount; i++)
+        {
+            expandedMask.transform.GetChild(i).transform.GetChild(2).gameObject.SetActive(false);
+        }
+        if (!isOnSwap)
+        {
+            DestroyMax();
+            setExpanded();
+        }
     }
     private void UpdateCapience()
     {
@@ -294,6 +303,19 @@ public class DisplayInventory : MonoBehaviour
             popupWindow.GetComponentInChildren<ContentSizeFitter>().transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => OnSwap(obj, popupWindow, itemId));
             OnClickOpen(obj, popupWindow, itemId);
         }
+        else if (isOnSwap && IsExpanded )
+        {
+            OnSwapping(obj, itemId);
+            //DestroyMax();
+            //setExpanded();
+        }
+        /*else if(IsExpanded && isOnSwap)
+        {
+            foreach (var item in itemsDisplayedExpanded)
+            {
+                item.Key.transform.GetComponent<Button>().onClick.AddListener(() => OnSwapping(obj, itemId));
+            }
+        }*/
         else
             onClickDestroy(previousSelected, popupParent.transform.GetChild(0).gameObject, itemId);
     }
@@ -338,6 +360,26 @@ public class DisplayInventory : MonoBehaviour
         IDtoBeSwapped = itemId;
         isOnSwap = true;
         readyEnvironment(selected,popUpWindow,itemId);
+        prepareSlots();
+    }
+    private void prepareSlots()
+    {
+        foreach (KeyValuePair<GameObject, InventorySlot> _slot in itemsDisplayedExpanded)
+        {
+            if (_slot.Value.ID >= 0)
+            {
+                _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[_slot.Value.item.Id].uiDisplay;
+                _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
+                _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = _slot.Value.amount == 1 ? "" : _slot.Value.amount.ToString("n0");
+            }
+            else
+            {
+                _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
+                _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
+                _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "";
+            }
+        }
+
     }
     
     private void AddEvent(GameObject obj, EventTriggerType type, UnityAction<BaseEventData> action)
@@ -402,8 +444,8 @@ public class DisplayInventory : MonoBehaviour
                 Destroy(child.gameObject);
             }
         }
- 
 
+        isOnSwap = false;
     }
     public void setMinimized()
     {
