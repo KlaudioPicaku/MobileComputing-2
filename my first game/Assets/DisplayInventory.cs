@@ -15,7 +15,7 @@ public class DisplayInventory : MonoBehaviour
     bool isPopped = false;
     bool isOnSwap = false;
     bool itemWaiting = false;
-
+    bool idSet = false; // check if id is correct on empty slots
     [SerializeField]int IDtoBeSwapped;
 
     [SerializeField] float X_START;
@@ -60,6 +60,7 @@ public class DisplayInventory : MonoBehaviour
     //updates slot image sprite and quantity
      void UpdateSlots()
     {
+        int i = -1;
         if (!IsExpanded)
         {
             foreach (KeyValuePair<GameObject, InventorySlot> _slot in itemsDisplayed)
@@ -76,7 +77,12 @@ public class DisplayInventory : MonoBehaviour
                     _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
                     _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
                     _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "";
+                    if (!idSet)
+                    {
+                        _slot.Value.ID = i;
+                    }
                 }
+                i--;
             }
         }
         else
@@ -94,7 +100,12 @@ public class DisplayInventory : MonoBehaviour
                     _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
                     _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
                     _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "";
+                    if (!idSet)
+                    {
+                        _slot.Value.ID = i;
+                    }
                 }
+                i--;
             }
             capience.GetComponentInChildren<TextMeshProUGUI>().text = "Free " + capacity + "/56";
         }
