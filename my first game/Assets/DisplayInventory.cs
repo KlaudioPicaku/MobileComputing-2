@@ -309,7 +309,7 @@ public class DisplayInventory : MonoBehaviour
     private void OnClick(GameObject obj, int itemId)
     {
         isWindowPopped(obj);
-        Debug.Log("Before click " + isOnSwap);
+
         if (!isPopped && !isOnSwap && itemId >=0)
         {
             previousSelected = obj;
@@ -342,7 +342,6 @@ public class DisplayInventory : MonoBehaviour
             }
             onClickDestroy(previousSelected, popupParent.transform.GetChild(0).gameObject, itemId);
         }
-        Debug.Log("After click " + isOnSwap);
     }
     private void isWindowPopped(GameObject obj)
     {
