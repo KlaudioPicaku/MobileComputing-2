@@ -128,6 +128,7 @@ public class DisplayInventory : MonoBehaviour
             }
 
         }
+        idSet = true;
         
     }
    //creates slots for inventory, both expanded and not depending on bool IsExpanded
@@ -308,8 +309,8 @@ public class DisplayInventory : MonoBehaviour
     private void OnClick(GameObject obj, int itemId)
     {
         isWindowPopped(obj);
-        Debug.Log(isOnSwap);
-        if (!isPopped && !isOnSwap)
+        Debug.Log("Before click " + isOnSwap);
+        if (!isPopped && !isOnSwap && itemId >=0)
         {
             previousSelected = obj;
             obj.transform.GetChild(2).gameObject.SetActive(true);
@@ -322,6 +323,7 @@ public class DisplayInventory : MonoBehaviour
         else if (isOnSwap && IsExpanded)
         {
             OnSwapping(obj, itemId);
+            isOnSwap = false;
             //DestroyMax();
             //setExpanded();
         }
@@ -334,8 +336,13 @@ public class DisplayInventory : MonoBehaviour
         }*/
         else
         {
+            if (itemId <= 0)
+            {
+                return;
+            }
             onClickDestroy(previousSelected, popupParent.transform.GetChild(0).gameObject, itemId);
         }
+        Debug.Log("After click " + isOnSwap);
     }
     private void isWindowPopped(GameObject obj)
     {
@@ -371,11 +378,11 @@ public class DisplayInventory : MonoBehaviour
                 }
             }
         }
+
         return flag;
     }
     private void OnSwap(GameObject selected,GameObject popUpWindow,int itemId)
     {
-
        IDtoBeSwapped = itemId;
         isOnSwap = true;
         readyEnvironment(selected,popUpWindow,itemId);
