@@ -16,7 +16,7 @@ public class DisplayInventory : MonoBehaviour
     bool isOnSwap = false;
     bool itemWaiting = false;
 
-    int IDtoBeSwapped;
+    [SerializeField]int IDtoBeSwapped;
 
     [SerializeField] float X_START;
     [SerializeField] float Y_START;
@@ -284,7 +284,11 @@ public class DisplayInventory : MonoBehaviour
     private void onClickDestroy(GameObject obj, GameObject popupLocal,int itemId)
     {
         Destroy(popupLocal);
-
+        if (IsExpanded)
+        {
+            DestroyMax();
+            setExpanded();
+        }
         obj.transform.GetChild(2).gameObject.SetActive(false);
         obj.GetComponent<Button>().onClick.RemoveAllListeners();
         obj.GetComponent<Button>().onClick.AddListener(() => OnClick(obj,itemId));
@@ -293,6 +297,7 @@ public class DisplayInventory : MonoBehaviour
     private void OnClick(GameObject obj, int itemId)
     {
         isWindowPopped(obj);
+        Debug.Log(isOnSwap);
         if (!isPopped && !isOnSwap)
         {
             previousSelected = obj;
@@ -303,7 +308,7 @@ public class DisplayInventory : MonoBehaviour
             popupWindow.GetComponentInChildren<ContentSizeFitter>().transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => OnSwap(obj, popupWindow, itemId));
             OnClickOpen(obj, popupWindow, itemId);
         }
-        else if (isOnSwap && IsExpanded )
+        else if (isOnSwap && IsExpanded)
         {
             OnSwapping(obj, itemId);
             //DestroyMax();
@@ -317,7 +322,9 @@ public class DisplayInventory : MonoBehaviour
             }
         }*/
         else
+        {
             onClickDestroy(previousSelected, popupParent.transform.GetChild(0).gameObject, itemId);
+        }
     }
     private void isWindowPopped(GameObject obj)
     {
@@ -357,10 +364,11 @@ public class DisplayInventory : MonoBehaviour
     }
     private void OnSwap(GameObject selected,GameObject popUpWindow,int itemId)
     {
-        IDtoBeSwapped = itemId;
+
+       IDtoBeSwapped = itemId;
         isOnSwap = true;
         readyEnvironment(selected,popUpWindow,itemId);
-        prepareSlots();
+        //prepareSlots();
     }
     private void prepareSlots()
     {
