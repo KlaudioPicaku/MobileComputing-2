@@ -12,18 +12,18 @@ public class DisplayInventory : MonoBehaviour
 
     int capacity = 56;
     //bools for interactivity with inventory
-    bool isPopped = false;
-    bool isOnSwap = false;
-    bool itemWaiting = false;
+   [SerializeField] bool isPopped = false;
+    [SerializeField ] bool isOnSwap = false;
     bool idSet = false; // check if id is correct on empty slots
-    [SerializeField]int IDtoBeSwapped;
+    bool infoOpen = false;
+    [SerializeField] int IDtoBeSwapped;
 
     [SerializeField] float X_START;
     [SerializeField] float Y_START;
     [SerializeField] float X_SPACE_BETWEEN_ITEM;
     [SerializeField] int NUMBER_OF_COLUMN;
     [SerializeField] float Y_SPACE_BETWEEN_ITEMS;
-    public bool IsExpanded = false;
+     bool IsExpanded = false;
 
     [SerializeField] InventoryObject inventory;
     [SerializeField] ExpandedInventoryObject expandedInventory;
@@ -38,7 +38,8 @@ public class DisplayInventory : MonoBehaviour
     [SerializeField] GameObject popupParent;
     [SerializeField] GameObject previousSelected;
     [SerializeField] GameObject minimiseButton;
-
+    [SerializeField] GameObject infoWindow;
+    [SerializeField] GameObject description;
     Dictionary<GameObject, InventorySlot> itemsDisplayed=new Dictionary<GameObject, InventorySlot >();
     Dictionary<GameObject, InventorySlot> itemsDisplayedExpanded= new Dictionary<GameObject, InventorySlot>();
     // Start is called before the first frame update
@@ -54,7 +55,6 @@ public class DisplayInventory : MonoBehaviour
     void Update()
     {
          UpdateSlots();
-        //Debug.Log(isOnSwap);
 
     }
     //updates slot image sprite and quantity
@@ -79,7 +79,7 @@ public class DisplayInventory : MonoBehaviour
                     _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "";
                     if (!idSet)
                     {
-                        _slot.Value.ID = i;
+                        _slot.Value.ID = i*100;
                     }
                 }
                 i--;
@@ -102,7 +102,7 @@ public class DisplayInventory : MonoBehaviour
                     _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "";
                     if (!idSet)
                     {
-                        _slot.Value.ID = i;
+                        _slot.Value.ID = i*253;
                     }
                 }
                 i--;
@@ -139,7 +139,7 @@ public class DisplayInventory : MonoBehaviour
             itemsDisplayed = new Dictionary<GameObject, InventorySlot>();
             for (int i = 0; i < inventory.Container.Items.Length; i++)
             {
-                int itemId = inventory.Container.Items[i].ID;
+                int itemId = inventory.Container.Items[i].item.Id;
                 var obj = Instantiate(inventoryPrefab, Vector3.zero, Quaternion.identity, transform);
                 obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
                 obj.tag = "Min";
@@ -154,7 +154,7 @@ public class DisplayInventory : MonoBehaviour
             itemsDisplayedExpanded = new Dictionary<GameObject, InventorySlot>();
             for (int i = 0; i < inventory.Container.Items.Length; i++)
             {
-                int itemId = inventory.Container.Items[i].ID;
+                int itemId = inventory.Container.Items[i].item.Id;
                 var obj = Instantiate(inventoryPrefab, Vector3.zero, Quaternion.identity, transform);
 
 
@@ -173,7 +173,7 @@ public class DisplayInventory : MonoBehaviour
             }
             for (int i = 0; i < expandedInventory.Container.Items.Length; i++)
             {
-                int itemId = expandedInventory.Container.Items[i].ID;
+                int itemId = expandedInventory.Container.Items[i].item.Id;
                 var obj = Instantiate(inventoryPrefab, Vector3.zero, Quaternion.identity, transform);
 
 
@@ -204,12 +204,14 @@ public class DisplayInventory : MonoBehaviour
                 temp = inventory.Container.Items[i];
                 for (int j = 0; j < inventory.Container.Items.Length; j++)
                 {
-                    if (inventory.Container.Items[j].ID == itemId)
+                    if (inventory.Container.Items[j].item.Id == itemId)
                     { 
                         inventory.Container.Items[i] = inventory.Container.Items[j];
                         inventory.Container.Items[j] = temp;
                         flag = true;
                         isOnSwap = false;
+                        DestroyMax();
+                        setExpanded();
                         break;
                     }
                 }
@@ -217,12 +219,14 @@ public class DisplayInventory : MonoBehaviour
                 {
                     for (int j = 0; j < expandedInventory.Container.Items.Length; j++)
                     {
-                        if (expandedInventory.Container.Items[j].ID == itemId)
+                        if (expandedInventory.Container.Items[j].item.Id == itemId)
                         {
                             inventory.Container.Items[i] = expandedInventory.Container.Items[j];
                             expandedInventory.Container.Items[j] = temp;
                             flag = true;
                             isOnSwap = false;
+                            DestroyMax();
+                            setExpanded();
                             break;
                         }
                     }
@@ -242,12 +246,14 @@ public class DisplayInventory : MonoBehaviour
                     temp = expandedInventory.Container.Items[i];
                     for (int j=0; j<inventory.Container.Items.Length;j++)
                     {
-                        if (inventory.Container.Items[j].ID == itemId)
+                        if (inventory.Container.Items[j].item.Id == itemId)
                         {
                             expandedInventory.Container.Items[i] = inventory.Container.Items[j];
                             inventory.Container.Items[j] = temp;
                             flag = true;
                             isOnSwap = false;
+                            DestroyMax();
+                            setExpanded();
                             break;
                         }
                     }
@@ -255,12 +261,14 @@ public class DisplayInventory : MonoBehaviour
                     {
                         for (int j = 0; j < expandedInventory.Container.Items.Length; j++)
                         {
-                            if (expandedInventory.Container.Items[j].ID==itemId)
+                            if (expandedInventory.Container.Items[j].item.Id==itemId)
                             {
                                 expandedInventory.Container.Items[i] = expandedInventory.Container.Items[j];
                                 expandedInventory.Container.Items[j] = temp;
                                 flag = true;
                                 isOnSwap = false;
+                                DestroyMax();
+                                setExpanded();
                                 break;
                             }
                         }
@@ -274,15 +282,15 @@ public class DisplayInventory : MonoBehaviour
                 }
             }
         }
-        for (int i = 0; i < expandedMask.transform.childCount; i++)
-        {
-            expandedMask.transform.GetChild(i).transform.GetChild(2).gameObject.SetActive(false);
-        }
-        if (!isOnSwap)
-        {
-            DestroyMax();
-            setExpanded();
-        }
+        //for (int i = 0; i < expandedMask.transform.childCount; i++)
+        //{
+        //    expandedMask.transform.GetChild(i).transform.GetChild(2).gameObject.SetActive(false);
+        //}
+        //if (!isOnSwap)
+        //{
+        //    DestroyMax();
+        //    setExpanded();
+        //}
     }
     private void UpdateCapience()
     {
@@ -318,22 +326,14 @@ public class DisplayInventory : MonoBehaviour
             popupParent.transform.position = obj.transform.position;
             GameObject popupWindow = Instantiate(popup, popupParent.transform);
             popupWindow.GetComponentInChildren<ContentSizeFitter>().transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => OnSwap(obj, popupWindow, itemId));
+            popupWindow.GetComponentInChildren<ContentSizeFitter>().transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => OnInfo(obj, popupWindow, itemId));
             OnClickOpen(obj, popupWindow, itemId);
         }
         else if (isOnSwap && IsExpanded)
         {
             OnSwapping(obj, itemId);
             isOnSwap = false;
-            //DestroyMax();
-            //setExpanded();
         }
-        /*else if(IsExpanded && isOnSwap)
-        {
-            foreach (var item in itemsDisplayedExpanded)
-            {
-                item.Key.transform.GetComponent<Button>().onClick.AddListener(() => OnSwapping(obj, itemId));
-            }
-        }*/
         else
         {
             if (itemId <= 0)
@@ -387,61 +387,26 @@ public class DisplayInventory : MonoBehaviour
         readyEnvironment(selected,popUpWindow,itemId);
         //prepareSlots();
     }
-    private void prepareSlots()
+    private void OnInfo(GameObject selected, GameObject popUpWindow, int itemId)
     {
+        infoOpen = true;
+        readyEnvironment(selected, popUpWindow, itemId);
         foreach (KeyValuePair<GameObject, InventorySlot> _slot in itemsDisplayedExpanded)
         {
-            if (_slot.Value.ID >= 0)
+            if (_slot.Value.ID >= 0 && _slot.Value.ID==itemId)
             {
-                _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[_slot.Value.item.Id].uiDisplay;
-                _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
-                _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = _slot.Value.amount == 1 ? "" : _slot.Value.amount.ToString("n0");
-            }
-            else
-            {
-                _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
-                _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
-                _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "";
+               infoWindow.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[_slot.Value.item.Id].uiDisplay;
+                description.GetComponentInChildren<TextMeshProUGUI>().text = inventory.database.GetItem[_slot.Value.item.Id].description;
             }
         }
-
-    }
-    
-    private void AddEvent(GameObject obj, EventTriggerType type, UnityAction<BaseEventData> action)
-    {
-        EventTrigger trigger = obj.GetComponent<EventTrigger>();
-        var eventTrigger = new EventTrigger.Entry();
-        eventTrigger.eventID = type;
-        eventTrigger.callback.AddListener(action);
-        trigger.triggers.Add(eventTrigger);
-    }
-
-    public void OnDragStart(GameObject obj)
-    {
-        var mouseObject = new GameObject();
-        var rt = mouseObject.AddComponent<RectTransform>();
-        rt.sizeDelta = new Vector2(10,10);
-        mouseObject.transform.SetParent(transform.parent);
-        if (itemsDisplayed[obj].ID >= 0)
-        {
-            var img = mouseObject.AddComponent<Image>();
-            img.sprite = inventory.database.GetItem[itemsDisplayed[obj].ID].uiDisplay;
-            img.raycastTarget = false;
         }
-    }
-    public void OnDragEnd(GameObject obj)
-    {
 
-    }
-    public void OnDrag(GameObject obj)
-    {
-
-    }
     public void setExpanded()
     {
         expandButton.SetActive(false);
         floatingJoystick.SetActive(false);
         IsExpanded = true;
+        idSet = false;
         expanded.SetActive(true);
         DestroyMin();
         CreateSlots();
