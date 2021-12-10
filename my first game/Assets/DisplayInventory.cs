@@ -282,15 +282,6 @@ public class DisplayInventory : MonoBehaviour
                 }
             }
         }
-        //for (int i = 0; i < expandedMask.transform.childCount; i++)
-        //{
-        //    expandedMask.transform.GetChild(i).transform.GetChild(2).gameObject.SetActive(false);
-        //}
-        //if (!isOnSwap)
-        //{
-        //    DestroyMax();
-        //    setExpanded();
-        //}
     }
     private void UpdateCapience()
     {
@@ -313,12 +304,30 @@ public class DisplayInventory : MonoBehaviour
         obj.GetComponent<Button>().onClick.RemoveAllListeners();
         obj.GetComponent<Button>().onClick.AddListener(() => OnClick(obj,itemId));
 
-    }   
+    }
+    private void resetInterfaceMax()
+    {
+        infoOpen = false;
+        infoWindow.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1f, 1f, 1f, 0f);
+        description.GetComponentInChildren<TextMeshProUGUI>().text = "";
+        setMinimized();
+
+    }
+    private void resetInterface()
+    {
+        infoOpen = false;
+        infoWindow.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1f,1f,1f,0f);
+        description.GetComponentInChildren<TextMeshProUGUI>().text = "";
+        setMinimized();
+        setExpanded();
+
+    }
     private void OnClick(GameObject obj, int itemId)
     {
         isWindowPopped(obj);
 
-        if (!isPopped && !isOnSwap && itemId >=0)
+
+        if (!isPopped && !isOnSwap && itemId >=0 && !infoOpen)
         {
             previousSelected = obj;
             obj.transform.GetChild(2).gameObject.SetActive(true);
@@ -333,6 +342,9 @@ public class DisplayInventory : MonoBehaviour
         {
             OnSwapping(obj, itemId);
             isOnSwap = false;
+        }
+        else if(infoOpen){
+            resetInterface();
         }
         else
         {
@@ -364,6 +376,7 @@ public class DisplayInventory : MonoBehaviour
         {
             setExpanded();
         }
+
         bool flag = false;// true if object is highlighted
         for (int i = 0; i < expandedMask.transform.childCount; i++)
         {
@@ -395,11 +408,12 @@ public class DisplayInventory : MonoBehaviour
         {
             if (_slot.Value.ID >= 0 && _slot.Value.ID==itemId)
             {
-               infoWindow.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[_slot.Value.item.Id].uiDisplay;
+                infoWindow.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1f, 1f, 1f, 1f);
+                infoWindow.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[_slot.Value.item.Id].uiDisplay;
                 description.GetComponentInChildren<TextMeshProUGUI>().text = inventory.database.GetItem[_slot.Value.item.Id].description;
             }
         }
-        }
+    }
 
     public void setExpanded()
     {
@@ -442,6 +456,10 @@ public class DisplayInventory : MonoBehaviour
         DestroyMax();
         expandButton.SetActive(true);
         IsExpanded = false;
+        if (infoOpen)
+        {
+            resetInterfaceMax();
+        }
         floatingJoystick.SetActive(true);
         expanded.SetActive(false);
         X_START = -370f;
