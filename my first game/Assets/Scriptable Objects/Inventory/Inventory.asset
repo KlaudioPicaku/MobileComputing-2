@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2aa70ec9f28847148acf29ccadd0b6d0, type: 3}
-  m_Name: 
+  m_Name: Inventory
   m_EditorClassIdentifier: 
   savePath: 
   database: {fileID: 11400000, guid: 02ec7b2923cfe2a41a9e45cb6799d8a6, type: 2}
@@ -20,27 +20,27 @@ MonoBehaviour:
       item:
         Name: Golden Key
         Id: 4
-      amount: 2
+      amount: 3
     - ID: 3
       item:
         Name: Food
         Id: 3
-      amount: 2
+      amount: 3
     - ID: 5
       item:
         Name: New Weapon
         Id: 5
-      amount: 2
+      amount: 3
     - ID: 1
       item:
         Name: Collectable
         Id: 1
-      amount: 2
-    - ID: 0
+      amount: 3
+    - ID: 6
       item:
-        Name: Coin
-        Id: 0
-      amount: 1
+        Name: Note
+        Id: 6
+      amount: 3
     - ID: -253
       item:
         Name: 

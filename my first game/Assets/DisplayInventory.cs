@@ -454,6 +454,7 @@ public class DisplayInventory : MonoBehaviour
         DestroyMax();
         expandButton.SetActive(true);
         IsExpanded = false;
+        isOnInfo = false;
         floatingJoystick.SetActive(true);
         expanded.SetActive(false);
         X_START = -370f;
