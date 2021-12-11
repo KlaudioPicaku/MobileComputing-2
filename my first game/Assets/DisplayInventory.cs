@@ -11,19 +11,23 @@ public class DisplayInventory : MonoBehaviour
 {
 
     int capacity = 56;
-    //bools for interactivity with inventory
-    bool isPopped = false;
-    bool isOnSwap = false;
-    bool itemWaiting = false;
-    bool idSet = false; // check if id is correct on empty slots
+
+    [SerializeField]bool idSet = false; // check if id is correct on empty slots
     [SerializeField]int IDtoBeSwapped;
 
+    //bools for interactivity with inventory
+    [SerializeField] bool created = false;
+    [SerializeField] bool isPopped= false;
+    [SerializeField] bool isOnSwap = false;
+    [SerializeField] bool swapped = false;
     [SerializeField] float X_START;
     [SerializeField] float Y_START;
     [SerializeField] float X_SPACE_BETWEEN_ITEM;
     [SerializeField] int NUMBER_OF_COLUMN;
     [SerializeField] float Y_SPACE_BETWEEN_ITEMS;
-    public bool IsExpanded = false;
+    [SerializeField] bool IsExpanded = false;
+    [SerializeField] int idClicked = 0 ;
+    [SerializeField] bool isOnInfo = false;
 
     [SerializeField] InventoryObject inventory;
     [SerializeField] ExpandedInventoryObject expandedInventory;
@@ -38,6 +42,8 @@ public class DisplayInventory : MonoBehaviour
     [SerializeField] GameObject popupParent;
     [SerializeField] GameObject previousSelected;
     [SerializeField] GameObject minimiseButton;
+    [SerializeField] GameObject contentInfoParent;
+    [SerializeField] GameObject contentInfo;
 
     Dictionary<GameObject, InventorySlot> itemsDisplayed=new Dictionary<GameObject, InventorySlot >();
     Dictionary<GameObject, InventorySlot> itemsDisplayedExpanded= new Dictionary<GameObject, InventorySlot>();
@@ -54,13 +60,11 @@ public class DisplayInventory : MonoBehaviour
     void Update()
     {
          UpdateSlots();
-        //Debug.Log(isOnSwap);
 
     }
     //updates slot image sprite and quantity
      void UpdateSlots()
     {
-        int i = -1;
         if (!IsExpanded)
         {
             foreach (KeyValuePair<GameObject, InventorySlot> _slot in itemsDisplayed)
@@ -77,12 +81,7 @@ public class DisplayInventory : MonoBehaviour
                     _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
                     _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
                     _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "";
-                    if (!idSet)
-                    {
-                        _slot.Value.ID = i;
-                    }
                 }
-                i--;
             }
         }
         else
@@ -100,14 +99,10 @@ public class DisplayInventory : MonoBehaviour
                     _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
                     _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
                     _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "";
-                    if (!idSet)
-                    {
-                        _slot.Value.ID = i;
-                    }
                 }
-                i--;
             }
             capience.GetComponentInChildren<TextMeshProUGUI>().text = "Free " + capacity + "/56";
+            
         }
         if (popupParent.transform.childCount>0)
         {
@@ -128,8 +123,6 @@ public class DisplayInventory : MonoBehaviour
             }
 
         }
-        idSet = true;
-        
     }
    //creates slots for inventory, both expanded and not depending on bool IsExpanded
     public void CreateSlots()
@@ -161,14 +154,9 @@ public class DisplayInventory : MonoBehaviour
                 obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
                 obj.transform.SetParent(expandedMask.transform);
                 obj.tag = "Max";
-                if (isOnSwap)
-                {
-                    obj.GetComponent<Button>().onClick.AddListener(() => OnSwapping(obj, itemId));
-                }
-                else
-                {
-                    obj.GetComponent<Button>().onClick.AddListener(() => OnClick(obj, itemId));
-                }
+
+                 obj.GetComponent<Button>().onClick.AddListener(() => OnClick(obj, itemId));
+
                 itemsDisplayedExpanded.Add(obj, inventory.Container.Items[i]);
             }
             for (int i = 0; i < expandedInventory.Container.Items.Length; i++)
@@ -180,21 +168,41 @@ public class DisplayInventory : MonoBehaviour
                 obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
                 obj.transform.SetParent(expandedMask.transform);
                 obj.tag = "Max";
-                if (isOnSwap)
-                {
-                    obj.GetComponent<Button>().onClick.AddListener(() => OnSwapping(obj, itemId));
-                }
-                else
-                {
-                    obj.GetComponent<Button>().onClick.AddListener(() => OnClick(obj, itemId));
-                }
+               
+                obj.GetComponent<Button>().onClick.AddListener(() => OnClick(obj, itemId));
+               
                 itemsDisplayedExpanded.Add(obj, expandedInventory.Container.Items[i]);
             }
         }
+        if (!created && IsExpanded )
+        {
+            SerializeSlots();
+            created = true;
+        }
         UpdateCapience();
+    }
+    private void SerializeSlots()
+    {
+        int i = -1;
+        
+            foreach (var item in itemsDisplayedExpanded)
+            {
+                if (item.Value.ID < 0)
+                {
+                    item.Value.ID = i * 253;
+                    item.Value.item.Id = i * 253;
+                    i--;
+                }
+
+            }
+        idSet = true;
+
     }
     private void OnSwapping(GameObject swapping, int itemId)
     {
+
+        idClicked = itemId;
+        Debug.Log(itemId);
         InventorySlot temp;
         bool flag = false;
         for (int i = 0; i < inventory.Container.Items.Length; i++)
@@ -204,8 +212,9 @@ public class DisplayInventory : MonoBehaviour
                 temp = inventory.Container.Items[i];
                 for (int j = 0; j < inventory.Container.Items.Length; j++)
                 {
+                    int test = inventory.Container.Items[j].ID;
                     if (inventory.Container.Items[j].ID == itemId)
-                    { 
+                    {
                         inventory.Container.Items[i] = inventory.Container.Items[j];
                         inventory.Container.Items[j] = temp;
                         flag = true;
@@ -217,6 +226,7 @@ public class DisplayInventory : MonoBehaviour
                 {
                     for (int j = 0; j < expandedInventory.Container.Items.Length; j++)
                     {
+                        int test = expandedInventory.Container.Items[j].ID;
                         if (expandedInventory.Container.Items[j].ID == itemId)
                         {
                             inventory.Container.Items[i] = expandedInventory.Container.Items[j];
@@ -237,11 +247,14 @@ public class DisplayInventory : MonoBehaviour
         {
             for (int i = 0; i < expandedInventory.Container.Items.Length; i++)
             {
-                if (expandedInventory.Container.Items[i].ID==IDtoBeSwapped)
+
+                if (expandedInventory.Container.Items[i].ID == IDtoBeSwapped)
                 {
                     temp = expandedInventory.Container.Items[i];
-                    for (int j=0; j<inventory.Container.Items.Length;j++)
+                    for (int j = 0; j < inventory.Container.Items.Length; j++)
                     {
+
+                        int test = inventory.Container.Items[j].ID;
                         if (inventory.Container.Items[j].ID == itemId)
                         {
                             expandedInventory.Container.Items[i] = inventory.Container.Items[j];
@@ -255,7 +268,8 @@ public class DisplayInventory : MonoBehaviour
                     {
                         for (int j = 0; j < expandedInventory.Container.Items.Length; j++)
                         {
-                            if (expandedInventory.Container.Items[j].ID==itemId)
+                            int test = expandedInventory.Container.Items[j].ID;
+                            if (expandedInventory.Container.Items[j].ID == itemId)
                             {
                                 expandedInventory.Container.Items[i] = expandedInventory.Container.Items[j];
                                 expandedInventory.Container.Items[j] = temp;
@@ -265,24 +279,23 @@ public class DisplayInventory : MonoBehaviour
                             }
                         }
                     }
-                   
+
                 }
                 if (flag)
                 {
                     break;
-                    
                 }
             }
+            swapped = true;
+
         }
         for (int i = 0; i < expandedMask.transform.childCount; i++)
         {
             expandedMask.transform.GetChild(i).transform.GetChild(2).gameObject.SetActive(false);
         }
-        if (!isOnSwap)
-        {
-            DestroyMax();
-            setExpanded();
-        }
+        setMinimized();
+        setExpanded();
+        
     }
     private void UpdateCapience()
     {
@@ -296,11 +309,6 @@ public class DisplayInventory : MonoBehaviour
     private void onClickDestroy(GameObject obj, GameObject popupLocal,int itemId)
     {
         Destroy(popupLocal);
-        if (IsExpanded)
-        {
-            DestroyMax();
-            setExpanded();
-        }
         obj.transform.GetChild(2).gameObject.SetActive(false);
         obj.GetComponent<Button>().onClick.RemoveAllListeners();
         obj.GetComponent<Button>().onClick.AddListener(() => OnClick(obj,itemId));
@@ -310,30 +318,30 @@ public class DisplayInventory : MonoBehaviour
     {
         isWindowPopped(obj);
 
-        if (!isPopped && !isOnSwap && itemId >=0)
+        if (!isPopped && !isOnSwap &&  !isOnInfo && itemId >=0 )
         {
             previousSelected = obj;
             obj.transform.GetChild(2).gameObject.SetActive(true);
             expandButton.SetActive(true);
             popupParent.transform.position = obj.transform.position;
             GameObject popupWindow = Instantiate(popup, popupParent.transform);
-            popupWindow.GetComponentInChildren<ContentSizeFitter>().transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => OnSwap(obj, popupWindow, itemId));
+
+            popupWindow.GetComponentInChildren<ContentSizeFitter>().transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => swapper(obj, popupWindow, itemId));
+            popupWindow.GetComponentInChildren<ContentSizeFitter>().transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => Info(obj, popupWindow, itemId));
+            // popupWindow.GetComponentInChildren<ContentSizeFitter>().transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => OnSwap(obj, popupWindow, itemId));
+
+
             OnClickOpen(obj, popupWindow, itemId);
         }
         else if (isOnSwap && IsExpanded)
-        {
+        { 
             OnSwapping(obj, itemId);
             isOnSwap = false;
-            //DestroyMax();
-            //setExpanded();
         }
-        /*else if(IsExpanded && isOnSwap)
+        else if (isOnInfo)
         {
-            foreach (var item in itemsDisplayedExpanded)
-            {
-                item.Key.transform.GetComponent<Button>().onClick.AddListener(() => OnSwapping(obj, itemId));
-            }
-        }*/
+            resetInfo();
+        }
         else
         {
             if (itemId <= 0)
@@ -342,6 +350,46 @@ public class DisplayInventory : MonoBehaviour
             }
             onClickDestroy(previousSelected, popupParent.transform.GetChild(0).gameObject, itemId);
         }
+    }
+    private void resetInfo()
+    {
+        setMinimized();
+        setExpanded();
+        contentInfoParent.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1f, 1f, 1f, 0f);
+        contentInfo.GetComponentInChildren<TextMeshProUGUI>().text = "";
+        isOnInfo = false;
+    }
+    private void Highlight(int itemid)
+    {
+        foreach (var item in itemsDisplayedExpanded)
+        {
+            if (item.Value.item.Id == itemid)
+            {
+                item.Key.transform.GetChild(2).gameObject.SetActive(true);
+                break;
+            }
+        }
+    }
+    private void Info(GameObject selected,GameObject popupWindow,int itemId)
+    {
+        isOnInfo = true;
+        Destroy(popupWindow);
+        if (!IsExpanded)
+        {
+            setExpanded();
+        }
+        foreach (var item in itemsDisplayedExpanded)
+        {
+            if (item.Value.ID >=0 && item.Value.item.Id == itemId)
+            {
+                    item.Key.transform.GetChild(2).gameObject.SetActive(true);
+                    contentInfoParent.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1f,1f,1f,1f);
+                    contentInfoParent.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[item.Value.item.Id].uiDisplay;
+                    contentInfo.GetComponentInChildren<TextMeshProUGUI>().text = inventory.database.GetItem[item.Value.item.Id].description;
+                    break;
+            }
+        }
+
     }
     private void isWindowPopped(GameObject obj)
     {
@@ -356,85 +404,13 @@ public class DisplayInventory : MonoBehaviour
         else
             isPopped = false;
     }
-    private bool readyEnvironment(GameObject selected,GameObject popUpWindow,int itemId)
+
+    private void swapper(GameObject obj, GameObject popupWindow, int itemId)
     {
         isPopped = false;
-        Destroy(popUpWindow);
-        if (!IsExpanded)
-        {
-            setExpanded();
-        }
-        bool flag = false;// true if object is highlighted
-        for (int i = 0; i < expandedMask.transform.childCount; i++)
-        {
-            GameObject Go = expandedMask.transform.GetChild(i).gameObject;
-            foreach (var item in itemsDisplayedExpanded) 
-            {
-                if (item.Value.ID == itemId)
-                {
-                    item.Key.transform.GetChild(2).gameObject.SetActive(true);
-                    break;
-                }
-            }
-        }
-
-        return flag;
-    }
-    private void OnSwap(GameObject selected,GameObject popUpWindow,int itemId)
-    {
-       IDtoBeSwapped = itemId;
+        Destroy(popupWindow);
+        IDtoBeSwapped = itemId;
         isOnSwap = true;
-        readyEnvironment(selected,popUpWindow,itemId);
-        //prepareSlots();
-    }
-    private void prepareSlots()
-    {
-        foreach (KeyValuePair<GameObject, InventorySlot> _slot in itemsDisplayedExpanded)
-        {
-            if (_slot.Value.ID >= 0)
-            {
-                _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[_slot.Value.item.Id].uiDisplay;
-                _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
-                _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = _slot.Value.amount == 1 ? "" : _slot.Value.amount.ToString("n0");
-            }
-            else
-            {
-                _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
-                _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
-                _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "";
-            }
-        }
-
-    }
-    
-    private void AddEvent(GameObject obj, EventTriggerType type, UnityAction<BaseEventData> action)
-    {
-        EventTrigger trigger = obj.GetComponent<EventTrigger>();
-        var eventTrigger = new EventTrigger.Entry();
-        eventTrigger.eventID = type;
-        eventTrigger.callback.AddListener(action);
-        trigger.triggers.Add(eventTrigger);
-    }
-
-    public void OnDragStart(GameObject obj)
-    {
-        var mouseObject = new GameObject();
-        var rt = mouseObject.AddComponent<RectTransform>();
-        rt.sizeDelta = new Vector2(10,10);
-        mouseObject.transform.SetParent(transform.parent);
-        if (itemsDisplayed[obj].ID >= 0)
-        {
-            var img = mouseObject.AddComponent<Image>();
-            img.sprite = inventory.database.GetItem[itemsDisplayed[obj].ID].uiDisplay;
-            img.raycastTarget = false;
-        }
-    }
-    public void OnDragEnd(GameObject obj)
-    {
-
-    }
-    public void OnDrag(GameObject obj)
-    {
 
     }
     public void setExpanded()
@@ -471,6 +447,7 @@ public class DisplayInventory : MonoBehaviour
         }
 
         isOnSwap = false;
+        idSet = false;
     }
     public void setMinimized()
     {

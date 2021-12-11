@@ -16,248 +16,248 @@ MonoBehaviour:
   database: {fileID: 11400000, guid: 02ec7b2923cfe2a41a9e45cb6799d8a6, type: 2}
   Container:
     Items:
-    - ID: 0
-      item:
-        Name: Coin
-        Id: 0
-      amount: 6
-    - ID: -1
+    - ID: -759
       item:
         Name: 
-        Id: 0
+        Id: -759
       amount: 0
-    - ID: -1
+    - ID: 2
+      item:
+        Name: EnergyPotion
+        Id: 2
+      amount: 2
+    - ID: -1012
       item:
         Name: 
-        Id: 0
+        Id: -1012
       amount: 0
-    - ID: -1
+    - ID: -1265
       item:
         Name: 
-        Id: 0
+        Id: -1265
       amount: 0
-    - ID: -1
+    - ID: -1518
       item:
         Name: 
-        Id: 0
+        Id: -1518
       amount: 0
-    - ID: -1
+    - ID: -1771
       item:
         Name: 
-        Id: 0
+        Id: -1771
       amount: 0
-    - ID: -1
+    - ID: -2024
       item:
         Name: 
-        Id: 0
+        Id: -2024
       amount: 0
-    - ID: -1
+    - ID: -2277
       item:
         Name: 
-        Id: 0
+        Id: -2277
       amount: 0
-    - ID: -1
+    - ID: -2530
       item:
         Name: 
-        Id: 0
+        Id: -2530
       amount: 0
-    - ID: -1
+    - ID: -2783
       item:
         Name: 
-        Id: 0
+        Id: -2783
       amount: 0
-    - ID: -1
+    - ID: -3036
       item:
         Name: 
-        Id: 0
+        Id: -3036
       amount: 0
-    - ID: -1
+    - ID: -3289
       item:
         Name: 
-        Id: 0
+        Id: -3289
       amount: 0
-    - ID: -1
+    - ID: -3542
       item:
         Name: 
-        Id: 0
+        Id: -3542
       amount: 0
-    - ID: -1
+    - ID: -3795
       item:
         Name: 
-        Id: 0
+        Id: -3795
       amount: 0
-    - ID: -1
+    - ID: -4048
       item:
         Name: 
-        Id: 0
+        Id: -4048
       amount: 0
-    - ID: -1
+    - ID: -4301
       item:
         Name: 
-        Id: 0
+        Id: -4301
       amount: 0
-    - ID: -1
+    - ID: -4554
       item:
         Name: 
-        Id: 0
+        Id: -4554
       amount: 0
-    - ID: -1
+    - ID: -4807
       item:
         Name: 
-        Id: 0
+        Id: -4807
       amount: 0
-    - ID: -1
+    - ID: -5060
       item:
         Name: 
-        Id: 0
+        Id: -5060
       amount: 0
-    - ID: -1
+    - ID: -5313
       item:
         Name: 
-        Id: 0
+        Id: -5313
       amount: 0
-    - ID: -1
+    - ID: -5566
       item:
         Name: 
-        Id: 0
+        Id: -5566
       amount: 0
-    - ID: -1
+    - ID: 7
+      item:
+        Name: Totem
+        Id: 7
+      amount: 2
+    - ID: -5819
       item:
         Name: 
-        Id: 0
+        Id: -5819
       amount: 0
-    - ID: -1
+    - ID: 6
+      item:
+        Name: Note
+        Id: 6
+      amount: 2
+    - ID: -6072
       item:
         Name: 
-        Id: 0
+        Id: -6072
       amount: 0
-    - ID: -1
+    - ID: -6325
       item:
         Name: 
-        Id: 0
+        Id: -6325
       amount: 0
-    - ID: -1
+    - ID: -6578
       item:
         Name: 
-        Id: 0
+        Id: -6578
       amount: 0
-    - ID: -1
+    - ID: -6831
       item:
         Name: 
-        Id: 0
+        Id: -6831
       amount: 0
-    - ID: -1
+    - ID: -7084
       item:
         Name: 
-        Id: 0
+        Id: -7084
       amount: 0
-    - ID: -1
+    - ID: -7337
       item:
         Name: 
-        Id: 0
+        Id: -7337
       amount: 0
-    - ID: -1
+    - ID: -7590
       item:
         Name: 
-        Id: 0
+        Id: -7590
       amount: 0
-    - ID: -1
+    - ID: -7843
       item:
         Name: 
-        Id: 0
+        Id: -7843
       amount: 0
-    - ID: -1
+    - ID: -8096
       item:
         Name: 
-        Id: 0
+        Id: -8096
       amount: 0
-    - ID: -1
+    - ID: -8349
       item:
         Name: 
-        Id: 0
+        Id: -8349
       amount: 0
-    - ID: -1
+    - ID: -8602
       item:
         Name: 
-        Id: 0
+        Id: -8602
       amount: 0
-    - ID: -1
+    - ID: -8855
       item:
         Name: 
-        Id: 0
+        Id: -8855
       amount: 0
-    - ID: -1
+    - ID: -9108
       item:
         Name: 
-        Id: 0
+        Id: -9108
       amount: 0
-    - ID: -1
+    - ID: -9361
       item:
         Name: 
-        Id: 0
+        Id: -9361
       amount: 0
-    - ID: -1
+    - ID: -9614
       item:
         Name: 
-        Id: 0
+        Id: -9614
       amount: 0
-    - ID: -1
+    - ID: -9867
       item:
         Name: 
-        Id: 0
+        Id: -9867
       amount: 0
-    - ID: -1
+    - ID: -10120
       item:
         Name: 
-        Id: 0
+        Id: -10120
       amount: 0
-    - ID: -1
+    - ID: -10373
       item:
         Name: 
-        Id: 0
+        Id: -10373
       amount: 0
-    - ID: -1
+    - ID: -10626
       item:
         Name: 
-        Id: 0
+        Id: -10626
       amount: 0
-    - ID: -1
+    - ID: -10879
       item:
         Name: 
-        Id: 0
+        Id: -10879
       amount: 0
-    - ID: -1
+    - ID: -11132
       item:
         Name: 
-        Id: 0
+        Id: -11132
       amount: 0
-    - ID: -1
+    - ID: -11385
       item:
         Name: 
-        Id: 0
+        Id: -11385
       amount: 0
-    - ID: -1
+    - ID: -11638
       item:
         Name: 
-        Id: 0
+        Id: -11638
       amount: 0
-    - ID: -1
+    - ID: -11891
       item:
         Name: 
-        Id: 0
+        Id: -11891
       amount: 0
-    - ID: -1
+    - ID: -12144
       item:
         Name: 
-        Id: 0
-      amount: 0
-    - ID: -1
-      item:
-        Name: 
-        Id: 0
-      amount: 0
-    - ID: -1
-      item:
-        Name: 
-        Id: 0
+        Id: -12144
       amount: 0
