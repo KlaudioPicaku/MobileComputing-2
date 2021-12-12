@@ -2727,6 +2727,7 @@ MonoBehaviour:
   IsExpanded: 0
   idClicked: 0
   isOnInfo: 0
+  discarded: 0
   inventory: {fileID: 11400000, guid: 3578e50129ec76c47a2b39fc3bf395b9, type: 2}
   expandedInventory: {fileID: 11400000, guid: 55c937074604ffc4eaee097a2b3588fd, type: 2}
   inventoryPrefab: {fileID: 1891953696804986358, guid: eb9a241e6920e1243874f1d279871395, type: 3}

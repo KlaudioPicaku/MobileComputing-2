@@ -28,7 +28,7 @@ public class DisplayInventory : MonoBehaviour
     [SerializeField] bool IsExpanded = false;
     [SerializeField] int idClicked = 0 ;
     [SerializeField] bool isOnInfo = false;
-
+    [SerializeField] bool discarded=false;
     [SerializeField] InventoryObject inventory;
     [SerializeField] ExpandedInventoryObject expandedInventory;
     [SerializeField] GameObject inventoryPrefab;
@@ -47,12 +47,15 @@ public class DisplayInventory : MonoBehaviour
 
     Dictionary<GameObject, InventorySlot> itemsDisplayed=new Dictionary<GameObject, InventorySlot >();
     Dictionary<GameObject, InventorySlot> itemsDisplayedExpanded= new Dictionary<GameObject, InventorySlot>();
+    Dictionary<int, int> availableIDs = new Dictionary<int, int>();
     // Start is called before the first frame update
     void Start()
     {
         inventoryPrefab.transform.GetChild(2).gameObject.SetActive(false);
         expanded.SetActive(false);
         capacity = inventory.isFree() + expandedInventory.isFree();
+        //CreateIDs();
+        SerializeSlots();
         CreateSlots();
     }
 
@@ -86,6 +89,7 @@ public class DisplayInventory : MonoBehaviour
         }
         else
         {
+
             foreach (KeyValuePair<GameObject, InventorySlot> _slot in itemsDisplayedExpanded)
             {
                 if (_slot.Value.ID >= 0)
@@ -122,6 +126,14 @@ public class DisplayInventory : MonoBehaviour
                 minimiseButton.SetActive(true);
             }
 
+        }
+    }
+    private void CreateIDs()
+    {
+        availableIDs = new Dictionary<int, int>();
+        for (int i = -253; i <56*253 ; i++)
+        {
+            availableIDs.Add(i,0);
         }
     }
    //creates slots for inventory, both expanded and not depending on bool IsExpanded
@@ -174,27 +186,30 @@ public class DisplayInventory : MonoBehaviour
                 itemsDisplayedExpanded.Add(obj, expandedInventory.Container.Items[i]);
             }
         }
-        if (!created && IsExpanded )
-        {
-            SerializeSlots();
-            created = true;
-        }
-        UpdateCapience();
     }
     private void SerializeSlots()
     {
-        int i = -1;
-        
-            foreach (var item in itemsDisplayedExpanded)
+        int j=1;
+        int l = 1;
+        for (int i = 0; i < inventory.Container.Items.Length; i++)
+        {
+            if (inventory.Container.Items[i].ID < 0)
             {
-                if (item.Value.ID < 0)
-                {
-                    item.Value.ID = i * 253;
-                    item.Value.item.Id = i * 253;
-                    i--;
-                }
-
+                inventory.Container.Items[i].ID = l * (-253);
+                inventory.Container.Items[i].item.Id = l * (-253);
+                l++;
+                j++;
             }
+        }
+        for(int k =0; k < expandedInventory.Container.Items.Length;k++)
+        {
+            if (expandedInventory.Container.Items[k].ID < 0)
+            {
+                expandedInventory.Container.Items[k].ID = (j + 1) * (-253);
+                expandedInventory.Container.Items[k].item.Id = (j + 1) * (-253);
+                j++;
+            }
+        }
         idSet = true;
 
     }
@@ -328,10 +343,7 @@ public class DisplayInventory : MonoBehaviour
 
             popupWindow.GetComponentInChildren<ContentSizeFitter>().transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => swapper(obj, popupWindow, itemId));
             popupWindow.GetComponentInChildren<ContentSizeFitter>().transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => Info(obj, popupWindow, itemId));
-            // popupWindow.GetComponentInChildren<ContentSizeFitter>().transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => OnSwap(obj, popupWindow, itemId));
-
-
-            OnClickOpen(obj, popupWindow, itemId);
+            popupWindow.GetComponentInChildren<ContentSizeFitter>().transform.GetChild(3).GetComponent<Button>().onClick.AddListener(() => Discard(obj, popupWindow, itemId));
         }
         else if (isOnSwap && IsExpanded)
         { 
@@ -351,6 +363,51 @@ public class DisplayInventory : MonoBehaviour
             onClickDestroy(previousSelected, popupParent.transform.GetChild(0).gameObject, itemId);
         }
     }
+    private void Discard(GameObject selected, GameObject popupWindow, int itemId)
+    {
+        Destroy(popupWindow);
+        bool flag = false;
+        for (int i = 0; i < inventory.Container.Items.Length; i++)
+        {
+            if (inventory.Container.Items[i].item.Id == itemId)
+            {
+                inventory.Container.Items[i].item.Name = "";
+                inventory.Container.Items[i].item.Id = -1;
+                inventory.Container.Items[i].amount = 0;
+                inventory.Container.Items[i].ID = -1;
+                flag = true;
+                created = false;
+                discarded = true;
+                break;
+            }
+        }
+        if (!flag)
+        {
+            for (int i = 0; i < expandedInventory.Container.Items.Length; i++)
+            {
+                if (expandedInventory.Container.Items[i].item.Id == itemId)
+                {
+                    expandedInventory.Container.Items[i].item.Name = "";
+                    expandedInventory.Container.Items[i].item.Id = -1;
+                    expandedInventory.Container.Items[i].amount = 0;
+                    expandedInventory.Container.Items[i].ID = -1;
+                    flag = true;
+                    created = false;
+                    discarded = true;
+                    break;
+                }
+            }
+        }
+        if (flag)
+        {
+            SerializeSlots(); 
+        }
+        if (discarded)
+        {
+            setMinimized();
+            setExpanded();
+        }
+    }
     private void resetInfo()
     {
         setMinimized();
@@ -358,6 +415,13 @@ public class DisplayInventory : MonoBehaviour
         contentInfoParent.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1f, 1f, 1f, 0f);
         contentInfo.GetComponentInChildren<TextMeshProUGUI>().text = "";
         isOnInfo = false;
+    }
+    private void removelisteners()
+    {
+        foreach  (KeyValuePair <GameObject , InventorySlot> item in itemsDisplayedExpanded)
+        {
+            item.Key.gameObject.GetComponent<Button>().onClick.RemoveAllListeners();
+        }
     }
     private void Highlight(int itemid)
     {
@@ -438,6 +502,7 @@ public class DisplayInventory : MonoBehaviour
     private void DestroyMax()
     {
         itemsDisplayed.Clear();
+        itemsDisplayedExpanded.Clear();
         foreach (Transform child in expandedMask.transform)
         {
             if (child.tag.Equals("Max"))
