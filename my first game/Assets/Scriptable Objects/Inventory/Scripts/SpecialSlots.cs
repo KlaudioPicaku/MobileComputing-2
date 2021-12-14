@@ -6,12 +6,12 @@ using System.IO;
 using UnityEditor;
 using System.Runtime.Serialization;
 
-[CreateAssetMenu(fileName = "New Expanded Inventory", menuName = "Inventory System/Expanded Inventory")]
-public class ExpandedInventoryObject : ScriptableObject
+[CreateAssetMenu(fileName = "New Special Inventory", menuName = "Inventory System/Special Inventory")]
+public class SpecialSlots : ScriptableObject
 {
     public string savePath;
     [SerializeField] itemsDatabaseObject database;
-    public InventoryExpanded Container;
+    public SpecialExpanded Container;
     int freeSlots = 0;
 
 
@@ -32,7 +32,7 @@ public class ExpandedInventoryObject : ScriptableObject
                 return;
             }
         }
-        SetEmptySlot(_item, _amount,_isSpecial);
+        SetEmptySlot(_item, _amount, _isSpecial);
 
     }
     public InventorySlot SetEmptySlot(Item _item, int _amount, bool _isSpecial)
@@ -41,7 +41,7 @@ public class ExpandedInventoryObject : ScriptableObject
         {
             if (Container.Items[i].ID <= -1)
             {
-                Container.Items[i].UpdateSlot(_item.Id, _item, _amount,_isSpecial);
+                Container.Items[i].UpdateSlot(_item.Id, _item, _amount, _isSpecial);
                 return Container.Items[i];
             }
         }
@@ -63,7 +63,7 @@ public class ExpandedInventoryObject : ScriptableObject
         {
             if (Container.Items[i].item == _item)
             {
-                Container.Items[i].UpdateSlot(-1, null, 0,false);
+                Container.Items[i].UpdateSlot(-1, null, 0, false);
             }
         }
     }
@@ -84,7 +84,7 @@ public class ExpandedInventoryObject : ScriptableObject
     }
     [ContextMenu("Load")]
     public void Load()
- {
+    {
         if (File.Exists(string.Concat(Application.persistentDataPath, savePath)))
         {
             //BinaryFormatter bf = new BinaryFormatter();
@@ -94,7 +94,7 @@ public class ExpandedInventoryObject : ScriptableObject
 
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream(string.Concat(Application.persistentDataPath, savePath), FileMode.Open, FileAccess.Read);
-            InventoryExpanded newContainer = (InventoryExpanded)formatter.Deserialize(stream);
+            SpecialExpanded newContainer = (SpecialExpanded)formatter.Deserialize(stream);
             for (int i = 0; i < Container.Items.Length; i++)
             {
                 Container.Items[i].UpdateSlot(newContainer.Items[i].ID, newContainer.Items[i].item, newContainer.Items[i].amount, newContainer.Items[i].isSpecial);
@@ -105,7 +105,7 @@ public class ExpandedInventoryObject : ScriptableObject
     [ContextMenu("Clear")]
     public void Clear()
     {
-        Container = new InventoryExpanded();
+        Container = new SpecialExpanded();
     }
     public int isFree()
     {
@@ -122,7 +122,7 @@ public class ExpandedInventoryObject : ScriptableObject
 
 }
 [System.Serializable]
-public class InventoryExpanded
+public class SpecialExpanded
 {
-    public InventorySlot[] Items = new InventorySlot[49];
+    public InventorySlot[] Items = new InventorySlot[4];
 }

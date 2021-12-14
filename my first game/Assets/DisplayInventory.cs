@@ -20,22 +20,35 @@ public class DisplayInventory : MonoBehaviour
     [SerializeField] bool isPopped= false;
     [SerializeField] bool isOnSwap = false;
     [SerializeField] bool swapped = false;
+
     [SerializeField] float X_START;
     [SerializeField] float Y_START;
     [SerializeField] float X_SPACE_BETWEEN_ITEM;
     [SerializeField] int NUMBER_OF_COLUMN;
     [SerializeField] float Y_SPACE_BETWEEN_ITEMS;
+
+    [SerializeField] float X_START_SPECIAL;
+    [SerializeField] float Y_START_SPECIAL;
+    [SerializeField] float X_SPACE_BETWEEN_ITEM_SPECIAL;
+    [SerializeField] int NUMBER_OF_COLUMN_SPECIAL;
+    [SerializeField] float Y_SPACE_BETWEEN_ITEMS_SPECIAL;
+
     [SerializeField] bool IsExpanded = false;
     [SerializeField] int idClicked = 0 ;
     [SerializeField] bool isOnInfo = false;
     [SerializeField] bool discarded=false;
     [SerializeField] InventoryObject inventory;
     [SerializeField] ExpandedInventoryObject expandedInventory;
+    [SerializeField] SpecialSlots specialInventory;
     [SerializeField] GameObject inventoryPrefab;
+    [SerializeField] GameObject SpecialInventoryPrefab;
     [SerializeField] GameObject expandButton;
     [SerializeField] GameObject floatingJoystick;
+
     [SerializeField] GameObject expanded;
     [SerializeField] GameObject expandedMask;
+    [SerializeField] GameObject specialSlotsParent;
+
     [SerializeField] GameObject inventoryObject;
     [SerializeField] GameObject capience;
     [SerializeField] GameObject popup;
@@ -47,6 +60,7 @@ public class DisplayInventory : MonoBehaviour
 
     Dictionary<GameObject, InventorySlot> itemsDisplayed=new Dictionary<GameObject, InventorySlot >();
     Dictionary<GameObject, InventorySlot> itemsDisplayedExpanded= new Dictionary<GameObject, InventorySlot>();
+    Dictionary<GameObject, InventorySlot> specialItemsPresent = new Dictionary<GameObject, InventorySlot>();
     Dictionary<int, int> availableIDs = new Dictionary<int, int>();
     // Start is called before the first frame update
     void Start()
@@ -185,12 +199,27 @@ public class DisplayInventory : MonoBehaviour
                
                 itemsDisplayedExpanded.Add(obj, expandedInventory.Container.Items[i]);
             }
+            for (int i = 0; i < specialInventory.Container.Items.Length; i++)
+            {
+                int itemId = specialInventory.Container.Items[i].ID;
+                var obj = Instantiate(SpecialInventoryPrefab, Vector3.zero, Quaternion.identity, transform);
+
+
+                obj.GetComponent<RectTransform>().localPosition = GetPositionSpecial(i);
+                obj.transform.SetParent(specialSlotsParent.transform);
+                obj.tag = "Spec";
+                specialInventory.Container.Items[i].isSpecial = true;
+                obj.GetComponent<Button>().onClick.AddListener(() => OnClick(obj, itemId));
+
+                specialItemsPresent.Add(obj, specialInventory.Container.Items[i]);
+            }
         }
     }
     private void SerializeSlots()
     {
         int j=1;
         int l = 1;
+        int m = 1;
         for (int i = 0; i < inventory.Container.Items.Length; i++)
         {
             if (inventory.Container.Items[i].ID < 0)
@@ -199,6 +228,7 @@ public class DisplayInventory : MonoBehaviour
                 inventory.Container.Items[i].item.Id = l * (-253);
                 l++;
                 j++;
+                m++;
             }
         }
         for(int k =0; k < expandedInventory.Container.Items.Length;k++)
@@ -208,6 +238,16 @@ public class DisplayInventory : MonoBehaviour
                 expandedInventory.Container.Items[k].ID = (j + 1) * (-253);
                 expandedInventory.Container.Items[k].item.Id = (j + 1) * (-253);
                 j++;
+                m++;
+            }
+        }
+        for (int i = 0; i < specialInventory.Container.Items.Length; i++)
+        {
+            if (specialInventory.Container.Items[i].ID < 0)
+            {
+                specialInventory.Container.Items[i].ID = (m + 1) * (-253);
+                specialInventory.Container.Items[i].item.Id= (m + 1) * (-253);
+                m++;
             }
         }
         idSet = true;
@@ -227,7 +267,7 @@ public class DisplayInventory : MonoBehaviour
                 temp = inventory.Container.Items[i];
                 for (int j = 0; j < inventory.Container.Items.Length; j++)
                 {
-                    int test = inventory.Container.Items[j].ID;
+                    //int test = inventory.Container.Items[j].ID;
                     if (inventory.Container.Items[j].ID == itemId)
                     {
                         inventory.Container.Items[i] = inventory.Container.Items[j];
@@ -252,6 +292,21 @@ public class DisplayInventory : MonoBehaviour
                         }
                     }
                 }
+                else
+                {
+                    for (int k = 0; k < specialInventory.Container.Items.Length; i++)
+                    {
+                        if (specialInventory.Container.Items[k].ID == itemId && temp.isSpecial)
+                        {
+                            inventory.Container.Items[i] = specialInventory.Container.Items[k];
+                            specialInventory.Container.Items[k] = temp;
+                            flag = true;
+                            isOnSwap = false;
+                            break;
+                        }
+                    }
+                }
+               
             }
             if (flag)
             {
@@ -294,6 +349,20 @@ public class DisplayInventory : MonoBehaviour
                             }
                         }
                     }
+                    else
+                    {
+                        for (int k = 0; k < specialInventory.Container.Items.Length; i++)
+                        {
+                            if (specialInventory.Container.Items[k].ID == itemId && temp.item.isSpecial)
+                            {
+                                inventory.Container.Items[i] = specialInventory.Container.Items[k];
+                                specialInventory.Container.Items[k] = temp;
+                                flag = true;
+                                isOnSwap = false;
+                                break;
+                            }
+                        }
+                    }
 
                 }
                 if (flag)
@@ -301,8 +370,45 @@ public class DisplayInventory : MonoBehaviour
                     break;
                 }
             }
-            swapped = true;
+            //swapped = true;
 
+        }
+        if (!flag)
+        {
+            for (int i = 0; i < specialInventory.Container.Items.Length; i++)
+            {
+                if (specialInventory.Container.Items[i].ID == IDtoBeSwapped)
+                {
+                    temp = specialInventory.Container.Items[i];
+                    for (int j = 0; j < inventory.Container.Items.Length; j++)
+                    {
+                        if ((inventory.Container.Items[j].ID == itemId && inventory.Container.Items[j].item.isSpecial) || itemId<0)
+                        {
+                            specialInventory.Container.Items[i] = inventory.Container.Items[j];
+                            inventory.Container.Items[j] = temp;
+                            flag = true;
+                            isOnSwap = false;
+                            break;
+                        }
+                    }
+               if (!flag){
+                for (int j = 0; j < expandedInventory.Container.Items.Length; j++){
+                    if((expandedInventory.Container.Items[j].ID == itemId && expandedInventory.Container.Items[j].item.isSpecial) || itemId < 0)
+                    {
+                        specialInventory.Container.Items[i] = expandedInventory.Container.Items[j];
+                        expandedInventory.Container.Items[j] = temp;
+                        flag = true;
+                        isOnSwap = false;
+                        break;
+                        }
+                    }
+                }
+              }
+                if (!flag)
+                {
+                    break;
+                }
+           }
         }
         for (int i = 0; i < expandedMask.transform.childCount; i++)
         {
@@ -510,6 +616,13 @@ public class DisplayInventory : MonoBehaviour
                 Destroy(child.gameObject);
             }
         }
+        foreach(Transform child in specialSlotsParent.transform)
+        {
+            if (child.tag.Equals("Spec"))
+            {
+                Destroy(child.gameObject);
+            }
+        }
 
         isOnSwap = false;
         idSet = false;
@@ -533,5 +646,9 @@ public class DisplayInventory : MonoBehaviour
     public Vector3 GetPosition(int i)
     {
         return new Vector3(X_START + (X_SPACE_BETWEEN_ITEM * (i % NUMBER_OF_COLUMN)), Y_START + (-Y_SPACE_BETWEEN_ITEMS * (i / NUMBER_OF_COLUMN)), 0f);
+    }
+    public Vector3 GetPositionSpecial(int i)
+    {
+        return new Vector3(X_START_SPECIAL + (X_SPACE_BETWEEN_ITEM_SPECIAL * (i % NUMBER_OF_COLUMN_SPECIAL)), Y_START_SPECIAL + (-Y_SPACE_BETWEEN_ITEMS_SPECIAL * (i / NUMBER_OF_COLUMN_SPECIAL)), 0f);
     }
 }

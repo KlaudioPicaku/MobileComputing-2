@@ -8,13 +8,17 @@ public class PlayerScript : MonoBehaviour
     //static int MAX_EXPANDED_CAPACITY = 49;
     [SerializeField] InventoryObject inventory;
     [SerializeField] ExpandedInventoryObject expandedInventory;
+    [SerializeField] SpecialSlots specialInventory;
     [SerializeField] LayerMask layerMask;
     int freeSlotsHotBar = 0;
     int freeSlotsExpanded = 0;
+    int freeSlotsSpecial = 0;
+    bool specialItem1 = false;
     private void Start()
     {
         freeSlotsHotBar = inventory.isFree();
         freeSlotsExpanded = expandedInventory.isFree();
+        freeSlotsSpecial = specialInventory.isFree();
     }
     public void OnTriggerEnter2D(Collider2D other)
     {
@@ -27,7 +31,17 @@ public class PlayerScript : MonoBehaviour
         {
             for (int i = 0; i < inventory.Container.Items.Length; i++)
             {
-                if (inventory.Container.Items[i].ID == item.item.Id)
+                if(item.item.Id>=8 && item.item.Id<=12 )
+                {
+                    if(inventory.Container.Items[i].ID == item.item.Id)
+                    {
+
+                        isPresent = true;
+                        flag = false;
+                        break;
+                    }
+                }
+                else if (inventory.Container.Items[i].ID == item.item.Id)
                 {
                     isPresent = true;
                     flag = false;
@@ -39,7 +53,16 @@ public class PlayerScript : MonoBehaviour
             {
                 for (int i = 0; i < expandedInventory.Container.Items.Length; i++)
                 {
-                    if (expandedInventory.Container.Items[i].ID == item.item.Id)
+                    if (item.item.Id >= 8 && item.item.Id <= 12)
+                    {
+                        if (expandedInventory.Container.Items[i].ID == item.item.Id)
+                        {
+                            isPresentExp = true;
+                            flag = false;
+                            break;
+                        }
+                    }
+                    else if(expandedInventory.Container.Items[i].ID == item.item.Id)
                     {
                         isPresentExp = true;
                         flag = false;
@@ -47,23 +70,44 @@ public class PlayerScript : MonoBehaviour
                     }
                 }
             }
-            if (isPresent)
+            if (isPresent && item.item.Id>=8 && item.item.Id <= 12)
             {
-                inventory.AddItem(new Item(item.item), 1);
+                inventory.AddItem(new Item(item.item), 1, true);
                 Destroy(other.gameObject);
             }
-            else if (isPresentExp)
+            else if(isPresent && !(item.item.Id >= 8 && item.item.Id <= 12))
+            {
+                inventory.AddItem(new Item(item.item), 1, false);
+                Destroy(other.gameObject);
+
+            }
+            else if (isPresentExp && item.item.Id >= 8 && item.item.Id <= 12)
             {
 
-                expandedInventory.AddItem(new Item(item.item), 1);
+                expandedInventory.AddItem(new Item(item.item), 1,true);
+                Destroy(other.gameObject);
+                print("added to expanded");
+            }
+            else if (isPresentExp && !(item.item.Id >= 8 && item.item.Id <= 12))
+            {
+
+                expandedInventory.AddItem(new Item(item.item), 1, false);
                 Destroy(other.gameObject);
                 print("added to expanded");
             }
             else
             {
-                if (freeSlotsHotBar == 0 && freeSlotsExpanded > 0)
+                if (freeSlotsHotBar == 0 && freeSlotsExpanded > 0 && 
+                    item.item.Id >= 8 && item.item.Id <= 12)
                 {
-                    expandedInventory.AddItem(new Item(item.item), 1);
+                    expandedInventory.AddItem(new Item(item.item), 1,true);
+                    Destroy(other.gameObject);
+                    print("space in expanded");
+                }
+                else if (freeSlotsHotBar == 0 && freeSlotsExpanded > 0 &&
+                   !( item.item.Id >= 8 && item.item.Id <= 12))
+                {
+                    expandedInventory.AddItem(new Item(item.item), 1, false);
                     Destroy(other.gameObject);
                     print("space in expanded");
                 }
@@ -71,9 +115,14 @@ public class PlayerScript : MonoBehaviour
                 {
                     print("No more space left");
                 }
-                else
+                else if(item.item.Id >= 8 && item.item.Id <= 12)
                 {
-                    inventory.AddItem(new Item(item.item), 1);
+                    inventory.AddItem(new Item(item.item), 1,true);
+                    Destroy(other.gameObject);
+                }
+                else 
+                {
+                    inventory.AddItem(new Item(item.item), 1, false);
                     Destroy(other.gameObject);
                 }
             }
