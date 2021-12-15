@@ -1221,6 +1221,41 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &331832406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 331832407}
+  m_Layer: 5
+  m_Name: Special slots parent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &331832407
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331832406}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1196164705}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &446051323
 GameObject:
   m_ObjectHideFlags: 0
@@ -2724,17 +2759,25 @@ MonoBehaviour:
   X_SPACE_BETWEEN_ITEM: 55
   NUMBER_OF_COLUMN: 7
   Y_SPACE_BETWEEN_ITEMS: 55
+  X_START_SPECIAL: -555
+  Y_START_SPECIAL: 300
+  X_SPACE_BETWEEN_ITEM_SPECIAL: 721
+  NUMBER_OF_COLUMN_SPECIAL: 2
+  Y_SPACE_BETWEEN_ITEMS_SPECIAL: 200
   IsExpanded: 0
   idClicked: 0
   isOnInfo: 0
   discarded: 0
   inventory: {fileID: 11400000, guid: 3578e50129ec76c47a2b39fc3bf395b9, type: 2}
   expandedInventory: {fileID: 11400000, guid: 55c937074604ffc4eaee097a2b3588fd, type: 2}
+  specialInventory: {fileID: 11400000, guid: b403413ab20413d4d9737a9f9d8c01c7, type: 2}
   inventoryPrefab: {fileID: 1891953696804986358, guid: eb9a241e6920e1243874f1d279871395, type: 3}
+  SpecialInventoryPrefab: {fileID: 2494367252627193115, guid: c32827b3570aea44283d05a849a02406, type: 3}
   expandButton: {fileID: 132603187}
   floatingJoystick: {fileID: 856673640}
   expanded: {fileID: 1196164704}
   expandedMask: {fileID: 894154601}
+  specialSlotsParent: {fileID: 331832406}
   inventoryObject: {fileID: 1048378736}
   capience: {fileID: 1661209933}
   popup: {fileID: 2946085315934379143, guid: 063f2156fbb97f84ba805fc0ef08afda, type: 3}
@@ -3180,6 +3223,7 @@ RectTransform:
   - {fileID: 1523152083}
   - {fileID: 1661209934}
   - {fileID: 1696018887}
+  - {fileID: 331832407}
   m_Father: {fileID: 503716842}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6408,6 +6452,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: 3578e50129ec76c47a2b39fc3bf395b9, type: 2}
   expandedInventory: {fileID: 11400000, guid: 55c937074604ffc4eaee097a2b3588fd, type: 2}
+  specialInventory: {fileID: 11400000, guid: b403413ab20413d4d9737a9f9d8c01c7, type: 2}
   layerMask:
     serializedVersion: 2
     m_Bits: 0
