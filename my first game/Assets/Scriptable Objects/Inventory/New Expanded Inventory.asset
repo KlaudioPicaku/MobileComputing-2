@@ -10,254 +10,352 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c1d5db2dfa01ec4ea93691f85816644, type: 3}
-  m_Name: New Expanded Inventory
+  m_Name: 
   m_EditorClassIdentifier: 
   savePath: /expandedInventory.save
-  database: {fileID: 11400000, guid: 02ec7b2923cfe2a41a9e45cb6799d8a6, type: 2}
+  database: {fileID: 11400000, guid: 310001e1edb071543a04e0ad6eb1f7fc, type: 2}
   Container:
     Items:
     - ID: -759
       item:
         Name: 
         Id: -759
+        isSpecial: 0
       amount: 0
-    - ID: 2
+      isSpecial: 0
+    - ID: 5
       item:
-        Name: EnergyPotion
-        Id: 2
-      amount: 2
+        Name: New Blue Feather
+        Id: 5
+        isSpecial: 1
+      amount: 1
+      isSpecial: 0
     - ID: -1012
       item:
         Name: 
         Id: -1012
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -1265
       item:
         Name: 
         Id: -1265
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -1518
       item:
         Name: 
         Id: -1518
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -1771
       item:
         Name: 
         Id: -1771
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -2024
       item:
         Name: 
         Id: -2024
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -2277
       item:
         Name: 
         Id: -2277
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -2530
       item:
         Name: 
         Id: -2530
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -2783
       item:
         Name: 
         Id: -2783
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -3036
       item:
         Name: 
         Id: -3036
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -3289
       item:
         Name: 
         Id: -3289
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -3542
       item:
         Name: 
         Id: -3542
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -3795
       item:
         Name: 
         Id: -3795
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -4048
       item:
         Name: 
         Id: -4048
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -4301
       item:
         Name: 
         Id: -4301
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -4554
       item:
         Name: 
         Id: -4554
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -4807
       item:
         Name: 
         Id: -4807
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -5060
       item:
         Name: 
         Id: -5060
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -5313
       item:
         Name: 
         Id: -5313
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -5566
       item:
         Name: 
         Id: -5566
+        isSpecial: 0
       amount: 0
-    - ID: 7
-      item:
-        Name: Totem
-        Id: 7
-      amount: 2
+      isSpecial: 0
     - ID: -5819
       item:
         Name: 
         Id: -5819
+        isSpecial: 0
       amount: 0
-    - ID: 6
-      item:
-        Name: Note
-        Id: 6
-      amount: 2
+      isSpecial: 0
     - ID: -6072
       item:
         Name: 
         Id: -6072
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -6325
       item:
         Name: 
         Id: -6325
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -6578
       item:
         Name: 
         Id: -6578
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -6831
       item:
         Name: 
         Id: -6831
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -7084
       item:
         Name: 
         Id: -7084
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -7337
       item:
         Name: 
         Id: -7337
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -7590
       item:
         Name: 
         Id: -7590
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -7843
       item:
         Name: 
         Id: -7843
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -8096
       item:
         Name: 
         Id: -8096
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -8349
       item:
         Name: 
         Id: -8349
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -8602
       item:
         Name: 
         Id: -8602
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -8855
       item:
         Name: 
         Id: -8855
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -9108
       item:
         Name: 
         Id: -9108
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -9361
       item:
         Name: 
         Id: -9361
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -9614
       item:
         Name: 
         Id: -9614
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -9867
       item:
         Name: 
         Id: -9867
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -10120
       item:
         Name: 
         Id: -10120
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -10373
       item:
         Name: 
         Id: -10373
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -10626
       item:
         Name: 
         Id: -10626
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -10879
       item:
         Name: 
         Id: -10879
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -11132
       item:
         Name: 
         Id: -11132
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -11385
       item:
         Name: 
         Id: -11385
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -11638
       item:
         Name: 
         Id: -11638
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -11891
       item:
         Name: 
         Id: -11891
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
     - ID: -12144
       item:
         Name: 
         Id: -12144
+        isSpecial: 0
       amount: 0
+      isSpecial: 0
+    - ID: -12397
+      item:
+        Name: 
+        Id: -12397
+        isSpecial: 0
+      amount: 0
+      isSpecial: 0
+    - ID: -12650
+      item:
+        Name: 
+        Id: -12650
+        isSpecial: 0
+      amount: 0
+      isSpecial: 0

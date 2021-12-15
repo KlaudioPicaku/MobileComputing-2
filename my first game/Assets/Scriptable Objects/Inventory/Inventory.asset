@@ -12,42 +12,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aa70ec9f28847148acf29ccadd0b6d0, type: 3}
   m_Name: Inventory
   m_EditorClassIdentifier: 
-  savePath: 
-  database: {fileID: 11400000, guid: 02ec7b2923cfe2a41a9e45cb6799d8a6, type: 2}
+  savePath: /inventory.save
+  database: {fileID: 11400000, guid: 310001e1edb071543a04e0ad6eb1f7fc, type: 2}
   Container:
     Items:
     - ID: 4
       item:
         Name: Golden Key
         Id: 4
-      amount: 3
+        isSpecial: 0
+      amount: 1
+      isSpecial: 0
     - ID: 3
       item:
         Name: Food
         Id: 3
-      amount: 3
-    - ID: 5
+        isSpecial: 0
+      amount: 1
+      isSpecial: 0
+    - ID: 7
       item:
-        Name: New Weapon
-        Id: 5
-      amount: 3
+        Name: Note
+        Id: 7
+        isSpecial: 0
+      amount: 1
+      isSpecial: 0
+    - ID: 2
+      item:
+        Name: EnergyPotion
+        Id: 2
+        isSpecial: 0
+      amount: 1
+      isSpecial: 0
     - ID: 1
       item:
         Name: Collectable
         Id: 1
-      amount: 3
+        isSpecial: 0
+      amount: 1
+      isSpecial: 0
     - ID: 6
       item:
-        Name: Note
+        Name: New Weapon
         Id: 6
-      amount: 3
-    - ID: -253
+        isSpecial: 0
+      amount: 1
+      isSpecial: 0
+    - ID: 8
       item:
-        Name: 
-        Id: -253
-      amount: 0
-    - ID: -506
-      item:
-        Name: 
-        Id: -506
-      amount: 0
+        Name: Totem
+        Id: 8
+        isSpecial: 0
+      amount: 1
+      isSpecial: 1

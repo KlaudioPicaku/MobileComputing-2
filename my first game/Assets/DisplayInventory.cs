@@ -349,7 +349,7 @@ public class DisplayInventory : MonoBehaviour
                             }
                         }
                     }
-                    else
+                    else if (!flag)
                     {
                         for (int k = 0; k < specialInventory.Container.Items.Length; i++)
                         {
