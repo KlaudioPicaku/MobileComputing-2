@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using System;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 public class DisplayInventory : MonoBehaviour
 {
