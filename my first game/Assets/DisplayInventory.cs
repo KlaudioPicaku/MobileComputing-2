@@ -21,6 +21,7 @@ public class DisplayInventory : MonoBehaviour
     [SerializeField] bool isPopped = false;
     [SerializeField] bool swapped = false;
     bool isOnSwap = false;
+    bool invalidFlag = false;
 
     [SerializeField] float X_START;
     [SerializeField] float Y_START;
@@ -279,6 +280,8 @@ public class DisplayInventory : MonoBehaviour
         Debug.Log(itemId);
         InventorySlot temp;
         bool flag = false;
+        invalidFlag = false;
+
         for (int i = 0; i < inventory.Container.Items.Length; i++)
         {
             if (inventory.Container.Items[i].ID == IDtoBeSwapped)
@@ -314,13 +317,22 @@ public class DisplayInventory : MonoBehaviour
                     {
                         for (int k = 0; k < specialInventory.Container.Items.Length; i++)
                         {
-                            if (specialInventory.Container.Items[k].ID == itemId && temp.isSpecial)
+                            if (specialInventory.Container.Items[k].ID == itemId )
                             {
-                                inventory.Container.Items[i] = specialInventory.Container.Items[k];
-                                specialInventory.Container.Items[k] = temp;
-                                flag = true;
-                                isOnSwap = false;
-                                break;
+                                if (temp.isSpecial)
+                                {
+                                    inventory.Container.Items[i] = specialInventory.Container.Items[k];
+                                    specialInventory.Container.Items[k] = temp;
+                                    flag = true;
+                                    isOnSwap = false;
+                                    break;
+                                }
+                                else
+                                {
+                                    flag = true;
+                                    invalidFlag = true;
+                                    break;
+                                }
                             }
                         }
                     }
@@ -373,13 +385,22 @@ public class DisplayInventory : MonoBehaviour
                             for (int k = 0; k < specialInventory.Container.Items.Length; i++)
                             {
                                 bool test = temp.item.isSpecial;
-                                if (specialInventory.Container.Items[k].ID == itemId && temp.item.isSpecial)
+                                if (specialInventory.Container.Items[k].ID == itemId )
                                 {
-                                    expandedInventory.Container.Items[i] = specialInventory.Container.Items[k];
-                                    specialInventory.Container.Items[k] = temp;
-                                    flag = true;
-                                    isOnSwap = false;
-                                    break;
+                                    if (temp.item.isSpecial)
+                                    {
+                                        expandedInventory.Container.Items[i] = specialInventory.Container.Items[k];
+                                        specialInventory.Container.Items[k] = temp;
+                                        flag = true;
+                                        isOnSwap = false;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        flag = true;
+                                        invalidFlag = true;
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -429,13 +450,22 @@ public class DisplayInventory : MonoBehaviour
                             for (int k = 0; k < specialInventory.Container.Items.Length; k++)
                             {
                                 bool test = temp.item.isSpecial;
-                                if (specialInventory.Container.Items[k].ID == itemId && temp.item.isSpecial)
+                                if (specialInventory.Container.Items[k].ID == itemId )
                                 {
-                                    specialInventory.Container.Items[i] = specialInventory.Container.Items[k];
-                                    specialInventory.Container.Items[k] = temp;
-                                    flag = true;
-                                    isOnSwap = false;
-                                    break;
+                                    if (temp.item.isSpecial)
+                                    {
+                                        specialInventory.Container.Items[i] = specialInventory.Container.Items[k];
+                                        specialInventory.Container.Items[k] = temp;
+                                        flag = true;
+                                        isOnSwap = false;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        flag = true;
+                                        invalidFlag = true;
+                                        break;
+                                    }
                                 }
 
                             }
