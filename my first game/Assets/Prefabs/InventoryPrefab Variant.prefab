@@ -30,6 +30,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventoryPrefab Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 5669491157827975006, guid: eb9a241e6920e1243874f1d279871395, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5961180988126853179, guid: eb9a241e6920e1243874f1d279871395, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

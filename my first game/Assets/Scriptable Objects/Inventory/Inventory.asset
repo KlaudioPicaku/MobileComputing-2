@@ -16,13 +16,13 @@ MonoBehaviour:
   database: {fileID: 11400000, guid: 310001e1edb071543a04e0ad6eb1f7fc, type: 2}
   Container:
     Items:
-    - ID: 4
+    - ID: -253
       item:
-        Name: Golden Key
-        Id: 4
+        Name: 
+        Id: -253
         isSpecial: 0
-      amount: 1
-      isSpecial: 0
+      amount: 0
+      isSpecial: 1
     - ID: 3
       item:
         Name: Food
@@ -37,17 +37,17 @@ MonoBehaviour:
         isSpecial: 0
       amount: 1
       isSpecial: 0
-    - ID: 2
-      item:
-        Name: EnergyPotion
-        Id: 2
-        isSpecial: 0
-      amount: 1
-      isSpecial: 0
     - ID: 1
       item:
         Name: Collectable
         Id: 1
+        isSpecial: 0
+      amount: 1
+      isSpecial: 0
+    - ID: 2
+      item:
+        Name: EnergyPotion
+        Id: 2
         isSpecial: 0
       amount: 1
       isSpecial: 0
@@ -58,10 +58,10 @@ MonoBehaviour:
         isSpecial: 0
       amount: 1
       isSpecial: 0
-    - ID: 8
+    - ID: 5
       item:
         Name: Totem
-        Id: 8
+        Id: 5
         isSpecial: 0
       amount: 1
-      isSpecial: 1
+      isSpecial: 0

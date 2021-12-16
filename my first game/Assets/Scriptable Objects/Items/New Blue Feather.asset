@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a68eb266cb1754b4d82111a305388923, type: 3}
   m_Name: New Blue Feather
   m_EditorClassIdentifier: 
-  Id: 5
+  Id: 8
   uiDisplay: {fileID: -41642693152946813, guid: cd1fbd75aa03ed04aaeb4f94dab2bf41, type: 3}
   type: 8
   description: 

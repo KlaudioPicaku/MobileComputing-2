@@ -2817,7 +2817,6 @@ MonoBehaviour:
   IDtoBeSwapped: 0
   created: 0
   isPopped: 0
-  isOnSwap: 0
   swapped: 0
   X_START: -370
   Y_START: 0
@@ -2851,6 +2850,7 @@ MonoBehaviour:
   minimiseButton: {fileID: 1821366553}
   contentInfoParent: {fileID: 1696018886}
   contentInfo: {fileID: 187588579}
+  defaultSprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!114 &1048378739
 MonoBehaviour:
   m_ObjectHideFlags: 0
