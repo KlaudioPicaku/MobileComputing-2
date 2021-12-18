@@ -15,5 +15,5 @@ MonoBehaviour:
   Id: 8
   uiDisplay: {fileID: -41642693152946813, guid: cd1fbd75aa03ed04aaeb4f94dab2bf41, type: 3}
   type: 8
-  description: 
+  description: This item grants the player a special ability.
   isSpecial: 1

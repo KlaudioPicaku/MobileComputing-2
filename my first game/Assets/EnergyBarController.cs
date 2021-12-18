@@ -13,11 +13,11 @@ public class EnergyBarController : MonoBehaviour
     }
     public void SetEnergy(float energy)
     {
-        if (slider.value < 100)
+        if (slider.IsActive() &&  slider.value < 100)
         {
             slider.value = slider.value + energy;
         }
-        else if (slider.value==100 && energy < 0) 
+        else if (slider.IsActive() && slider.value==100 && energy < 0) 
         {
             slider.value = slider.value + energy;
         }
@@ -32,6 +32,10 @@ public class EnergyBarController : MonoBehaviour
     }
     public float GetEnergy()
     {
-        return slider.value;
+        if (slider.IsActive())
+        {
+            return slider.value;
+        }
+        return 0f;
     }
 }

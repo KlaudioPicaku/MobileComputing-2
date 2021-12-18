@@ -7,6 +7,11 @@ public class GroundItem : MonoBehaviour,ISerializationCallbackReceiver
 {
     public ItemObject item;
 
+    //private void Awake()
+    //{
+    //    Destroy(this.gameObject, 35f);
+    //}
+
     public void OnAfterDeserialize()
     {
     }
@@ -16,4 +21,5 @@ public class GroundItem : MonoBehaviour,ISerializationCallbackReceiver
         GetComponentInChildren<SpriteRenderer>().sprite = item.uiDisplay;
         EditorUtility.SetDirty(GetComponentInChildren<SpriteRenderer>());
     }
+    
 }

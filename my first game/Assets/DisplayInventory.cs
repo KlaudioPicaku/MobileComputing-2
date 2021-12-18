@@ -59,7 +59,9 @@ public class DisplayInventory : MonoBehaviour
     [SerializeField] GameObject minimiseButton;
     [SerializeField] GameObject contentInfoParent;
     [SerializeField] GameObject contentInfo;
+    [SerializeField] GameObject warning;
     [SerializeField] Sprite defaultSprite;
+    [SerializeField] Color specialColor;
 
     Dictionary<GameObject, InventorySlot> itemsDisplayed = new Dictionary<GameObject, InventorySlot>();
     Dictionary<GameObject, InventorySlot> itemsDisplayedExpanded = new Dictionary<GameObject, InventorySlot>();
@@ -71,6 +73,8 @@ public class DisplayInventory : MonoBehaviour
         inventoryPrefab.transform.GetChild(2).gameObject.SetActive(false);
         expanded.SetActive(false);
         capacity = inventory.isFree() + expandedInventory.isFree();
+        Color temporarycolor = SpecialInventoryPrefab.GetComponent<Image>().color;
+        specialColor = new Color(temporarycolor.r, temporarycolor.g, temporarycolor.b, temporarycolor.a);
         //CreateIDs();
         SerializeSlots();
         CreateSlots();
@@ -92,15 +96,22 @@ public class DisplayInventory : MonoBehaviour
                 if (_slot.Value.ID >= 0)
                 {
                     _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[_slot.Value.item.Id].uiDisplay;
-                    _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
-                    _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = _slot.Value.amount == 1 ? "" : _slot.Value.amount.ToString("n0");
+                    if (!(_slot.Value.ID >= 8 && _slot.Value.ID <= 8))
+                    {
+                        _slot.Key.transform.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
+                    }
+                    else
+                    {
+                        _slot.Key.transform.GetComponentInChildren<Image>().color = specialColor;
+                    }
+                    _slot.Key.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = _slot.Value.amount == 1 ? "" : _slot.Value.amount.ToString("n0");
 
                 }
                 else
                 {
-                    _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
-                    _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
-                    _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "";
+                    _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = defaultSprite;
+                    _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0.5f);
+                    _slot.Key.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
                 }
             }
         }
@@ -112,14 +123,21 @@ public class DisplayInventory : MonoBehaviour
                 if (_slot.Value.ID >= 0)
                 {
                     _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[_slot.Value.item.Id].uiDisplay;
-                    _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
-                    _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = _slot.Value.amount == 1 ? "" : _slot.Value.amount.ToString("n0");
+                    if (!(_slot.Value.ID >= 8 && _slot.Value.ID <= 8))
+                    {
+                        _slot.Key.transform.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+                    }
+                    else
+                    {
+                        _slot.Key.transform.GetComponent<Image>().color = specialColor;
+                    }
+                    _slot.Key.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = _slot.Value.amount == 1 ? "" : _slot.Value.amount.ToString("n0");
                 }
                 else
                 {
-                    _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
-                    _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
-                    _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "";
+                    _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = defaultSprite;
+                    _slot.Key.transform.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0.5f);
+                    _slot.Key.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
                 }
             }
 
@@ -129,13 +147,13 @@ public class DisplayInventory : MonoBehaviour
                 {
                     _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[_slot.Value.item.Id].uiDisplay;
                     _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
-                    _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = _slot.Value.amount == 1 ? "" : _slot.Value.amount.ToString("n0");
+                    _slot.Key.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = _slot.Value.amount == 1 ? "" : _slot.Value.amount.ToString("n0");
                 }
                 else
                 {
                     _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = defaultSprite;
-                    _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
-                    _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "";
+                    _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1f, 1f, 1f, 0.5f);
+                    _slot.Key.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
                 }
             }
             capience.GetComponentInChildren<TextMeshProUGUI>().text = "Free " + capacity + "/56";
@@ -317,7 +335,7 @@ public class DisplayInventory : MonoBehaviour
                     {
                         for (int k = 0; k < specialInventory.Container.Items.Length; i++)
                         {
-                            if (specialInventory.Container.Items[k].ID == itemId )
+                            if (specialInventory.Container.Items[k].ID == itemId)
                             {
                                 if (temp.isSpecial)
                                 {
@@ -329,6 +347,8 @@ public class DisplayInventory : MonoBehaviour
                                 }
                                 else
                                 {
+                                    GameObject warningWindow = Instantiate(warning, this.transform.parent) as GameObject;
+                                    warningWindow.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Attention: You can't put non special items in a special slot!";
                                     flag = true;
                                     invalidFlag = true;
                                     break;
@@ -384,8 +404,7 @@ public class DisplayInventory : MonoBehaviour
                         {
                             for (int k = 0; k < specialInventory.Container.Items.Length; i++)
                             {
-                                bool test = temp.item.isSpecial;
-                                if (specialInventory.Container.Items[k].ID == itemId )
+                                if (specialInventory.Container.Items[k].ID == itemId)
                                 {
                                     if (temp.item.isSpecial)
                                     {
@@ -397,6 +416,8 @@ public class DisplayInventory : MonoBehaviour
                                     }
                                     else
                                     {
+                                        GameObject warningWindow = Instantiate(warning, this.transform.parent) as GameObject;
+                                        warningWindow.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Attention: You can't put non special items in a special slot!";
                                         flag = true;
                                         invalidFlag = true;
                                         break;
@@ -422,13 +443,24 @@ public class DisplayInventory : MonoBehaviour
                     temp = specialInventory.Container.Items[i];
                     for (int j = 0; j < inventory.Container.Items.Length; j++)
                     {
-                        if (inventory.Container.Items[j].ID == itemId && (inventory.Container.Items[j].item.isSpecial || itemId < 0))
+                        if (inventory.Container.Items[j].ID == itemId)
                         {
-                            specialInventory.Container.Items[i] = inventory.Container.Items[j];
-                            inventory.Container.Items[j] = temp;
-                            flag = true;
-                            isOnSwap = false;
-                            break;
+                            if (inventory.Container.Items[j].item.isSpecial || itemId < 0)
+                            {
+                                specialInventory.Container.Items[i] = inventory.Container.Items[j];
+                                inventory.Container.Items[j] = temp;
+                                flag = true;
+                                isOnSwap = false;
+                                break;
+                            }
+                            else
+                            {
+                                GameObject warningWindow = Instantiate(warning, this.transform.parent) as GameObject;
+                                warningWindow.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Attention: You can't put non special items in a special slot!";
+                                flag = true;
+                                invalidFlag = true;
+                                break;
+                            }
                         }
                     }
                     if (!flag)
@@ -436,13 +468,24 @@ public class DisplayInventory : MonoBehaviour
                         for (int j = 0; j < expandedInventory.Container.Items.Length; j++)
                         {
 
-                            if (expandedInventory.Container.Items[j].ID == itemId && (expandedInventory.Container.Items[j].item.isSpecial || itemId < 0))
+                            if (expandedInventory.Container.Items[j].ID == itemId)
                             {
-                                specialInventory.Container.Items[i] = expandedInventory.Container.Items[j];
-                                expandedInventory.Container.Items[j] = temp;
-                                flag = true;
-                                isOnSwap = false;
-                                break;
+                                if (expandedInventory.Container.Items[j].item.isSpecial || itemId < 0)
+                                {
+                                    specialInventory.Container.Items[i] = expandedInventory.Container.Items[j];
+                                    expandedInventory.Container.Items[j] = temp;
+                                    flag = true;
+                                    isOnSwap = false;
+                                    break;
+                                }
+                                else
+                                {
+                                    GameObject warningWindow = Instantiate(warning, this.transform.parent) as GameObject;
+                                    warningWindow.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Attention: You can't put non special items in a special slot!";
+                                    flag = true;
+                                    invalidFlag = true;
+                                    break;
+                                }
                             }
                         }
                         if (!flag)
@@ -450,7 +493,7 @@ public class DisplayInventory : MonoBehaviour
                             for (int k = 0; k < specialInventory.Container.Items.Length; k++)
                             {
                                 bool test = temp.item.isSpecial;
-                                if (specialInventory.Container.Items[k].ID == itemId )
+                                if (specialInventory.Container.Items[k].ID == itemId)
                                 {
                                     if (temp.item.isSpecial)
                                     {
@@ -462,6 +505,8 @@ public class DisplayInventory : MonoBehaviour
                                     }
                                     else
                                     {
+                                        GameObject warningWindow = Instantiate(warning, this.transform.parent) as GameObject;
+                                        warningWindow.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Attention: You can't put non special items in a special slot!";
                                         flag = true;
                                         invalidFlag = true;
                                         break;
@@ -501,6 +546,8 @@ public class DisplayInventory : MonoBehaviour
         obj.transform.GetChild(2).gameObject.SetActive(false);
         obj.GetComponent<Button>().onClick.RemoveAllListeners();
         obj.GetComponent<Button>().onClick.AddListener(() => OnClick(obj, itemId));
+        setMinimized();
+        setExpanded();
 
     }
     private void OnClick(GameObject obj, int itemId)
@@ -517,7 +564,14 @@ public class DisplayInventory : MonoBehaviour
 
             popupWindow.GetComponentInChildren<ContentSizeFitter>().transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => swapper(obj, popupWindow, itemId));
             popupWindow.GetComponentInChildren<ContentSizeFitter>().transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => Info(obj, popupWindow, itemId));
-            popupWindow.GetComponentInChildren<ContentSizeFitter>().transform.GetChild(3).GetComponent<Button>().onClick.AddListener(() => Discard(obj, popupWindow, itemId));
+            if (!(itemId >= 8 && itemId <= 12))
+            {
+                popupWindow.GetComponentInChildren<ContentSizeFitter>().transform.GetChild(3).GetComponent<Button>().onClick.AddListener(() => Discard(obj, popupWindow, itemId));
+            }
+            else
+            {
+                popupWindow.GetComponentInChildren<ContentSizeFitter>().transform.GetChild(3).GetComponent<Button>().enabled = false;
+            }
         }
         else if (isOnSwap && IsExpanded)
         {
@@ -627,6 +681,17 @@ public class DisplayInventory : MonoBehaviour
                 break;
             }
         }
+        foreach (var item in specialItemsPresent)
+        {
+            if (item.Value.ID >= 0 && item.Value.item.Id == itemId)
+            {
+                item.Key.transform.GetChild(2).gameObject.SetActive(true);
+                contentInfoParent.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1f, 1f, 1f, 1f);
+                contentInfoParent.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[item.Value.item.Id].uiDisplay;
+                contentInfo.GetComponentInChildren<TextMeshProUGUI>().text = inventory.database.GetItem[item.Value.item.Id].description;
+                break;
+            }
+        }
 
     }
     private void isWindowPopped(GameObject obj)
@@ -659,7 +724,7 @@ public class DisplayInventory : MonoBehaviour
         expanded.SetActive(true);
         DestroyMin();
         CreateSlots();
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
     }
     private void DestroyMin()
     {

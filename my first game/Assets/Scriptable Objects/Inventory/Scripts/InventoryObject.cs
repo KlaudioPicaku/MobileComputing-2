@@ -35,6 +35,19 @@ public class InventoryObject : ScriptableObject
         SetEmptySlot(_item, _amount,_isSpecial);
 
     }
+    public bool isPresent(int itemId)
+    {
+        bool flag = false;
+        for (int i = 0; i < Container.Items.Length; i++)
+        {
+            if (Container.Items[i].ID == itemId)
+            {
+                flag = true;
+                break;
+            }
+        }
+        return flag;
+    }
     public InventorySlot SetEmptySlot(Item _item, int _amount,bool _isSpecial)
     {
         for (int i = 0; i < Container.Items.Length; i++)

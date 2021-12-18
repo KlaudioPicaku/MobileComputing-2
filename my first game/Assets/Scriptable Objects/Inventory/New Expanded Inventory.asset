@@ -16,6 +16,20 @@ MonoBehaviour:
   database: {fileID: 11400000, guid: 310001e1edb071543a04e0ad6eb1f7fc, type: 2}
   Container:
     Items:
+    - ID: 0
+      item:
+        Name: Coin
+        Id: 0
+        isSpecial: 0
+      amount: 2
+      isSpecial: 0
+    - ID: -506
+      item:
+        Name: 
+        Id: -506
+        isSpecial: 0
+      amount: 0
+      isSpecial: 1
     - ID: -759
       item:
         Name: 
@@ -29,14 +43,14 @@ MonoBehaviour:
         Id: -1012
         isSpecial: 0
       amount: 0
-      isSpecial: 1
+      isSpecial: 0
     - ID: -1265
       item:
         Name: 
         Id: -1265
         isSpecial: 0
       amount: 0
-      isSpecial: 1
+      isSpecial: 0
     - ID: -1518
       item:
         Name: 
@@ -51,6 +65,13 @@ MonoBehaviour:
         isSpecial: 0
       amount: 0
       isSpecial: 0
+    - ID: 8
+      item:
+        Name: New Blue Feather
+        Id: 8
+        isSpecial: 1
+      amount: 1
+      isSpecial: 1
     - ID: -2024
       item:
         Name: 
@@ -335,27 +356,6 @@ MonoBehaviour:
       item:
         Name: 
         Id: -12144
-        isSpecial: 0
-      amount: 0
-      isSpecial: 0
-    - ID: -12397
-      item:
-        Name: 
-        Id: -12397
-        isSpecial: 0
-      amount: 0
-      isSpecial: 0
-    - ID: -12650
-      item:
-        Name: 
-        Id: -12650
-        isSpecial: 0
-      amount: 0
-      isSpecial: 0
-    - ID: -12903
-      item:
-        Name: 
-        Id: -12903
         isSpecial: 0
       amount: 0
       isSpecial: 0
