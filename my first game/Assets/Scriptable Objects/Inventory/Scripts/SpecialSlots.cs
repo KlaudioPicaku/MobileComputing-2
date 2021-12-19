@@ -29,6 +29,7 @@ public class SpecialSlots : ScriptableObject
             {
                 Container.Items[i].AddAmount(_amount);
                 Container.Items[i].isSpecial = _isSpecial;
+
                 return;
             }
         }

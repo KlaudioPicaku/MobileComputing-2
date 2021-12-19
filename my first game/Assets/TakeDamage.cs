@@ -48,6 +48,10 @@ public class TakeDamage : MonoBehaviour
             animator.SetTrigger("KnockBack");
             //KnockBackPlayer();
         }
+        else
+        {
+            previousHealth = currentHealth;
+        }
     }
     void StopKnockBack()
     {

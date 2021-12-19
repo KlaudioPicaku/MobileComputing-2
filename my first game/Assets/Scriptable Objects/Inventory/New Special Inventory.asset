@@ -21,6 +21,7 @@ MonoBehaviour:
         Name: New Blue Feather
         Id: 8
         isSpecial: 1
+        itemType: 8
       amount: 1
       isSpecial: 1
     - ID: -13156
@@ -28,6 +29,7 @@ MonoBehaviour:
         Name: 
         Id: -13156
         isSpecial: 0
+        itemType: 0
       amount: 0
       isSpecial: 1
     - ID: -13409
@@ -35,6 +37,7 @@ MonoBehaviour:
         Name: 
         Id: -13409
         isSpecial: 0
+        itemType: 0
       amount: 0
       isSpecial: 1
     - ID: -13662
@@ -42,5 +45,6 @@ MonoBehaviour:
         Name: 
         Id: -13662
         isSpecial: 0
+        itemType: 0
       amount: 0
       isSpecial: 1

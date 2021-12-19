@@ -51,6 +51,9 @@ public class DisplayInventory : MonoBehaviour
     [SerializeField] GameObject expandedMask;
     [SerializeField] GameObject specialSlotsParent;
 
+    [SerializeField] HealthBarController healthGainer;
+    //[SerializeField] EnergyBarController energyGainer;
+
     [SerializeField] GameObject inventoryObject;
     [SerializeField] GameObject capience;
     [SerializeField] GameObject popup;
@@ -60,8 +63,12 @@ public class DisplayInventory : MonoBehaviour
     [SerializeField] GameObject contentInfoParent;
     [SerializeField] GameObject contentInfo;
     [SerializeField] GameObject warning;
+    [SerializeField] GameObject healingPrefab;
+    [SerializeField] GameObject playerOverHeadIconsParent;
+
     [SerializeField] Sprite defaultSprite;
     [SerializeField] Color specialColor;
+
 
     Dictionary<GameObject, InventorySlot> itemsDisplayed = new Dictionary<GameObject, InventorySlot>();
     Dictionary<GameObject, InventorySlot> itemsDisplayedExpanded = new Dictionary<GameObject, InventorySlot>();
@@ -99,6 +106,7 @@ public class DisplayInventory : MonoBehaviour
                     if (!(_slot.Value.ID >= 8 && _slot.Value.ID <= 8))
                     {
                         _slot.Key.transform.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
+                        
                     }
                     else
                     {
@@ -120,6 +128,7 @@ public class DisplayInventory : MonoBehaviour
 
             foreach (KeyValuePair<GameObject, InventorySlot> _slot in itemsDisplayedExpanded)
             {
+                Debug.Log(_slot.Value.ID);
                 if (_slot.Value.ID >= 0)
                 {
                     _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[_slot.Value.item.Id].uiDisplay;
@@ -566,6 +575,7 @@ public class DisplayInventory : MonoBehaviour
             popupWindow.GetComponentInChildren<ContentSizeFitter>().transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => Info(obj, popupWindow, itemId));
             if (!(itemId >= 8 && itemId <= 12))
             {
+                popupWindow.GetComponentInChildren<ContentSizeFitter>().transform.GetChild(0).GetComponent<Button>().onClick.AddListener(() => Use(obj, popupWindow, itemId));
                 popupWindow.GetComponentInChildren<ContentSizeFitter>().transform.GetChild(3).GetComponent<Button>().onClick.AddListener(() => Discard(obj, popupWindow, itemId));
             }
             else
@@ -589,6 +599,92 @@ public class DisplayInventory : MonoBehaviour
                 return;
             }
             onClickDestroy(previousSelected, popupParent.transform.GetChild(0).gameObject, itemId);
+        }
+    }
+    private void Use(GameObject obj, GameObject popupWindow, int itemId)
+    {
+        Destroy(popupWindow);
+        bool flag = true;
+        if (!IsExpanded)
+        {
+            for (int i = 0; i < inventory.Container.Items.Length; i++)
+            {
+                if (inventory.Container.Items[i].ID == itemId)
+                {
+                    string test = inventory.Container.Items[i].item.itemType.ToString();
+                    if (inventory.Container.Items[i].item.itemType.ToString().Equals("Food"))
+                    {
+                        healthGainer.SetHealth(-30);
+                        Instantiate(healingPrefab, playerOverHeadIconsParent.transform);
+                        if (inventory.Container.Items[i].amount == 1)
+                        {
+                            inventory.Container.Items[i].ID = -1;
+                            inventory.Container.Items[i].item.Id = -1;
+                            inventory.Container.Items[i].item.Name = "";
+                            inventory.Container.Items[i].amount = 0;
+                            flag = true;
+                            break;
+                        }
+                        else
+                        {
+                            inventory.Container.Items[i].amount = inventory.Container.Items[i].amount - 1;
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < inventory.Container.Items.Length; i++)
+            {
+                if (inventory.Container.Items[i].ID == itemId)
+                {
+                    if (inventory.Container.Items[i].item.itemType.Equals("Food"))
+                    {
+                        healthGainer.SetHealth(-30);
+                        Instantiate(healingPrefab, playerOverHeadIconsParent.transform);
+                        if (inventory.Container.Items[i].amount == 1)
+                        {
+                            inventory.Container.Items[i].ID = -1;
+                            inventory.Container.Items[i].item.Id = -1;
+                            inventory.Container.Items[i].item.Name = "";
+                            inventory.Container.Items[i].amount = 0;
+                            flag = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (!flag)
+            {
+                for (int i = 0; i < expandedInventory.Container.Items.Length; i++)
+                {
+                    if (expandedInventory.Container.Items[i].ID == itemId)
+                    {
+                        if (expandedInventory.Container.Items[i].item.itemType.Equals("Food"))
+                        {
+                            healthGainer.SetHealth(-30);
+                            Instantiate(healingPrefab, playerOverHeadIconsParent.transform);
+                            if (expandedInventory.Container.Items[i].amount == 1)
+                            {
+                                expandedInventory.Container.Items[i].ID = -1;
+                                expandedInventory.Container.Items[i].item.Id = -1;
+                                expandedInventory.Container.Items[i].item.Name = "";
+                                expandedInventory.Container.Items[i].amount = 0;
+                                flag = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+        if (flag)
+        {
+            SerializeSlots();
+            setExpanded();
+            setMinimized();
         }
     }
     private void Discard(GameObject selected, GameObject popupWindow, int itemId)

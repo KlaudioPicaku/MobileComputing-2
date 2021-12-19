@@ -32,12 +32,9 @@ public class CharacterAttack : MonoBehaviour
         {
             animator.SetBool("IsAttacking", true);
             //animator.SetBool("IsAlerted",true);
-
             Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
-
             foreach (Collider2D enemy in hitEnemies)
             {
-                Debug.Log("We hit" + enemy.name);
                 enemyHealth = enemy.GetComponent<EnemyHealthController>();
                 break;
             }
@@ -48,6 +45,7 @@ public class CharacterAttack : MonoBehaviour
         if (enemyHealth != null)
         {
             enemyHealth.setHealth(Random.Range(5f, 20f));
+            enemyHealth = null;
         }
         return;
     }

@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45b2b8e1250775144a14fa16db8b108f, type: 3}
   m_Name: Note
   m_EditorClassIdentifier: 
-  Id: 6
+  Id: 7
   uiDisplay: {fileID: 3859210772634812571, guid: 4c8b856812c6ce742ae3a85c7cde4296, type: 3}
   type: 7
   description: A very important note you totally should read.
+  isSpecial: 0
   note: 

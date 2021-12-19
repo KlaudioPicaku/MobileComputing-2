@@ -29,10 +29,12 @@ public class Item
     public string Name;
     public int Id;
     public bool isSpecial;
+    public ItemType itemType;
     public Item(ItemObject item)
     {
         Name = item.name;
         Id = item.Id;
         isSpecial = item.isSpecial;
+        itemType = item.type;
     }
 }

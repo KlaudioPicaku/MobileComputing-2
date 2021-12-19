@@ -16,4 +16,5 @@ MonoBehaviour:
   uiDisplay: {fileID: -4924265470664458407, guid: ad65e65656f79e041bdf9143218c3430, type: 3}
   type: 3
   description: Recharges Player Energy
+  isSpecial: 0
   restoreEnergyValue: 100
