@@ -64,7 +64,10 @@ public class DisplayInventory : MonoBehaviour
     [SerializeField] GameObject contentInfo;
     [SerializeField] GameObject warning;
     [SerializeField] GameObject healingPrefab;
+    [SerializeField] GameObject energyGainingPrefab;
     [SerializeField] GameObject playerOverHeadIconsParent;
+
+    [SerializeField] Slider energySlider;
 
     [SerializeField] Sprite defaultSprite;
     [SerializeField] Color specialColor;
@@ -630,7 +633,31 @@ public class DisplayInventory : MonoBehaviour
                             inventory.Container.Items[i].amount = inventory.Container.Items[i].amount - 1;
                         }
                     }
+                    else if (inventory.Container.Items[i].item.itemType.ToString().Equals("Energy"))
+                    {
+                        energySlider.value = 100f;
+                        Instantiate(energyGainingPrefab, playerOverHeadIconsParent.transform);
+                        if (inventory.Container.Items[i].amount == 1)
+                        {
+                            inventory.Container.Items[i].ID = -1;
+                            inventory.Container.Items[i].item.Id = -1;
+                            inventory.Container.Items[i].item.Name = "";
+                            inventory.Container.Items[i].amount = 0;
+                            flag = true;
+                            break;
+                        }
+                        else
+                        {
+                            inventory.Container.Items[i].amount = inventory.Container.Items[i].amount - 1;
+                        }
+                    }
                 }
+            }
+            if (flag)
+            {
+                SerializeSlots();
+                setExpanded();
+                setMinimized();
             }
         }
         else
@@ -652,6 +679,24 @@ public class DisplayInventory : MonoBehaviour
                             flag = true;
                             break;
                         }
+                    }
+                }
+                else if (inventory.Container.Items[i].item.itemType.ToString().Equals("Energy"))
+                {
+                    energySlider.value = 100f;
+                    Instantiate(energyGainingPrefab, playerOverHeadIconsParent.transform);
+                    if (inventory.Container.Items[i].amount == 1)
+                    {
+                        inventory.Container.Items[i].ID = -1;
+                        inventory.Container.Items[i].item.Id = -1;
+                        inventory.Container.Items[i].item.Name = "";
+                        inventory.Container.Items[i].amount = 0;
+                        flag = true;
+                        break;
+                    }
+                    else
+                    {
+                        inventory.Container.Items[i].amount = inventory.Container.Items[i].amount - 1;
                     }
                 }
             }
@@ -676,15 +721,33 @@ public class DisplayInventory : MonoBehaviour
                             }
                         }
                     }
+                    else if (expandedInventory.Container.Items[i].item.itemType.ToString().Equals("Energy"))
+                    {
+                        energySlider.value = 100f;
+                        Instantiate(energyGainingPrefab, playerOverHeadIconsParent.transform);
+                        if (inventory.Container.Items[i].amount == 1)
+                        {
+                            expandedInventory.Container.Items[i].ID = -1;
+                            expandedInventory.Container.Items[i].item.Id = -1;
+                            expandedInventory.Container.Items[i].item.Name = "";
+                            expandedInventory.Container.Items[i].amount = 0;
+                            flag = true;
+                            break;
+                        }
+                        else
+                        {
+                            expandedInventory.Container.Items[i].amount = inventory.Container.Items[i].amount - 1;
+                        }
+                    }
                 }
             }
+            if (flag)
+            {
+                SerializeSlots();
+                setMinimized();
+                setExpanded();
+            }
 
-        }
-        if (flag)
-        {
-            SerializeSlots();
-            setExpanded();
-            setMinimized();
         }
     }
     private void Discard(GameObject selected, GameObject popupWindow, int itemId)
