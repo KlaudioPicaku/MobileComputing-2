@@ -116,6 +116,8 @@ public class DisplayInventory : MonoBehaviour
                         _slot.Key.transform.GetComponentInChildren<Image>().color = specialColor;
                     }
                     _slot.Key.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = _slot.Value.amount == 1 ? "" : _slot.Value.amount.ToString("n0");
+                    _slot.Key.GetComponent<Button>().onClick.RemoveAllListeners();
+                    _slot.Key.GetComponent<Button>().onClick.AddListener(() => OnClick(_slot.Key, _slot.Value.item.Id));
 
                 }
                 else
@@ -123,6 +125,7 @@ public class DisplayInventory : MonoBehaviour
                     _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = defaultSprite;
                     _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0.5f);
                     _slot.Key.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
+                    _slot.Value.isSpecial = false;
                 }
             }
         }
@@ -131,7 +134,6 @@ public class DisplayInventory : MonoBehaviour
 
             foreach (KeyValuePair<GameObject, InventorySlot> _slot in itemsDisplayedExpanded)
             {
-                Debug.Log(_slot.Value.ID);
                 if (_slot.Value.ID >= 0)
                 {
                     _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[_slot.Value.item.Id].uiDisplay;
@@ -144,12 +146,15 @@ public class DisplayInventory : MonoBehaviour
                         _slot.Key.transform.GetComponent<Image>().color = specialColor;
                     }
                     _slot.Key.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = _slot.Value.amount == 1 ? "" : _slot.Value.amount.ToString("n0");
+                    _slot.Key.GetComponent<Button>().onClick.RemoveAllListeners();
+                    _slot.Key.GetComponent<Button>().onClick.AddListener(() => OnClick(_slot.Key, _slot.Value.item.Id));
                 }
                 else
                 {
                     _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = defaultSprite;
                     _slot.Key.transform.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0.5f);
                     _slot.Key.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
+                    _slot.Value.isSpecial = false;
                 }
             }
 
@@ -167,6 +172,8 @@ public class DisplayInventory : MonoBehaviour
                     _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1f, 1f, 1f, 0.5f);
                     _slot.Key.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
                 }
+                _slot.Key.GetComponent<Button>().onClick.RemoveAllListeners();
+                _slot.Key.GetComponent<Button>().onClick.AddListener(() => OnClick(_slot.Key, _slot.Value.item.Id));
             }
             capience.GetComponentInChildren<TextMeshProUGUI>().text = "Free " + capacity + "/56";
 
@@ -276,6 +283,7 @@ public class DisplayInventory : MonoBehaviour
             {
                 inventory.Container.Items[i].ID = l * (-253);
                 inventory.Container.Items[i].item.Id = l * (-253);
+                inventory.Container.Items[i].item.itemType = ItemType.None;
                 l++;
                 j++;
                 m++;
@@ -287,6 +295,7 @@ public class DisplayInventory : MonoBehaviour
             {
                 expandedInventory.Container.Items[k].ID = (j + 1) * (-253);
                 expandedInventory.Container.Items[k].item.Id = (j + 1) * (-253);
+                expandedInventory.Container.Items[k].item.itemType = ItemType.None;
                 j++;
                 m++;
             }
@@ -297,6 +306,7 @@ public class DisplayInventory : MonoBehaviour
             {
                 specialInventory.Container.Items[i].ID = (m + 1) * (-253);
                 specialInventory.Container.Items[i].item.Id = (m + 1) * (-253);
+                specialInventory.Container.Items[i].item.itemType = ItemType.None;
                 m++;
             }
         }
@@ -307,7 +317,6 @@ public class DisplayInventory : MonoBehaviour
     {
 
         idClicked = itemId;
-        Debug.Log(itemId);
         InventorySlot temp;
         bool flag = false;
         invalidFlag = false;
@@ -323,7 +332,9 @@ public class DisplayInventory : MonoBehaviour
                     if (inventory.Container.Items[j].ID == itemId)
                     {
                         inventory.Container.Items[i] = inventory.Container.Items[j];
+                        inventory.Container.Items[i].item.itemType = inventory.Container.Items[j].item.itemType;
                         inventory.Container.Items[j] = temp;
+                        inventory.Container.Items[j].item.itemType = temp.item.itemType;
                         flag = true;
                         isOnSwap = false;
                         break;
@@ -337,7 +348,9 @@ public class DisplayInventory : MonoBehaviour
                         if (expandedInventory.Container.Items[j].ID == itemId)
                         {
                             inventory.Container.Items[i] = expandedInventory.Container.Items[j];
+                            inventory.Container.Items[i].item.itemType = expandedInventory.Container.Items[j].item.itemType;
                             expandedInventory.Container.Items[j] = temp;
+                            expandedInventory.Container.Items[j].item.itemType = temp.item.itemType;
                             flag = true;
                             isOnSwap = false;
                             break;
@@ -352,7 +365,9 @@ public class DisplayInventory : MonoBehaviour
                                 if (temp.isSpecial)
                                 {
                                     inventory.Container.Items[i] = specialInventory.Container.Items[k];
+                                    inventory.Container.Items[i].item.itemType = specialInventory.Container.Items[k].item.itemType;
                                     specialInventory.Container.Items[k] = temp;
+                                    specialInventory.Container.Items[k].item.itemType = temp.item.itemType;
                                     flag = true;
                                     isOnSwap = false;
                                     break;
@@ -392,7 +407,9 @@ public class DisplayInventory : MonoBehaviour
                         if (inventory.Container.Items[j].ID == itemId)
                         {
                             expandedInventory.Container.Items[i] = inventory.Container.Items[j];
+                            expandedInventory.Container.Items[i].item.itemType = inventory.Container.Items[j].item.itemType;
                             inventory.Container.Items[j] = temp;
+                            inventory.Container.Items[j].item.itemType = temp.item.itemType;
                             flag = true;
                             isOnSwap = false;
                             break;
@@ -406,7 +423,9 @@ public class DisplayInventory : MonoBehaviour
                             if (expandedInventory.Container.Items[j].ID == itemId)
                             {
                                 expandedInventory.Container.Items[i] = expandedInventory.Container.Items[j];
+                                expandedInventory.Container.Items[i].item.itemType = expandedInventory.Container.Items[j].item.itemType;
                                 expandedInventory.Container.Items[j] = temp;
+                                expandedInventory.Container.Items[j].item.itemType = temp.item.itemType;
                                 flag = true;
                                 isOnSwap = false;
                                 break;
@@ -421,7 +440,9 @@ public class DisplayInventory : MonoBehaviour
                                     if (temp.item.isSpecial)
                                     {
                                         expandedInventory.Container.Items[i] = specialInventory.Container.Items[k];
+                                        expandedInventory.Container.Items[i].item.itemType = specialInventory.Container.Items[k].item.itemType;
                                         specialInventory.Container.Items[k] = temp;
+                                        specialInventory.Container.Items[k].item.itemType = temp.item.itemType;
                                         flag = true;
                                         isOnSwap = false;
                                         break;
@@ -460,7 +481,10 @@ public class DisplayInventory : MonoBehaviour
                             if (inventory.Container.Items[j].item.isSpecial || itemId < 0)
                             {
                                 specialInventory.Container.Items[i] = inventory.Container.Items[j];
+
+                                specialInventory.Container.Items[i].item.itemType = inventory.Container.Items[j].item.itemType;
                                 inventory.Container.Items[j] = temp;
+                                inventory.Container.Items[j].item.itemType=temp.item.itemType;
                                 flag = true;
                                 isOnSwap = false;
                                 break;
@@ -485,7 +509,9 @@ public class DisplayInventory : MonoBehaviour
                                 if (expandedInventory.Container.Items[j].item.isSpecial || itemId < 0)
                                 {
                                     specialInventory.Container.Items[i] = expandedInventory.Container.Items[j];
+                                    specialInventory.Container.Items[i].item.itemType = expandedInventory.Container.Items[j].item.itemType;
                                     expandedInventory.Container.Items[j] = temp;
+                                    expandedInventory.Container.Items[j].item.itemType=temp.item.itemType;
                                     flag = true;
                                     isOnSwap = false;
                                     break;
@@ -510,7 +536,10 @@ public class DisplayInventory : MonoBehaviour
                                     if (temp.item.isSpecial)
                                     {
                                         specialInventory.Container.Items[i] = specialInventory.Container.Items[k];
+                                        specialInventory.Container.Items[i].item.itemType = specialInventory.Container.Items[k].item.itemType;
                                         specialInventory.Container.Items[k] = temp;
+                                        specialInventory.Container.Items[k].item.itemType = temp.item.itemType;
+
                                         flag = true;
                                         isOnSwap = false;
                                         break;
@@ -555,17 +584,25 @@ public class DisplayInventory : MonoBehaviour
     private void onClickDestroy(GameObject obj, GameObject popupLocal, int itemId)
     {
         Destroy(popupLocal);
+        isPopped = false;
         obj.transform.GetChild(2).gameObject.SetActive(false);
         obj.GetComponent<Button>().onClick.RemoveAllListeners();
         obj.GetComponent<Button>().onClick.AddListener(() => OnClick(obj, itemId));
-        setMinimized();
-        setExpanded();
+        if (IsExpanded)
+        {
+            setMinimized();
+            setExpanded();
+        }
+        else
+        {
+            setExpanded();
+            setMinimized();
+        }
 
     }
     private void OnClick(GameObject obj, int itemId)
     {
-        isWindowPopped(obj);
-
+        //isWindowPopped(obj);
         if (!isPopped && !isOnSwap && !isOnInfo && itemId >= 0)
         {
             previousSelected = obj;
@@ -585,6 +622,7 @@ public class DisplayInventory : MonoBehaviour
             {
                 popupWindow.GetComponentInChildren<ContentSizeFitter>().transform.GetChild(3).GetComponent<Button>().enabled = false;
             }
+            isPopped = true;
         }
         else if (isOnSwap && IsExpanded)
         {
@@ -607,7 +645,8 @@ public class DisplayInventory : MonoBehaviour
     private void Use(GameObject obj, GameObject popupWindow, int itemId)
     {
         Destroy(popupWindow);
-        bool flag = true;
+        isPopped = false;
+        bool flag = false;
         if (!IsExpanded)
         {
             for (int i = 0; i < inventory.Container.Items.Length; i++)
@@ -615,7 +654,64 @@ public class DisplayInventory : MonoBehaviour
                 if (inventory.Container.Items[i].ID == itemId)
                 {
                     string test = inventory.Container.Items[i].item.itemType.ToString();
-                    if (inventory.Container.Items[i].item.itemType.ToString().Equals("Food"))
+                    if (inventory.Container.Items[i].item.itemType.Equals(ItemType.Food))
+                    {
+                        healthGainer.SetHealth(-30);
+                       GameObject b = Instantiate(healingPrefab, playerOverHeadIconsParent.transform.position,Quaternion.identity) as GameObject;
+                        b.transform.SetParent(playerOverHeadIconsParent.transform);
+                        if (inventory.Container.Items[i].amount == 1)
+                        {
+                            inventory.Container.Items[i].ID = -1;
+                            inventory.Container.Items[i].item.Id = -1;
+                            inventory.Container.Items[i].item.Name = "";
+                            inventory.Container.Items[i].amount = 0;
+                            flag = true;
+                            break;
+                        }
+                        else
+                        {
+                            inventory.Container.Items[i].amount = inventory.Container.Items[i].amount - 1;
+                            flag = true;
+                            break;
+                        }
+                    }
+                    else if (inventory.Container.Items[i].item.itemType.Equals(ItemType.Energy))
+                    {
+                        energySlider.value = 100f;
+                       GameObject b = Instantiate(energyGainingPrefab, playerOverHeadIconsParent.transform.position,Quaternion.identity) as GameObject;
+                        b.transform.SetParent(playerOverHeadIconsParent.transform);
+                        if (inventory.Container.Items[i].amount == 1)
+                        {
+                            inventory.Container.Items[i].ID = -1;
+                            inventory.Container.Items[i].item.Id = -1;
+                            inventory.Container.Items[i].item.Name = "";
+                            inventory.Container.Items[i].amount = 0;
+                            flag = true;
+                            break;
+                        }
+                        else
+                        {
+                            inventory.Container.Items[i].amount = inventory.Container.Items[i].amount - 1;
+                            flag = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (flag)
+            {
+                SerializeSlots();
+                setExpanded();
+                setMinimized();
+            }
+        }
+        else if(IsExpanded)
+        {
+            for (int i = 0; i < inventory.Container.Items.Length; i++)
+            {
+                if (inventory.Container.Items[i].ID == itemId)
+                {
+                    if (inventory.Container.Items[i].item.itemType.Equals(ItemType.Food))
                     {
                         healthGainer.SetHealth(-30);
                         Instantiate(healingPrefab, playerOverHeadIconsParent.transform);
@@ -631,9 +727,11 @@ public class DisplayInventory : MonoBehaviour
                         else
                         {
                             inventory.Container.Items[i].amount = inventory.Container.Items[i].amount - 1;
+                            flag = true;
+                            break;
                         }
                     }
-                    else if (inventory.Container.Items[i].item.itemType.ToString().Equals("Energy"))
+                    else if (inventory.Container.Items[i].item.itemType.Equals(ItemType.Energy))
                     {
                         energySlider.value = 100f;
                         Instantiate(energyGainingPrefab, playerOverHeadIconsParent.transform);
@@ -649,56 +747,12 @@ public class DisplayInventory : MonoBehaviour
                         else
                         {
                             inventory.Container.Items[i].amount = inventory.Container.Items[i].amount - 1;
-                        }
-                    }
-                }
-            }
-            if (flag)
-            {
-                SerializeSlots();
-                setExpanded();
-                setMinimized();
-            }
-        }
-        else
-        {
-            for (int i = 0; i < inventory.Container.Items.Length; i++)
-            {
-                if (inventory.Container.Items[i].ID == itemId)
-                {
-                    if (inventory.Container.Items[i].item.itemType.Equals("Food"))
-                    {
-                        healthGainer.SetHealth(-30);
-                        Instantiate(healingPrefab, playerOverHeadIconsParent.transform);
-                        if (inventory.Container.Items[i].amount == 1)
-                        {
-                            inventory.Container.Items[i].ID = -1;
-                            inventory.Container.Items[i].item.Id = -1;
-                            inventory.Container.Items[i].item.Name = "";
-                            inventory.Container.Items[i].amount = 0;
                             flag = true;
                             break;
                         }
                     }
                 }
-                else if (inventory.Container.Items[i].item.itemType.ToString().Equals("Energy"))
-                {
-                    energySlider.value = 100f;
-                    Instantiate(energyGainingPrefab, playerOverHeadIconsParent.transform);
-                    if (inventory.Container.Items[i].amount == 1)
-                    {
-                        inventory.Container.Items[i].ID = -1;
-                        inventory.Container.Items[i].item.Id = -1;
-                        inventory.Container.Items[i].item.Name = "";
-                        inventory.Container.Items[i].amount = 0;
-                        flag = true;
-                        break;
-                    }
-                    else
-                    {
-                        inventory.Container.Items[i].amount = inventory.Container.Items[i].amount - 1;
-                    }
-                }
+                
             }
             if (!flag)
             {
@@ -706,7 +760,7 @@ public class DisplayInventory : MonoBehaviour
                 {
                     if (expandedInventory.Container.Items[i].ID == itemId)
                     {
-                        if (expandedInventory.Container.Items[i].item.itemType.Equals("Food"))
+                        if (expandedInventory.Container.Items[i].item.itemType.Equals(ItemType.Food))
                         {
                             healthGainer.SetHealth(-30);
                             Instantiate(healingPrefab, playerOverHeadIconsParent.transform);
@@ -719,26 +773,35 @@ public class DisplayInventory : MonoBehaviour
                                 flag = true;
                                 break;
                             }
+                            else
+                            {
+                                expandedInventory.Container.Items[i].amount = expandedInventory.Container.Items[i].amount - 1;
+                                flag = true;
+                                break;
+                            }
+                        }
+                        else if (expandedInventory.Container.Items[i].item.itemType.Equals(ItemType.Energy))
+                        {
+                            energySlider.value = 100f;
+                            Instantiate(energyGainingPrefab, playerOverHeadIconsParent.transform);
+                            if (expandedInventory.Container.Items[i].amount == 1)
+                            {
+                                expandedInventory.Container.Items[i].ID = -1;
+                                expandedInventory.Container.Items[i].item.Id = -1;
+                                expandedInventory.Container.Items[i].item.Name = "";
+                                expandedInventory.Container.Items[i].amount = 0;
+                                flag = true;
+                                break;
+                            }
+                            else
+                            {
+                                expandedInventory.Container.Items[i].amount = expandedInventory.Container.Items[i].amount - 1;
+                                flag = true;
+                                break;
+                            }
                         }
                     }
-                    else if (expandedInventory.Container.Items[i].item.itemType.ToString().Equals("Energy"))
-                    {
-                        energySlider.value = 100f;
-                        Instantiate(energyGainingPrefab, playerOverHeadIconsParent.transform);
-                        if (inventory.Container.Items[i].amount == 1)
-                        {
-                            expandedInventory.Container.Items[i].ID = -1;
-                            expandedInventory.Container.Items[i].item.Id = -1;
-                            expandedInventory.Container.Items[i].item.Name = "";
-                            expandedInventory.Container.Items[i].amount = 0;
-                            flag = true;
-                            break;
-                        }
-                        else
-                        {
-                            expandedInventory.Container.Items[i].amount = inventory.Container.Items[i].amount - 1;
-                        }
-                    }
+                    
                 }
             }
             if (flag)
@@ -753,6 +816,7 @@ public class DisplayInventory : MonoBehaviour
     private void Discard(GameObject selected, GameObject popupWindow, int itemId)
     {
         Destroy(popupWindow);
+        isPopped = false;
         bool flag = false;
         for (int i = 0; i < inventory.Container.Items.Length; i++)
         {
@@ -802,6 +866,7 @@ public class DisplayInventory : MonoBehaviour
         contentInfoParent.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1f, 1f, 1f, 0f);
         contentInfo.GetComponentInChildren<TextMeshProUGUI>().text = "";
         isOnInfo = false;
+        isPopped = false;
     }
     private void removelisteners()
     {
@@ -869,10 +934,11 @@ public class DisplayInventory : MonoBehaviour
 
     private void swapper(GameObject obj, GameObject popupWindow, int itemId)
     {
-        isPopped = false;
         Destroy(popupWindow);
+        isPopped = false;
         IDtoBeSwapped = itemId;
         isOnSwap = true;
+        setExpanded();
 
     }
     public void setExpanded()

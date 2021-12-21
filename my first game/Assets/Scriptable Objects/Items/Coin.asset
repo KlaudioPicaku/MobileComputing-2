@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 0
   uiDisplay: {fileID: -1325531498672382930, guid: 4c8b856812c6ce742ae3a85c7cde4296, type: 3}
-  type: 5
+  type: 6
   description: Money !
   isSpecial: 0
   value: 0

@@ -1,31 +1,19 @@
 fileFormatVersion: 2
-guid: 325df44aa94f45346ae2f94bc26d7b10
+guid: d69360947e3f8a4499b9f9e095383ee2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2975046630383895928
-    second: healing sprite sheet_0
+      213: 4268471932424394617
+    second: campfire_16x16_0
   - first:
-      213: -8487445574509646852
-    second: healing sprite sheet_1
+      213: -3438796335496917445
+    second: campfire_16x16_1
   - first:
-      213: 567913152845507053
-    second: healing sprite sheet_2
+      213: 466498994544540999
+    second: campfire_16x16_2
   - first:
-      213: 5160130546108300460
-    second: healing sprite sheet_3
-  - first:
-      213: -8152925998437589386
-    second: healing sprite sheet_4
-  - first:
-      213: -901559415241979539
-    second: healing sprite sheet_5
-  - first:
-      213: -3344236187370817577
-    second: healing sprite sheet_6
-  - first:
-      213: 4185926613434696137
-    second: healing sprite sheet_7
+      213: 4328626103302227732
+    second: campfire_16x16_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -67,10 +55,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 128
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -151,97 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: healing sprite sheet_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 875414ad52d794920800000000000000
-      internalID: 2975046630383895928
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: healing sprite sheet_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cfb24e8e739863a80800000000000000
-      internalID: -8487445574509646852
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: healing sprite sheet_2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: de9e0aae002a1e700800000000000000
-      internalID: 567913152845507053
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: healing sprite sheet_3
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cac7d6364677c9740800000000000000
-      internalID: 5160130546108300460
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: healing sprite sheet_4
+      name: campfire_16x16_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -249,20 +153,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 67e941f100dfade80800000000000000
-      internalID: -8152925998437589386
+      spriteID: 97791e17b98ac3b30800000000000000
+      internalID: 4268471932424394617
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: healing sprite sheet_5
+      name: campfire_16x16_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3e8acfc3f0f640d0800000000000000
+      internalID: -3438796335496917445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: campfire_16x16_2
       rect:
         serializedVersion: 2
         x: 32
         y: 0
-        width: 32
-        height: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -270,20 +195,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d69c79e0d740d73f0800000000000000
-      internalID: -901559415241979539
+      spriteID: 74d77e92d56597600800000000000000
+      internalID: 466498994544540999
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: healing sprite sheet_6
+      name: campfire_16x16_3
       rect:
         serializedVersion: 2
-        x: 64
+        x: 48
         y: 0
-        width: 32
-        height: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -291,29 +216,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7d771c6f7e2e691d0800000000000000
-      internalID: -3344236187370817577
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: healing sprite sheet_7
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9c101a1b316671a30800000000000000
-      internalID: 4185926613434696137
+      spriteID: 41700d4c18e521c30800000000000000
+      internalID: 4328626103302227732
       vertices: []
       indices: 
       edges: []

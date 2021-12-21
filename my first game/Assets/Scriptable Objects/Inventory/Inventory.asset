@@ -21,8 +21,32 @@ MonoBehaviour:
         Name: Golden Key
         Id: 4
         isSpecial: 0
-        itemType: 2
+        itemType: 3
+      amount: 18
+      isSpecial: 0
+    - ID: 3
+      item:
+        Name: Food
+        Id: 3
+        isSpecial: 0
+        itemType: 1
       amount: 1
+      isSpecial: 0
+    - ID: 7
+      item:
+        Name: Note
+        Id: 7
+        isSpecial: 0
+        itemType: 8
+      amount: 18
+      isSpecial: 0
+    - ID: 1
+      item:
+        Name: Collectable
+        Id: 1
+        isSpecial: 0
+        itemType: 2
+      amount: 18
       isSpecial: 0
     - ID: -253
       item:
@@ -32,43 +56,19 @@ MonoBehaviour:
         itemType: 0
       amount: 0
       isSpecial: 0
-    - ID: 7
+    - ID: 6
       item:
-        Name: Note
-        Id: 7
+        Name: New Weapon
+        Id: 6
         isSpecial: 0
-        itemType: 7
-      amount: 1
-      isSpecial: 0
-    - ID: 1
-      item:
-        Name: Collectable
-        Id: 1
-        isSpecial: 0
-        itemType: 1
-      amount: 1
-      isSpecial: 0
-    - ID: 2
-      item:
-        Name: EnergyPotion
-        Id: 2
-        isSpecial: 0
-        itemType: 3
-      amount: 1
+        itemType: 5
+      amount: 18
       isSpecial: 0
     - ID: 5
       item:
-        Name: New Weapon
+        Name: Totem
         Id: 5
         isSpecial: 0
-        itemType: 4
-      amount: 2
-      isSpecial: 0
-    - ID: 0
-      item:
-        Name: Coin
-        Id: 0
-        isSpecial: 0
-        itemType: 5
-      amount: 1
+        itemType: 7
+      amount: 18
       isSpecial: 0

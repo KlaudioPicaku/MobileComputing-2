@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 5
   uiDisplay: {fileID: 1932801135296565577, guid: 4c8b856812c6ce742ae3a85c7cde4296, type: 3}
-  type: 6
+  type: 7
   description: 
   isSpecial: 0
   effects: Grants the player swag

@@ -48,6 +48,14 @@ MonoBehaviour:
         itemType: 0
       amount: 0
       isSpecial: 0
+    - ID: 0
+      item:
+        Name: Coin
+        Id: 0
+        isSpecial: 0
+        itemType: 6
+      amount: 17
+      isSpecial: 0
     - ID: -1771
       item:
         Name: 
@@ -396,14 +404,6 @@ MonoBehaviour:
       item:
         Name: 
         Id: -12650
-        isSpecial: 0
-        itemType: 0
-      amount: 0
-      isSpecial: 0
-    - ID: -12903
-      item:
-        Name: 
-        Id: -12903
         isSpecial: 0
         itemType: 0
       amount: 0

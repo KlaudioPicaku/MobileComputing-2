@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 4
   uiDisplay: {fileID: -5334345791326727151, guid: 4c8b856812c6ce742ae3a85c7cde4296, type: 3}
-  type: 2
+  type: 3
   description: 
   isSpecial: 0
