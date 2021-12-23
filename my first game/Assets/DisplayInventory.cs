@@ -602,6 +602,7 @@ public class DisplayInventory : MonoBehaviour
     }
     private void OnClick(GameObject obj, int itemId)
     {
+        Debug.Log(isPopped);
         //isWindowPopped(obj);
         if (!isPopped && !isOnSwap && !isOnInfo && itemId >= 0)
         {
@@ -633,9 +634,9 @@ public class DisplayInventory : MonoBehaviour
         {
             resetInfo();
         }
-        else
+        else if(isPopped && !isOnSwap && !isOnInfo)
         {
-            if (itemId <= 0)
+            if (itemId < 0)
             {
                 return;
             }
