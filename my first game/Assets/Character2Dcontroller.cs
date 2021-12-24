@@ -32,7 +32,7 @@ public class Character2Dcontroller : MonoBehaviour
     }
     void FixedUpdate()
     {
-        //Store horizontal value
+        //Store horizontal and vertical value
         horizontalValue = joystick.Horizontal;
         verticalValue = joystick.Vertical;
 
@@ -72,16 +72,22 @@ public class Character2Dcontroller : MonoBehaviour
             isClimbing = false;
             isClimbingDown = false;
             rb.gravityScale = 1f;
+            animator.ResetTrigger("isClimbing");
+            animator.SetFloat("yVelocity",0f);
         }
         if (isClimbing)
         {
             rb.velocity = new Vector2(rb.velocity.x, verticalValue * MovementSpeed * 200 * Time.fixedDeltaTime);
             rb.gravityScale = 0f;
+            animator.SetTrigger("isClimbing");
+            animator.SetFloat("yVelocity", verticalValue);
         }
         else if (isClimbingDown)
         {
             rb.velocity = new Vector2(rb.velocity.x, verticalValue * MovementSpeed * 200 * Time.fixedDeltaTime);
             rb.gravityScale = 0f;
+            animator.SetTrigger("isClimbing");
+            animator.SetFloat("yVelocity", verticalValue);
         }
         GroundCheck();
         Move(horizontalValue, jumping);
