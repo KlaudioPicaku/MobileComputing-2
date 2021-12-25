@@ -66,6 +66,7 @@ public class DisplayInventory : MonoBehaviour
     [SerializeField] GameObject healingPrefab;
     [SerializeField] GameObject energyGainingPrefab;
     [SerializeField] GameObject playerOverHeadIconsParent;
+    [SerializeField] GameObject pauseMenu;
 
     [SerializeField] Slider energySlider;
 
@@ -945,6 +946,7 @@ public class DisplayInventory : MonoBehaviour
     public void setExpanded()
     {
         expandButton.SetActive(false);
+        pauseMenu.SetActive(false);
         floatingJoystick.SetActive(false);
         IsExpanded = true;
         expanded.SetActive(true);
@@ -990,6 +992,7 @@ public class DisplayInventory : MonoBehaviour
     {
         DestroyMax();
         expandButton.SetActive(true);
+        pauseMenu.SetActive(true);
         IsExpanded = false;
         isOnInfo = false;
         floatingJoystick.SetActive(true);

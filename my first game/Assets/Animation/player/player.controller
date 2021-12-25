@@ -230,6 +230,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: 1674612950970171351}
   - {fileID: 2893793517453457897}
+  - {fileID: -2224370062240413988}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -344,6 +345,34 @@ AnimatorStateTransition:
   m_TransitionOffset: 0
   m_ExitTime: 1
   m_HasExitTime: 1
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
+--- !u!1101 &-2224370062240413988
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 3
+    m_ConditionEvent: yVelocity
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: isClimbing
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -4402159305943458375}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_ExitTime: 0.8333333
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -694,19 +723,19 @@ AnimatorStateMachine:
     m_Position: {x: 590, y: -120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3188326309717107876}
-    m_Position: {x: -250, y: 210, z: 0}
+    m_Position: {x: -140, y: 260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6868799571368710462}
-    m_Position: {x: 10, y: 360, z: 0}
+    m_Position: {x: 200, y: 280, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6381372901452939205}
     m_Position: {x: -10, y: -170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7149603817200727628}
-    m_Position: {x: 940, y: -290, z: 0}
+    m_Position: {x: 1030, y: -430, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -950680408599975342}
-    m_Position: {x: 975, y: -225, z: 0}
+    m_Position: {x: 960, y: -140, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4402159305943458375}
     m_Position: {x: -320, y: -180, z: 0}
