@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyAttack : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField] Transform Goal;
     [SerializeField] float attackRange = 0.55f;
     [SerializeField] LayerMask enemyLayer;
+    [SerializeField] bool referenceSceneHasLoaded = false;
+    [SerializeField] bool loadBaseValues = false;
     //[SerializeField] bool isAttacking = false;
    // bool playerInCloseRange = false;
     [SerializeField] HealthBarController playerHealth;
@@ -16,26 +19,41 @@ public class EnemyAttack : MonoBehaviour
     private float nextFireTime = 0;
     Vector2 locate;
     // Start is called before the first frame update
+    //private void Awake()
+    //{
+    //    Goal = FindObjectOfType<PlayerScript>().transform;
+    //    playerHealth = FindObjectOfType<HealthBarController>();
+    //}
     void Start()
     {
-
+        
         animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        CheckRange();
-     /*   if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) {
-            if (Time.time > nextFireTime)
+        if (!referenceSceneHasLoaded)
+        {
+            Scene reference = SceneManager.GetSceneByName("Persistent");
+            if (reference.IsValid() && reference.isLoaded)
             {
-                if (isAttacking && playerInCloseRange)
-                {
-                    animator.SetBool("IsAttacking", true);
-                    //Attack();
-                }
+                referenceSceneHasLoaded = true;
+                loadBaseValues = true;
             }
-        }*/
+        }
+        if (loadBaseValues)
+        {
+            Goal = FindObjectOfType<PlayerScript>().transform;
+            playerHealth = FindObjectOfType<HealthBarController>();
+            loadBaseValues = false;
+
+        }
+        if (referenceSceneHasLoaded)
+        {
+            CheckRange();
+        }
+
     }
     void Attack()
     {

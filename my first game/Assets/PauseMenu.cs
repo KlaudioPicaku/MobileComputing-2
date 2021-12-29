@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,14 @@ public class PauseMenu : MonoBehaviour
     }
     private void Update()
     {
+        if(File.Exists(Application.persistentDataPath + "/save.data"))
+        {
+            pauseMenuUI.transform.GetChild(3).GetComponent<Button>().enabled = true;
+        }
+        else
+        {
+            pauseMenuUI.transform.GetChild(3).GetComponent<Button>().enabled = false;
+        }
         music.volume = musicSlider.value;
         globalSoundFx.volume = soundFXSlider.value;
 

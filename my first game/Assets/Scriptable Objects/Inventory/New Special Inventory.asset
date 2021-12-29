@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e7dd3f1407d66844b16e74e848b1a5f, type: 3}
   m_Name: New Special Inventory
   m_EditorClassIdentifier: 
-  savePath: 
-  database: {fileID: 0}
+  savePath: /specialInventory.save
+  database: {fileID: 11400000, guid: 310001e1edb071543a04e0ad6eb1f7fc, type: 2}
   Container:
     Items:
     - ID: 8

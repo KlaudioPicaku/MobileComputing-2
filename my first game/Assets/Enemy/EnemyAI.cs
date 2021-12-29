@@ -18,7 +18,7 @@ public class EnemyAI : MonoBehaviour
     private void Start()
     {
        
-        Vector2 position = GameObject.FindWithTag("Player").transform.position;
+        //Vector2 position = GameObject.FindWithTag("Player").transform.position;
         animator = GetComponent<Animator>();
     }
     private void Reset()

@@ -17,6 +17,7 @@ TagManager:
   - popup
   - glow
   - Spec
+  - Checkpoint
   layers:
   - Default
   - TransparentFX
