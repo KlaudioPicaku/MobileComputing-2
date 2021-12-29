@@ -67,6 +67,8 @@ public class DisplayInventory : MonoBehaviour
     [SerializeField] GameObject energyGainingPrefab;
     [SerializeField] GameObject playerOverHeadIconsParent;
     [SerializeField] GameObject pauseMenu;
+    [SerializeField] GameObject notificationParent;
+    [SerializeField] GameObject genericNotification;
 
     [SerializeField] Slider energySlider;
 
@@ -855,10 +857,19 @@ public class DisplayInventory : MonoBehaviour
         {
             SerializeSlots();
         }
-        if (discarded)
+        if (discarded && IsExpanded)
         {
+            GameObject temp =  Instantiate(genericNotification, notificationParent.transform);
+            temp.GetComponentInChildren<Text>().text = "Item discarded!"; 
             setMinimized();
             setExpanded();
+        }
+        else
+        {
+            GameObject temp = Instantiate(genericNotification, notificationParent.transform);
+            temp.GetComponentInChildren<Text>().text = "Item " + selected.gameObject.name + " discarded!";
+            setExpanded();
+            setMinimized();
         }
     }
     private void resetInfo()

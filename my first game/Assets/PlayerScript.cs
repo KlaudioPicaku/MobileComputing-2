@@ -12,7 +12,11 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] InventoryObject inventory;
     [SerializeField] ExpandedInventoryObject expandedInventory;
     [SerializeField] SpecialSlots specialInventory;
+
     [SerializeField] LayerMask layerMask;
+    [SerializeField] LayerMask checkPoints;
+    public bool isNearCheckPoint;
+
     [SerializeField] GameObject errorBox;
     [SerializeField] GameObject notificationParent;
     [SerializeField] Slider healthSlider;
@@ -24,6 +28,7 @@ public class PlayerScript : MonoBehaviour
     int freeSlotsSpecial = 0;
     bool specialItem1 = false;
     GroundItem item;
+
     private void Start()
     {
 
@@ -37,6 +42,12 @@ public class PlayerScript : MonoBehaviour
         bool isPresentExp = false;
         bool flag = true;
         item = other.GetComponent<GroundItem>();
+        if (other.gameObject.layer == 10)
+        {
+            isNearCheckPoint = true;
+        }
+        else 
+            isNearCheckPoint = false;
 
         if (other.gameObject.layer == 8 && !item.item.isSpecial)
         {

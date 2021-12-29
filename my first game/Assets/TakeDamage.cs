@@ -13,6 +13,8 @@ public class TakeDamage : MonoBehaviour
     [SerializeField] Vector2 knockBackValue;
     [SerializeField] Vector2 knockBack;
     [SerializeField] LayerMask enemy;
+    [SerializeField] PauseMenu pauseButton;
+    [SerializeField] SaveManager loadButton;
     void Start()
     {
         //health = GetComponent<HealthBarController>();
@@ -48,6 +50,10 @@ public class TakeDamage : MonoBehaviour
             animator.SetTrigger("KnockBack");
             //KnockBackPlayer();
         }
+        else if (currentHealth <= 0)
+        {
+            animator.Play("player_death");
+        }
         else
         {
             previousHealth = currentHealth;
@@ -64,5 +70,10 @@ public class TakeDamage : MonoBehaviour
 
         transform.position = Vector2.MoveTowards(transform.position, knockBack ,Time.deltaTime*knockBackSpeed);
        
+    }
+     void restartLatestCheckPoint()
+    {
+        pauseButton.Pause();
+        loadButton.LoadGame();
     }
 }

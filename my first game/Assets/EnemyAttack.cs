@@ -33,10 +33,10 @@ public class EnemyAttack : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!referenceSceneHasLoaded)
+        if (!referenceSceneHasLoaded )
         {
             Scene reference = SceneManager.GetSceneByName("Persistent");
-            if (reference.IsValid() && reference.isLoaded)
+            if ((reference.IsValid() && reference.isLoaded) || FindObjectOfType<PlayerScript>().transform !=null)
             {
                 referenceSceneHasLoaded = true;
                 loadBaseValues = true;

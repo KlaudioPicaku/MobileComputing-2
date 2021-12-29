@@ -22,7 +22,7 @@ public class CheckPointScript : MonoBehaviour
         if (!referenceSceneHasLoaded)
         {
             Scene scene = SceneManager.GetSceneByName("Persistent");
-            if(scene.IsValid() && scene.isLoaded)
+            if((scene.IsValid() && scene.isLoaded) || FindObjectOfType<PlayerScript>().transform != null)
             {
                 referenceSceneHasLoaded = true;
                 loadBase = true;

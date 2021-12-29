@@ -6,19 +6,36 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SaveManager : MonoBehaviour
 {
     [SerializeField] PlayerScript _player;
+    [SerializeField] PauseMenu pauseMenu;
+    [SerializeField] GameObject notificationParent;
+    [SerializeField] GameObject notification;
+
     SaveData localSave;
     public void SaveGame()
     {
-        FileStream dataStream = new FileStream(Application.persistentDataPath + "/save.data", FileMode.Create);
-        BinaryFormatter converter = new BinaryFormatter();
-        _player.setToSave();
-        converter.Serialize(dataStream, _player.toBeSaved);
-        _player.saveInventory();
-        dataStream.Close();
+        if (_player.isNearCheckPoint)
+        {
+            FileStream dataStream = new FileStream(Application.persistentDataPath + "/save.data", FileMode.Create);
+            BinaryFormatter converter = new BinaryFormatter();
+            _player.setToSave();
+            converter.Serialize(dataStream, _player.toBeSaved);
+            _player.saveInventory();
+            dataStream.Close();
+            GameObject temp = Instantiate(notification, notificationParent.transform);
+            temp.GetComponentInChildren<Text>().text = "Saving...";
+            pauseMenu.Resume();
+        }
+        else
+        {
+            GameObject temp = Instantiate(notification, notificationParent.transform);
+            temp.GetComponentInChildren<Text>().text ="You have to be near a checkpoint to save the game";
+            pauseMenu.Resume();
+        }
     }
 
     public void LoadGame()
@@ -35,9 +52,15 @@ public class SaveManager : MonoBehaviour
             _player.toBeSaved = localSave;
             _player.resetSave();
             SceneManager.LoadScene(_player.toBeSaved.sceneName);
+            //SceneManager.LoadScene("Persistent");
             _player.loadInventory();
             dataStream.Close();
-            Time.timeScale = 1f;
+
+            if (pauseMenu.isActiveAndEnabled)
+            {
+                pauseMenu.Resume();
+            }
+            
         }
         else
         {
