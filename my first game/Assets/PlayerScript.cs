@@ -43,14 +43,14 @@ public class PlayerScript : MonoBehaviour
             localSave = converter.Deserialize(dataStream) as SaveData;
             this.toBeSaved = localSave;
             resetSave();
-            SceneManager.LoadScene(toBeSaved.sceneName,LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync(toBeSaved.sceneName,LoadSceneMode.Additive);
             //loadInventory();
             dataStream.Close();
         }
         else
         {
             //inventory.Load();
-            SceneManager.LoadScene(2, LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
         }
 
     }

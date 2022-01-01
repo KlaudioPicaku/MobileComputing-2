@@ -13,6 +13,11 @@ public class ContinueScript : MonoBehaviour
     [SerializeField] ExpandedInventoryObject expanded;
     [SerializeField] InventoryObject inventory;
     [SerializeField] SpecialSlots specialInventory;
+    [SerializeField] LevelManager levelManager;
+    private void Awake()
+    {
+        levelManager =this.gameObject.GetComponent<LevelManager>();
+    }
     private void Start()
     {
         dialog.SetActive(false);
@@ -59,7 +64,8 @@ public class ContinueScript : MonoBehaviour
                         specialInventory.Container.Items[i].amount = 0;
                     }
                 }
-                SceneManager.LoadScene("Persistent");
+            //levelManager.LoadLevel("Persistent");
+            SceneManager.LoadSceneAsync("Persistent");
             //SceneManager.UnloadScene("MainMenu");
         }
 
@@ -102,7 +108,7 @@ public class ContinueScript : MonoBehaviour
                     specialInventory.Container.Items[i].amount = 0;
                 }
             }
-            SceneManager.LoadScene("Persistent");
+            SceneManager.LoadSceneAsync("Persistent");
             //SceneManager.UnloadScene("MainMenu");
 
         }
