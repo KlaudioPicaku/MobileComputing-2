@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
@@ -27,14 +30,43 @@ public class PlayerScript : MonoBehaviour
     int freeSlotsExpanded = 0;
     int freeSlotsSpecial = 0;
     bool specialItem1 = false;
+    bool cleared = false;
     GroundItem item;
+    SaveData localSave;
 
+    private void Awake()
+    {
+        if (File.Exists(Application.persistentDataPath + "/save.data"))
+        {
+            FileStream dataStream = new FileStream(Application.persistentDataPath + "/save.data", FileMode.Open);
+            BinaryFormatter converter = new BinaryFormatter();
+            localSave = converter.Deserialize(dataStream) as SaveData;
+            this.toBeSaved = localSave;
+            resetSave();
+            SceneManager.LoadScene(toBeSaved.sceneName,LoadSceneMode.Additive);
+            //loadInventory();
+            dataStream.Close();
+        }
+        else
+        {
+            //inventory.Load();
+            SceneManager.LoadScene(2, LoadSceneMode.Additive);
+        }
+
+    }
     private void Start()
     {
+        //if (!File.Exists(Application.persistentDataPath + "/save.data"))
+        //{
+        //    inventory.Clear();
+        //    expandedInventory.Clear();
+        //    specialInventory.Clear();
+        //}
 
         freeSlotsHotBar = inventory.isFree();
         freeSlotsExpanded = expandedInventory.isFree();
         freeSlotsSpecial = specialInventory.isFree();
+
     }
     public void OnTriggerEnter2D(Collider2D other)
     {
@@ -262,6 +294,17 @@ public class PlayerScript : MonoBehaviour
         }
 
     }
+    //private void FixedUpdate()
+    //{
+    //    if (!File.Exists(Application.persistentDataPath + "/save.data") && !cleared) 
+    //    {
+    //        inventory.Clear();
+    //        expandedInventory.Clear();
+    //        specialInventory.Clear();
+    //        cleared = true;
+    //    }
+
+    //}
     /*sets data to be saved */
     public void setToSave()
     {

@@ -16,62 +16,6 @@ MonoBehaviour:
   database: {fileID: 11400000, guid: 310001e1edb071543a04e0ad6eb1f7fc, type: 2}
   Container:
     Items:
-    - ID: -759
-      item:
-        Name: 
-        Id: -759
-        isSpecial: 0
-        itemType: 0
-      amount: 0
-      isSpecial: 0
-    - ID: -1012
-      item:
-        Name: 
-        Id: -1012
-        isSpecial: 0
-        itemType: 0
-      amount: 0
-      isSpecial: 0
-    - ID: -1265
-      item:
-        Name: 
-        Id: -1265
-        isSpecial: 0
-        itemType: 0
-      amount: 0
-      isSpecial: 0
-    - ID: -1518
-      item:
-        Name: 
-        Id: -1518
-        isSpecial: 0
-        itemType: 0
-      amount: 0
-      isSpecial: 0
-    - ID: 0
-      item:
-        Name: Coin
-        Id: 0
-        isSpecial: 0
-        itemType: 6
-      amount: 17
-      isSpecial: 0
-    - ID: -1771
-      item:
-        Name: 
-        Id: -1771
-        isSpecial: 0
-        itemType: 0
-      amount: 0
-      isSpecial: 0
-    - ID: -2024
-      item:
-        Name: 
-        Id: -2024
-        isSpecial: 0
-        itemType: 0
-      amount: 0
-      isSpecial: 0
     - ID: -2277
       item:
         Name: 
@@ -404,6 +348,62 @@ MonoBehaviour:
       item:
         Name: 
         Id: -12650
+        isSpecial: 0
+        itemType: 0
+      amount: 0
+      isSpecial: 0
+    - ID: -12903
+      item:
+        Name: 
+        Id: -12903
+        isSpecial: 0
+        itemType: 0
+      amount: 0
+      isSpecial: 0
+    - ID: -13156
+      item:
+        Name: 
+        Id: -13156
+        isSpecial: 0
+        itemType: 0
+      amount: 0
+      isSpecial: 0
+    - ID: -13409
+      item:
+        Name: 
+        Id: -13409
+        isSpecial: 0
+        itemType: 0
+      amount: 0
+      isSpecial: 0
+    - ID: -13662
+      item:
+        Name: 
+        Id: -13662
+        isSpecial: 0
+        itemType: 0
+      amount: 0
+      isSpecial: 0
+    - ID: -13915
+      item:
+        Name: 
+        Id: -13915
+        isSpecial: 0
+        itemType: 0
+      amount: 0
+      isSpecial: 0
+    - ID: -14168
+      item:
+        Name: 
+        Id: -14168
+        isSpecial: 0
+        itemType: 0
+      amount: 0
+      isSpecial: 0
+    - ID: -14421
+      item:
+        Name: 
+        Id: -14421
         isSpecial: 0
         itemType: 0
       amount: 0

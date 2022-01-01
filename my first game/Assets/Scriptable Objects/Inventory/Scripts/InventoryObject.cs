@@ -116,6 +116,10 @@ public class InventoryObject : ScriptableObject
             stream.Close();
 
         }
+        else
+        {
+            Clear();
+        }
     }
     [ContextMenu("Clear")]
     public void Clear()

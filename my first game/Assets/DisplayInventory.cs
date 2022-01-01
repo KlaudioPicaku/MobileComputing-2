@@ -231,6 +231,7 @@ public class DisplayInventory : MonoBehaviour
         {
             itemsDisplayedExpanded = new Dictionary<GameObject, InventorySlot>();
             specialItemsPresent = new Dictionary<GameObject, InventorySlot>();
+            UpdateCapience();
             for (int i = 0; i < inventory.Container.Items.Length; i++)
             {
                 int itemId = inventory.Container.Items[i].ID;

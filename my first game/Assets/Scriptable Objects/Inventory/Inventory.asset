@@ -22,7 +22,7 @@ MonoBehaviour:
         Id: 4
         isSpecial: 0
         itemType: 3
-      amount: 18
+      amount: 1
       isSpecial: 0
     - ID: 3
       item:
@@ -38,7 +38,7 @@ MonoBehaviour:
         Id: 7
         isSpecial: 0
         itemType: 8
-      amount: 18
+      amount: 1
       isSpecial: 0
     - ID: 1
       item:
@@ -46,15 +46,15 @@ MonoBehaviour:
         Id: 1
         isSpecial: 0
         itemType: 2
-      amount: 18
+      amount: 1
       isSpecial: 0
-    - ID: -253
+    - ID: 2
       item:
-        Name: 
-        Id: -253
+        Name: EnergyPotion
+        Id: 2
         isSpecial: 0
-        itemType: 0
-      amount: 0
+        itemType: 4
+      amount: 1
       isSpecial: 0
     - ID: 6
       item:
@@ -62,7 +62,7 @@ MonoBehaviour:
         Id: 6
         isSpecial: 0
         itemType: 5
-      amount: 18
+      amount: 1
       isSpecial: 0
     - ID: 5
       item:
@@ -70,5 +70,5 @@ MonoBehaviour:
         Id: 5
         isSpecial: 0
         itemType: 7
-      amount: 18
+      amount: 1
       isSpecial: 0
