@@ -29,7 +29,37 @@ public class ContinueScript : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene("Persistent");
+                for (int i = 0; i < inventory.Container.Items.Length; i++)
+                {
+                    if (inventory.Container.Items[i].ID >= 0)
+                    {
+                        inventory.Container.Items[i].ID = -1;
+                        inventory.Container.Items[i].item.Id = -1;
+                        inventory.Container.Items[i].item.Name = "";
+                        inventory.Container.Items[i].amount = 0;
+                    }
+                }
+                for (int i = 0; i < expanded.Container.Items.Length; i++)
+                {
+                    if (expanded.Container.Items[i].ID >= 0)
+                    {
+                        expanded.Container.Items[i].ID = -1;
+                        expanded.Container.Items[i].item.Id = -1;
+                        expanded.Container.Items[i].item.Name = "";
+                        expanded.Container.Items[i].amount = 0;
+                    }
+                }
+                for (int i = 0; i < specialInventory.Container.Items.Length; i++)
+                {
+                    if (specialInventory.Container.Items[i].ID >= 0)
+                    {
+                        specialInventory.Container.Items[i].ID = -1;
+                        specialInventory.Container.Items[i].item.Id = -1;
+                        specialInventory.Container.Items[i].item.Name = "";
+                        specialInventory.Container.Items[i].amount = 0;
+                    }
+                }
+                SceneManager.LoadScene("Persistent");
             //SceneManager.UnloadScene("MainMenu");
         }
 
