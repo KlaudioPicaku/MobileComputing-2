@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TakeDamage : MonoBehaviour
 {
@@ -15,8 +18,15 @@ public class TakeDamage : MonoBehaviour
     [SerializeField] LayerMask enemy;
     [SerializeField] PauseMenu pauseButton;
     [SerializeField] SaveManager loadButton;
+
+    [SerializeField] PlayerScript _player;
+    [SerializeField] GameObject DeathScreen;
+    [SerializeField] Canvas canvas;
+    SaveData localSave;
+
     void Start()
     {
+        _player = GetComponent<PlayerScript>();
         //health = GetComponent<HealthBarController>();
         currentHealth = health.GetHealth();
         previousHealth = currentHealth;
@@ -52,6 +62,7 @@ public class TakeDamage : MonoBehaviour
         }
         else if (currentHealth <= 0)
         {
+            
             animator.Play("player_death");
         }
         else
@@ -62,6 +73,7 @@ public class TakeDamage : MonoBehaviour
     void StopKnockBack()
     {
         // animation handler
+
        animator.SetBool("KnockBack", false);
     }
     void KnockBackPlayer()
@@ -73,7 +85,14 @@ public class TakeDamage : MonoBehaviour
     }
      void restartLatestCheckPoint()
     {
-        pauseButton.Pause();
-        loadButton.LoadGame();
+        if (File.Exists(Application.persistentDataPath + "/save.data"))
+        {
+            pauseButton.Pause();
+            loadButton.LoadGame();
+        }
+        else
+        {
+            return;
+        }
     }
 }

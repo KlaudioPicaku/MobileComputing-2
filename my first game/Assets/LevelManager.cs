@@ -18,15 +18,15 @@ public class LevelManager : MonoBehaviour
     }
     public void LoadLevel(int sceneIndex,string loadMode)
     {
-        LoadAsynchronous(sceneIndex, loadMode);
+        StartCoroutine(LoadAsynchronous(sceneIndex, loadMode));
     }
     public void LoadLevel(string sceneName)
     {
-        LoadAsynchronous(sceneName);
+        StartCoroutine(LoadAsynchronous(sceneName));
     }
     public void LoadLevel(string sceneName,string loadMode)
     {
-        LoadAsynchronous(sceneName,loadMode);
+        StartCoroutine(LoadAsynchronous(sceneName,loadMode));
     }
     IEnumerator LoadAsynchronous(string sceneName, string loadMode)
     {

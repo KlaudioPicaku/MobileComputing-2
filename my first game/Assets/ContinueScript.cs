@@ -14,10 +14,6 @@ public class ContinueScript : MonoBehaviour
     [SerializeField] InventoryObject inventory;
     [SerializeField] SpecialSlots specialInventory;
     [SerializeField] LevelManager levelManager;
-    private void Awake()
-    {
-        levelManager =this.gameObject.GetComponent<LevelManager>();
-    }
     private void Start()
     {
         dialog.SetActive(false);
@@ -64,8 +60,8 @@ public class ContinueScript : MonoBehaviour
                         specialInventory.Container.Items[i].amount = 0;
                     }
                 }
-            //levelManager.LoadLevel("Persistent");
-            SceneManager.LoadSceneAsync("Persistent");
+            levelManager.LoadLevel("Persistent");
+            //SceneManager.LoadSceneAsync("Persistent");
             //SceneManager.UnloadScene("MainMenu");
         }
 
@@ -108,7 +104,7 @@ public class ContinueScript : MonoBehaviour
                     specialInventory.Container.Items[i].amount = 0;
                 }
             }
-            SceneManager.LoadSceneAsync("Persistent");
+            levelManager.LoadLevel("Persistent");
             //SceneManager.UnloadScene("MainMenu");
 
         }
@@ -120,14 +116,20 @@ public class ContinueScript : MonoBehaviour
 
     public void LoadGame()
     {
-        if (File.Exists(Application.persistentDataPath + "/save.data"))
+        if (GameObject.FindGameObjectWithTag("Persistent"))
         {
-            // File exists 
-            SceneManager.LoadScene("Persistent");
+            GameObject.FindGameObjectWithTag("Persistent").gameObject.SetActive(true);
         }
-        else
-        {
-            this.gameObject.SetActive(false);
+        else {
+            if (File.Exists(Application.persistentDataPath + "/save.data"))
+            {
+                // File exists 
+                levelManager.LoadLevel("Persistent");
+            }
+            else
+            {
+                this.gameObject.SetActive(false);
+            }
         }
     }
 }

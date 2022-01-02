@@ -337,6 +337,25 @@ public class PlayerScript : MonoBehaviour
         expandedInventory.Load();
         specialInventory.Load();
     }
+    public void restartLatest()
+    {
+        if (File.Exists(Application.persistentDataPath + "/save.data"))
+        {
+            FileStream dataStream = new FileStream(Application.persistentDataPath + "/save.data", FileMode.Open);
+            BinaryFormatter converter = new BinaryFormatter();
+            localSave = converter.Deserialize(dataStream) as SaveData;
+            this.toBeSaved = localSave;
+            resetSave();
+            SceneManager.LoadSceneAsync(toBeSaved.sceneName);
+            loadInventory();
+            dataStream.Close();
+        }
+        else
+        {
+            inventory.Load();
+            SceneManager.LoadSceneAsync(2);
+        }
+    }
     //private void Update()
     //{
     //    if (specialInventory.isPresent(item.item.Id))

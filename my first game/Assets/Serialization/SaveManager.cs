@@ -14,7 +14,7 @@ public class SaveManager : MonoBehaviour
     [SerializeField] PauseMenu pauseMenu;
     [SerializeField] GameObject notificationParent;
     [SerializeField] GameObject notification;
-
+    [SerializeField] GameObject persistentParent;
     SaveData localSave;
     public void SaveGame()
     {
@@ -67,6 +67,12 @@ public class SaveManager : MonoBehaviour
             // File does not exist
             Debug.Log("Save file not found in " + Application.persistentDataPath + "/save.data");
         }
+    }
+    public void mainMenu()
+    {
+        SceneManager.LoadSceneAsync("MainMenu");
+        Time.timeScale = 1f;
+        Destroy(persistentParent);
     }
     private IEnumerator LoadScene()
     {

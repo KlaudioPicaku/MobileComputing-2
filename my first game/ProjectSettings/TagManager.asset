@@ -18,6 +18,7 @@ TagManager:
   - glow
   - Spec
   - Checkpoint
+  - Persistent
   layers:
   - Default
   - TransparentFX
