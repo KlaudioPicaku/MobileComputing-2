@@ -24,6 +24,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] GameObject notificationParent;
     [SerializeField] Slider healthSlider;
     [SerializeField] Slider energySlider;
+    [SerializeField] LevelManager levelManager;
     SerializableVector3 position = new SerializableVector3();
     public SaveData toBeSaved;
     int freeSlotsHotBar = 0;
@@ -43,14 +44,14 @@ public class PlayerScript : MonoBehaviour
             localSave = converter.Deserialize(dataStream) as SaveData;
             this.toBeSaved = localSave;
             resetSave();
-            SceneManager.LoadSceneAsync(toBeSaved.sceneName,LoadSceneMode.Additive);
+            levelManager.LoadLevel(toBeSaved.sceneName,"additive");
             //loadInventory();
             dataStream.Close();
         }
         else
         {
             //inventory.Load();
-            SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
+           levelManager.LoadLevel(2, "additive");
         }
 
     }

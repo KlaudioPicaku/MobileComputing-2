@@ -19,6 +19,7 @@ TagManager:
   - Spec
   - Checkpoint
   - Persistent
+  - Canvas
   layers:
   - Default
   - TransparentFX

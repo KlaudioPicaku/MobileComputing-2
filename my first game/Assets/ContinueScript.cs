@@ -124,6 +124,9 @@ public class ContinueScript : MonoBehaviour
             if (File.Exists(Application.persistentDataPath + "/save.data"))
             {
                 // File exists 
+                inventory.Load();
+                expanded.Load();
+                specialInventory.Load();
                 levelManager.LoadLevel("Persistent");
             }
             else

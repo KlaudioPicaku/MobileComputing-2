@@ -81,6 +81,12 @@ public class DisplayInventory : MonoBehaviour
     Dictionary<GameObject, InventorySlot> specialItemsPresent = new Dictionary<GameObject, InventorySlot>();
     Dictionary<int, int> availableIDs = new Dictionary<int, int>();
     // Start is called before the first frame update
+    //private void Awake()
+    //{
+    //    inventory.Load();
+    //    expandedInventory.Load();
+    //    specialInventory.Load();
+    //}
     void Start()
     {
         inventoryPrefab.transform.GetChild(2).gameObject.SetActive(false);

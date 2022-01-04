@@ -6,9 +6,21 @@ using UnityEngine;
 public class HealthBarController : MonoBehaviour
 {
     [SerializeField] Slider slider;
-    private void Start()
+    [SerializeField] bool isDead=false;
+    [SerializeField] GameObject DeathScreen;
+    [SerializeField] Canvas canvas;
+    private void Start() 
     {
-        slider = GetComponent<Slider>();
+        canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>();
+        slider = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<Slider>() ;
+    }
+    public void FixedUpdate()
+    {
+        if (slider.value <= 0 && !isDead)
+        {
+            Instantiate(DeathScreen, canvas.transform);
+            isDead = true;
+        }
     }
     public void setMaxHealth(float health)
     {

@@ -8,6 +8,8 @@ public class FadeInDeath : MonoBehaviour
     [SerializeField] Image mainImage;
     [SerializeField] Image ribbon;
     [SerializeField] Text textBox;
+    [SerializeField] Text agree;
+    [SerializeField] Text leave;
     [SerializeField] float speed;
     [SerializeField] float fadeOutSpeed = 1f;
     [SerializeField] bool faded = false;
@@ -16,6 +18,8 @@ public class FadeInDeath : MonoBehaviour
     Color color1;
     Color color2;
     Color color3;
+    Color color4;
+    Color color5;
     // Start is called before the first frame update
     public void Awake()
     {
@@ -24,8 +28,15 @@ public class FadeInDeath : MonoBehaviour
         textBox = GetComponentInChildren<Text>();
         color1 = mainImage.color;
         color2 = textBox.color;
+        color3 = ribbon.color;
+        color4 = agree.color;
+        color5 = leave.color;
         mainImage.color = new Color(1f, 1f, 1f, 0f);
         textBox.color = new Color(1f, 1f, 1f, 0f);
+        ribbon.color = new Color(1f,1f,0f);
+        agree.color = new Color(1f,1f,0f);
+        leave.color = new Color(1f,1f,0f);
+
     }
     private void FixedUpdate()
     {
@@ -37,18 +48,20 @@ public class FadeInDeath : MonoBehaviour
                 colorfade();
                 speed += (Time.deltaTime * 4);
             }
-            else if (timeUp >= 3f && fadeOutSpeed >= 0f)
-            {
-                fadeOut();
-                fadeOutSpeed -= (Time.deltaTime * 4);
-            }
+            //else if (timeUp >= 3f && fadeOutSpeed >= 0f)
+            //{
+            //    fadeOut();
+            //    fadeOutSpeed -= (Time.deltaTime * 4);
+            //}
         }
         else
         {
             mainImage.color = new Color(1f, 1f, 1f, 0f);
             textBox.color = new Color(1f, 1f, 1f, 0f);
             ribbon.color = new Color(1f, 1f, 1f, 0f);
-            Destroy(this.gameObject);
+            agree.color = new Color(1f, 1f, 0f);
+            leave.color = new Color(1f, 1f, 0f);
+            //Destroy(this.gameObject);
         }
     }
     private void colorfade()
@@ -56,11 +69,15 @@ public class FadeInDeath : MonoBehaviour
         mainImage.color = new Color(color1.r, color1.g, color1.b, speed);
         textBox.color = new Color(color2.r, color2.g, color2.b, speed);
         ribbon.color = new Color(color3.r, color3.g, color3.b, speed);
+        agree.color = new Color(color4.r, color4.g, color4.b, speed);
+        leave.color = new Color(color5.r, color5.g, color5.b, speed);
     }
     public void fadeOut()
     {
         mainImage.color = new Color(color1.r, color1.g, color1.b, fadeOutSpeed);
         textBox.color = new Color(color2.r, color2.g, color2.b, fadeOutSpeed);
         ribbon.color = new Color(color3.r, color3.g, color3.b, fadeOutSpeed);
+        agree.color = new Color(color4.r, color4.g, color4.b, fadeOutSpeed);
+        leave.color = new Color(color5.r, color5.g, color5.b, fadeOutSpeed);
     }
 }

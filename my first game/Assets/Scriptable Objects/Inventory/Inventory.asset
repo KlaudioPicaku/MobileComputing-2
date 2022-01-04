@@ -16,29 +16,29 @@ MonoBehaviour:
   database: {fileID: 11400000, guid: 310001e1edb071543a04e0ad6eb1f7fc, type: 2}
   Container:
     Items:
-    - ID: -253
+    - ID: 4
       item:
-        Name: 
-        Id: -253
+        Name: Golden Key
+        Id: 4
         isSpecial: 0
-        itemType: 0
-      amount: 0
+        itemType: 3
+      amount: 1
       isSpecial: 0
-    - ID: -506
+    - ID: 3
       item:
-        Name: 
-        Id: -506
+        Name: Food
+        Id: 3
         isSpecial: 0
-        itemType: 0
-      amount: 0
+        itemType: 1
+      amount: 1
       isSpecial: 0
-    - ID: -759
+    - ID: 7
       item:
-        Name: 
-        Id: -759
+        Name: Note
+        Id: 7
         isSpecial: 0
-        itemType: 0
-      amount: 0
+        itemType: 8
+      amount: 1
       isSpecial: 0
     - ID: -1012
       item:

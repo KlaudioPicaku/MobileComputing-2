@@ -19,14 +19,8 @@ public class TakeDamage : MonoBehaviour
     [SerializeField] PauseMenu pauseButton;
     [SerializeField] SaveManager loadButton;
 
-    [SerializeField] PlayerScript _player;
-    [SerializeField] GameObject DeathScreen;
-    [SerializeField] Canvas canvas;
-    SaveData localSave;
-
     void Start()
     {
-        _player = GetComponent<PlayerScript>();
         //health = GetComponent<HealthBarController>();
         currentHealth = health.GetHealth();
         previousHealth = currentHealth;

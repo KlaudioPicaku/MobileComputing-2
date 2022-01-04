@@ -12,8 +12,10 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] AudioSource globalSoundFx;
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider soundFXSlider;
+    [SerializeField] GameObject dialogQuit;
     private void Awake()
     {
+        dialogQuit.SetActive(false);
         pauseMenuUI.SetActive(false);
         musicSlider.value = music.volume;
         soundFXSlider.value = globalSoundFx.volume;
@@ -32,6 +34,14 @@ public class PauseMenu : MonoBehaviour
         music.volume = musicSlider.value;
         globalSoundFx.volume = soundFXSlider.value;
 
+    }
+    public void openDialogQuit()
+    {
+        dialogQuit.SetActive(true);
+    }
+    public void quitGame()
+    {
+        Application.Quit();
     }
     public void Resume()
     {

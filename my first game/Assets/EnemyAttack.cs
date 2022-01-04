@@ -51,7 +51,11 @@ public class EnemyAttack : MonoBehaviour
         }
         if (referenceSceneHasLoaded)
         {
-            CheckRange();
+            if (Goal != null)
+            {
+                CheckRange();
+
+            }
         }
 
     }
