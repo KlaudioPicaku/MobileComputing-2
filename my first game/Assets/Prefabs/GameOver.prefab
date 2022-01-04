@@ -120,7 +120,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3094469286924316272}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3094469287499861861}
+        m_TargetAssemblyTypeName: FadeInDeath, Assembly-CSharp
+        m_MethodName: Agree
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3094469285771084108
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,14 +541,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainImage: {fileID: 3094469287499861860}
   ribbon: {fileID: 3094469287369039370}
+  character: {fileID: 3094469287511205992}
   textBox: {fileID: 3094469287303746505}
   agree: {fileID: 3094469286924316272}
   leave: {fileID: 908676846352535922}
+  extraText: {fileID: 3094469285771084110}
   speed: 0
   fadeOutSpeed: 1
   faded: 0
   timeUp: 0
+  delayToStart: 0
   player: {fileID: 0}
+  persistent: {fileID: 0}
+  levelManager: {fileID: 0}
 --- !u!1 &3094469287511205974
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,4 +828,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 908676846352535922}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3094469287499861861}
+        m_TargetAssemblyTypeName: FadeInDeath, Assembly-CSharp
+        m_MethodName: mainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

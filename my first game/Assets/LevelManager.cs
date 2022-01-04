@@ -47,6 +47,7 @@ public class LevelManager : MonoBehaviour
 
             yield return null;
         }
+        loadingScreen.SetActive(false);
     }
     IEnumerator LoadAsynchronous(int sceneIndex,string loadMode)
     {
@@ -65,7 +66,8 @@ public class LevelManager : MonoBehaviour
             loadingBar.value = progress;
 
             yield return null;
-        } 
+        }
+        loadingScreen.SetActive(false);
     }
     IEnumerator LoadAsynchronous(string sceneName)
     {
@@ -79,6 +81,7 @@ public class LevelManager : MonoBehaviour
 
             yield return null;
         }
+        loadingScreen.SetActive(false);
     }
     IEnumerator LoadAsynchronous(int sceneIndex)
     {
@@ -92,5 +95,6 @@ public class LevelManager : MonoBehaviour
 
             yield return null;
         }
+        loadingScreen.SetActive(false);
     }
 }

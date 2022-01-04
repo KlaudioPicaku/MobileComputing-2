@@ -1670,6 +1670,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level Loader
       objectReference: {fileID: 0}
+    - target: {fileID: 4875761017972086864, guid: d708fb8be4d391e4b8775cb3fa3d26ec, type: 3}
+      propertyPath: m_TagString
+      value: LevelLoader
+      objectReference: {fileID: 0}
     - target: {fileID: 4875761017972086865, guid: d708fb8be4d391e4b8775cb3fa3d26ec, type: 3}
       propertyPath: loadingBar
       value: 
@@ -4962,7 +4966,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 2000742412}
   isDead: 0
-  DeathScreen: {fileID: 2256340004398535501, guid: b7f583439b49192499b016c1db637cf0, type: 3}
+  DeathScreen: {fileID: 3094469287499861859, guid: 8ef2b97142f4ded4ca38c7c8b77d310e, type: 3}
   canvas: {fileID: 0}
 --- !u!114 &2061324319
 MonoBehaviour:
