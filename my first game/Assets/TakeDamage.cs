@@ -19,8 +19,10 @@ public class TakeDamage : MonoBehaviour
     [SerializeField] PauseMenu pauseButton;
     [SerializeField] SaveManager loadButton;
 
+
     void Start()
     {
+
         //health = GetComponent<HealthBarController>();
         currentHealth = health.GetHealth();
         previousHealth = currentHealth;

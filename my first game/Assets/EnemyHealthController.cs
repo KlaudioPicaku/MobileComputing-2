@@ -11,29 +11,42 @@ public class EnemyHealthController : MonoBehaviour
     [SerializeField] Transform playerLock;
     private Animator animator;
     private bool isDead = false;
+    [SerializeField] float timeDead = 0f;
     private void Start()
     {
+
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
         previousHealth = currentHealth;
     }
     private void Update()
     {
-        //check if health has changed or not
-        if (currentHealth < previousHealth)
-        {
-            animator.SetTrigger("Hurt");
-            previousHealth = currentHealth;
-            Vector3 positionSpawn = this.gameObject.transform.position;
-            Instantiate(energyPointsPrefab, positionSpawn,  Quaternion.identity);
-            
+        if (!isDead) {
+            //check if health has changed or not
+            if (currentHealth < previousHealth)
+            {
+                animator.SetTrigger("Hurt");
+                previousHealth = currentHealth;
+                Vector3 positionSpawn = this.gameObject.transform.position;
+                Instantiate(energyPointsPrefab, positionSpawn, Quaternion.identity);
+
+            }
+            else if (currentHealth <= 0 && !isDead)
+            {
+                Vector3 positionSpawn = this.gameObject.transform.position;
+                Instantiate(energyPointsPrefab, positionSpawn, Quaternion.identity);
+                Die();
+                isDead = true;
+            }
         }
-        else if (currentHealth <= 0 && !isDead)
+        else
         {
-            Vector3 positionSpawn = this.gameObject.transform.position;
-            Instantiate(energyPointsPrefab, positionSpawn, Quaternion.identity);
-            Die();
-            isDead = true;
+            timeDead += Time.deltaTime;
+            if (timeDead >= 10f)
+            {
+                GameObject.FindWithTag("SkeletonRoot").SetActive(false);
+            }
+
         }
     }
     private void Die()
@@ -45,8 +58,8 @@ public class EnemyHealthController : MonoBehaviour
             GetComponent<EnemyAI>().enabled = false;
             GetComponent<BoxCollider2D>().enabled = false;
             GetComponent<EnemyAttack>().enabled = false;
-            this.enabled = false;
-            Destroy(GameObject.FindWithTag("SkeletonRoot"),10f);
+            //this.enabled = false;
+            //Destroy(GameObject.FindWithTag("SkeletonRoot"),10f);
             isDead = true;
         }
 

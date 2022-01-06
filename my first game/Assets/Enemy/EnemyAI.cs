@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -9,12 +10,22 @@ using UnityEngine.UI;
 public class EnemyAI : MonoBehaviour
 {
 
+
     [SerializeField] List<Transform> points;
     [SerializeField] int nextID;
     int idChangeValue = 1;
     Animator animator;
     float minAttackDistance = 0.5f;
     public float speed = 0.5f;
+    static string path;
+    private void Awake()
+    {
+        path = Application.persistentDataPath + "/TEMP";
+        if (!Directory.Exists(path))
+        {
+            Directory.CreateDirectory(path);
+        }
+    }
     private void Start()
     {
        
