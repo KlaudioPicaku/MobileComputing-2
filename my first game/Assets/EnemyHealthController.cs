@@ -12,9 +12,10 @@ public class EnemyHealthController : MonoBehaviour
     private Animator animator;
     private bool isDead = false;
     [SerializeField] float timeDead = 0f;
+    PlayerScript player;
     private void Start()
     {
-
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
         previousHealth = currentHealth;
@@ -58,6 +59,7 @@ public class EnemyHealthController : MonoBehaviour
             GetComponent<EnemyAI>().enabled = false;
             GetComponent<BoxCollider2D>().enabled = false;
             GetComponent<EnemyAttack>().enabled = false;
+            player.enemiesKilled.Add(this.gameObject.name);
             //this.enabled = false;
             //Destroy(GameObject.FindWithTag("SkeletonRoot"),10f);
             isDead = true;

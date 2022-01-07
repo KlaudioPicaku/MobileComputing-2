@@ -26,6 +26,13 @@ public class SaveManager : MonoBehaviour
             converter.Serialize(dataStream, _player.toBeSaved);
             _player.saveInventory();
             dataStream.Close();
+            foreach (string item in _player.enemiesKilled)
+            {
+                FileStream dataStream1 = new FileStream(Application.persistentDataPath + "/TEMP" +"/"+item +".enemy", FileMode.Create);
+                BinaryFormatter converter1 = new BinaryFormatter();
+                converter1.Serialize(dataStream1,item);
+                dataStream1.Close();
+            }
             GameObject temp = Instantiate(notification, notificationParent.transform);
             temp.GetComponentInChildren<Text>().text = "Saving...";
             pauseMenu.Resume();
@@ -98,6 +105,7 @@ public class SaveData
     public string sceneName;
     public float health;
     public float energy;
+    public int eyesKilled;
 
     public SerializableVector3 spawnPosition;
 }

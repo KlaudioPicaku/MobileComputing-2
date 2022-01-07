@@ -4546,7 +4546,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 5
+  m_Value: 100
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -5023,14 +5023,17 @@ MonoBehaviour:
   healthSlider: {fileID: 2000742412}
   energySlider: {fileID: 568257633}
   levelManager: {fileID: 636502778}
+  enemiesKilled: []
   toBeSaved:
     sceneName: 
     health: 0
     energy: 0
+    eyesKilled: 0
     spawnPosition:
       x: 0
       y: 0
       z: 0
+  eyesKilled: 0
 --- !u!114 &2061324322
 MonoBehaviour:
   m_ObjectHideFlags: 0

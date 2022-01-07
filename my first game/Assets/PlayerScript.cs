@@ -26,14 +26,19 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] Slider energySlider;
     [SerializeField] LevelManager levelManager;
     SerializableVector3 position = new SerializableVector3();
+    public List<string> enemiesKilled;
     public SaveData toBeSaved;
+    public int eyesKilled = 0;
+
     int freeSlotsHotBar = 0;
     int freeSlotsExpanded = 0;
+
     int freeSlotsSpecial = 0;
     bool specialItem1 = false;
     bool cleared = false;
     GroundItem item;
     SaveData localSave;
+
 
     private void Awake()
     {
@@ -63,7 +68,7 @@ public class PlayerScript : MonoBehaviour
         //    expandedInventory.Clear();
         //    specialInventory.Clear();
         //}
-
+        //Debug.Log(eyesKilled);
         freeSlotsHotBar = inventory.isFree();
         freeSlotsExpanded = expandedInventory.isFree();
         freeSlotsSpecial = specialInventory.isFree();
@@ -315,6 +320,7 @@ public class PlayerScript : MonoBehaviour
         toBeSaved.health = healthSlider.value;
         toBeSaved.energy = energySlider.value;
         toBeSaved.spawnPosition = position;
+        toBeSaved.eyesKilled = eyesKilled;
 
     }
     /*Resets player variables from Load() function in  SaveManager Class */
@@ -324,6 +330,7 @@ public class PlayerScript : MonoBehaviour
         transform.position = oldPosition;
         healthSlider.value = toBeSaved.health;
         energySlider.value = toBeSaved.energy;
+        eyesKilled = toBeSaved.eyesKilled;
 
     }
     public void saveInventory()

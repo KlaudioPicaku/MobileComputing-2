@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -74,6 +75,7 @@ public class ContinueScript : MonoBehaviour
             File.Delete(Application.persistentDataPath + "/inventory.save");
             File.Delete(Application.persistentDataPath + "/expanded.save");
             File.Delete(Application.persistentDataPath + "/specialInventory.save");
+            FileUtil.DeleteFileOrDirectory(Application.persistentDataPath+"/TEMP");
             for (int i = 0; i < inventory.Container.Items.Length; i++)
             {
                 if (inventory.Container.Items[i].ID >= 0)
@@ -127,6 +129,7 @@ public class ContinueScript : MonoBehaviour
                 inventory.Load();
                 expanded.Load();
                 specialInventory.Load();
+
                 levelManager.LoadLevel("Persistent");
             }
             else

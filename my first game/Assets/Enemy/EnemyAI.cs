@@ -17,13 +17,18 @@ public class EnemyAI : MonoBehaviour
     Animator animator;
     float minAttackDistance = 0.5f;
     public float speed = 0.5f;
-    static string path;
+     string path;
     private void Awake()
     {
         path = Application.persistentDataPath + "/TEMP";
         if (!Directory.Exists(path))
         {
             Directory.CreateDirectory(path);
+        }
+       string path2 = Application.persistentDataPath + "/TEMP" + "/" + this.gameObject.name + ".enemy";
+        if (File.Exists(path2))
+        {
+            this.gameObject.transform.parent.gameObject.SetActive(false);
         }
     }
     private void Start()
