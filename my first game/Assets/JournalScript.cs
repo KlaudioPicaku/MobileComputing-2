@@ -36,6 +36,8 @@ public class JournalScript : MonoBehaviour
         if (journal.Count > 0)
         {
             currentLength = journal.Count;
+            nextButton.enabled = true;
+            previousButton.enabled = true;
         }
         if (previousLength < currentLength)
         {
@@ -49,6 +51,10 @@ public class JournalScript : MonoBehaviour
         if (currentIndex==0)
         {
             previousButton.enabled = false;
+        }
+        if (arrayOfStrings.Length > 0)
+        {
+            textBox.text = arrayOfStrings[currentIndex];
         }
         
     }

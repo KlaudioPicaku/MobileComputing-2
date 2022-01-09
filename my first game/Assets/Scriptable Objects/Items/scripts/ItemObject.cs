@@ -14,6 +14,7 @@ public enum ItemType
     Totem,
     Note,
     BlueFeather,
+    RedFeather,
 }
 public abstract class ItemObject : ScriptableObject
 {

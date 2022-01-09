@@ -106,6 +106,6 @@ public class SaveData
     public float health;
     public float energy;
     public int eyesKilled;
-
+    public List<string> journal;
     public SerializableVector3 spawnPosition;
 }

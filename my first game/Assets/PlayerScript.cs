@@ -32,8 +32,8 @@ public class PlayerScript : MonoBehaviour
     public SaveData toBeSaved;
     public int eyesKilled = 0;
 
-    int freeSlotsHotBar = 0;
-    int freeSlotsExpanded = 0;
+    [SerializeField]  int freeSlotsHotBar = 0;
+    [SerializeField] int freeSlotsExpanded = 0;
 
     int freeSlotsSpecial = 0;
     bool specialItem1 = false;
@@ -75,6 +75,12 @@ public class PlayerScript : MonoBehaviour
         freeSlotsExpanded = expandedInventory.isFree();
         freeSlotsSpecial = specialInventory.isFree();
 
+    }
+    private void FixedUpdate()
+    {
+        freeSlotsHotBar = inventory.isFree();
+        freeSlotsExpanded = expandedInventory.isFree();
+        freeSlotsSpecial = specialInventory.isFree();
     }
     public void OnTriggerEnter2D(Collider2D other)
     {
@@ -163,6 +169,8 @@ public class PlayerScript : MonoBehaviour
                     item.item.Id >= 8 && item.item.Id <= 12)
                 {
                     expandedInventory.AddItem(new Item(item.item), 1, true);
+                    journal.journal.Add(item.item.description);
+                    Debug.Log(item.item.description);
                     Destroy(other.gameObject);
                     print("space in expanded");
                 }
@@ -179,6 +187,8 @@ public class PlayerScript : MonoBehaviour
                 }
                 else if (item.item.Id >= 8 && item.item.Id <= 12)
                 {
+                    journal.journal.Add(item.item.description);
+                    Debug.Log(item.item.description);
                     inventory.AddItem(new Item(item.item), 1, true);
                     Destroy(other.gameObject);
                 }
@@ -290,6 +300,8 @@ public class PlayerScript : MonoBehaviour
                     }
                     else if (item.item.Id >= 8 && item.item.Id <= 12)
                     {
+                        journal.journal.Add(item.item.description);
+                        Debug.Log(item.item.description);
                         inventory.AddItem(new Item(item.item), 1, true);
                         Destroy(other.gameObject);
                     }
@@ -325,6 +337,7 @@ public class PlayerScript : MonoBehaviour
         toBeSaved.energy = energySlider.value;
         toBeSaved.spawnPosition = position;
         toBeSaved.eyesKilled = eyesKilled;
+        toBeSaved.journal = journal.journal;
 
     }
     /*Resets player variables from Load() function in  SaveManager Class */
@@ -335,6 +348,7 @@ public class PlayerScript : MonoBehaviour
         healthSlider.value = toBeSaved.health;
         energySlider.value = toBeSaved.energy;
         eyesKilled = toBeSaved.eyesKilled;
+        journal.journal = toBeSaved.journal;
 
     }
     public void saveInventory()

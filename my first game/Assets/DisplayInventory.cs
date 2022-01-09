@@ -115,7 +115,7 @@ public class DisplayInventory : MonoBehaviour
                 if (_slot.Value.ID >= 0)
                 {
                     _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[_slot.Value.item.Id].uiDisplay;
-                    if (!(_slot.Value.ID >= 8 && _slot.Value.ID <= 8))
+                    if (!(_slot.Value.ID >= 8 && _slot.Value.ID <= 12))
                     {
                         _slot.Key.transform.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
                         
@@ -146,7 +146,7 @@ public class DisplayInventory : MonoBehaviour
                 if (_slot.Value.ID >= 0)
                 {
                     _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[_slot.Value.item.Id].uiDisplay;
-                    if (!(_slot.Value.ID >= 8 && _slot.Value.ID <= 8))
+                    if (!(_slot.Value.ID >= 8 && _slot.Value.ID <= 12))
                     {
                         _slot.Key.transform.GetComponent<Image>().color = new Color(1, 1, 1, 1);
                     }

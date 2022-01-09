@@ -44,7 +44,7 @@ MonoBehaviour:
       item:
         Name: 
         Id: -3036
-        isSpecial: 0
+        isSpecial: 1
         itemType: 0
       amount: 0
       isSpecial: 0
