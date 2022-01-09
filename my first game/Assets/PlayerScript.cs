@@ -16,6 +16,8 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] ExpandedInventoryObject expandedInventory;
     [SerializeField] SpecialSlots specialInventory;
 
+    [SerializeField] JournalScript journal;
+
     [SerializeField] LayerMask layerMask;
     [SerializeField] LayerMask checkPoints;
     public bool isNearCheckPoint;
@@ -226,6 +228,7 @@ public class PlayerScript : MonoBehaviour
                         {
                             if (expandedInventory.Container.Items[i].ID == item.item.Id)
                             {
+
                                 isPresentExp = true;
                                 flag = false;
                                 break;
@@ -252,7 +255,6 @@ public class PlayerScript : MonoBehaviour
                 }
                 else if (isPresentExp && item.item.Id >= 8 && item.item.Id <= 12)
                 {
-
                     expandedInventory.AddItem(new Item(item.item), 1, true);
                     Destroy(other.gameObject);
                     print("added to expanded");
@@ -269,6 +271,8 @@ public class PlayerScript : MonoBehaviour
                     if (freeSlotsHotBar == 0 && freeSlotsExpanded > 0 &&
                         item.item.Id >= 8 && item.item.Id <= 12)
                     {
+                        journal.journal.Add(item.item.description);
+                        Debug.Log(item.item.description);
                         expandedInventory.AddItem(new Item(item.item), 1, true);
                         Destroy(other.gameObject);
                         print("space in expanded");
