@@ -443,7 +443,7 @@ public class DisplayInventory : MonoBehaviour
                         }
                         if (!flag)
                         {
-                            for (int k = 0; k < specialInventory.Container.Items.Length; i++)
+                            for (int k = 0; k < specialInventory.Container.Items.Length; k++)
                             {
                                 if (specialInventory.Container.Items[k].ID == itemId)
                                 {
@@ -707,6 +707,11 @@ public class DisplayInventory : MonoBehaviour
                             break;
                         }
                     }
+                    else
+                    {
+                        flag = true;
+                        break;
+                    }
                 }
             }
             if (flag)
@@ -761,6 +766,11 @@ public class DisplayInventory : MonoBehaviour
                             flag = true;
                             break;
                         }
+                    }
+                    else
+                    {
+                        flag = true;
+                        break;
                     }
                 }
                 

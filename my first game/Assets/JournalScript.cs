@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class JournalScript : MonoBehaviour
 {
     [SerializeField] GameObject expanded;
+    [SerializeField] GameObject expandedButton;
     public List<string> journal= new List<string>();
     [SerializeField] string[] arrayOfStrings;
     [SerializeField] Text textBox;
@@ -54,7 +55,17 @@ public class JournalScript : MonoBehaviour
         }
         if (arrayOfStrings.Length > 0)
         {
+            image.color = new Vector4(1f, 1f, 1f, 1f);
             textBox.text = arrayOfStrings[currentIndex];
+            image.sprite = images[currentIndex];
+        }
+        if (Time.timeScale == 0f)
+        {
+            expandedButton.SetActive(false);
+        }
+        if (Time.timeScale == 1f)
+        {
+            expandedButton.SetActive(true);
         }
         
     }
