@@ -29,21 +29,25 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] LevelManager levelManager;
     SerializableVector3 position = new SerializableVector3();
     public List<string> enemiesKilled;
+    public List<string> itemsPicked;
     public SaveData toBeSaved;
     public int eyesKilled = 0;
 
     [SerializeField]  int freeSlotsHotBar = 0;
     [SerializeField] int freeSlotsExpanded = 0;
-
+    Rigidbody2D gravity;
     int freeSlotsSpecial = 0;
     bool specialItem1 = false;
     bool cleared = false;
+    bool gravitySet = false;
     GroundItem item;
     SaveData localSave;
 
 
     private void Awake()
     {
+        gravity = GetComponent<Rigidbody2D>();
+        gravity.gravityScale = 0f;
         if (File.Exists(Application.persistentDataPath + "/save.data"))
         {
             FileStream dataStream = new FileStream(Application.persistentDataPath + "/save.data", FileMode.Open);
@@ -58,7 +62,7 @@ public class PlayerScript : MonoBehaviour
         else
         {
             //inventory.Load();
-           levelManager.LoadLevel(2, "additive");
+           levelManager.LoadLevel("SampleScene", "additive");
         }
 
     }
@@ -78,6 +82,10 @@ public class PlayerScript : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (SceneManager.GetSceneByName("SampleScene").isLoaded && !gravitySet){
+            gravity.gravityScale = 1f;
+            gravitySet = true;
+        }
         freeSlotsHotBar = inventory.isFree();
         freeSlotsExpanded = expandedInventory.isFree();
         freeSlotsSpecial = specialInventory.isFree();
@@ -141,27 +149,29 @@ public class PlayerScript : MonoBehaviour
             if (isPresent && item.item.Id >= 8 && item.item.Id <= 12)
             {
                 inventory.AddItem(new Item(item.item), 1, true);
-                Destroy(other.gameObject);
+                itemsPicked.Add(item.name);
+                other.gameObject.SetActive(false);
             }
             else if (isPresent && !(item.item.Id >= 8 && item.item.Id <= 12))
             {
                 inventory.AddItem(new Item(item.item), 1, false);
-                Destroy(other.gameObject);
+                itemsPicked.Add(item.name);
+                other.gameObject.SetActive(false);
 
             }
             else if (isPresentExp && item.item.Id >= 8 && item.item.Id <= 12)
             {
 
                 expandedInventory.AddItem(new Item(item.item), 1, true);
-                Destroy(other.gameObject);
-                print("added to expanded");
+                itemsPicked.Add(item.name);
+                other.gameObject.SetActive(false);
             }
             else if (isPresentExp && !(item.item.Id >= 8 && item.item.Id <= 12))
             {
 
                 expandedInventory.AddItem(new Item(item.item), 1, false);
-                Destroy(other.gameObject);
-                print("added to expanded");
+                itemsPicked.Add(item.name);
+                other.gameObject.SetActive(false);
             }
             else
             {
@@ -170,16 +180,15 @@ public class PlayerScript : MonoBehaviour
                 {
                     expandedInventory.AddItem(new Item(item.item), 1, true);
                     journal.journal.Add(item.item.description);
-                    Debug.Log(item.item.description);
-                    Destroy(other.gameObject);
-                    print("space in expanded");
+                    itemsPicked.Add(item.name);
+                    other.gameObject.SetActive(false);
                 }
                 else if (freeSlotsHotBar == 0 && freeSlotsExpanded > 0 &&
                    !(item.item.Id >= 8 && item.item.Id <= 12))
                 {
                     expandedInventory.AddItem(new Item(item.item), 1, false);
-                    Destroy(other.gameObject);
-                    print("space in expanded");
+                    itemsPicked.Add(item.name);
+                    other.gameObject.SetActive(false);
                 }
                 else if (freeSlotsExpanded == 0 && freeSlotsHotBar == 0)
                 {
@@ -188,14 +197,15 @@ public class PlayerScript : MonoBehaviour
                 else if (item.item.Id >= 8 && item.item.Id <= 12)
                 {
                     journal.journal.Add(item.item.description);
-                    Debug.Log(item.item.description);
                     inventory.AddItem(new Item(item.item), 1, true);
-                    Destroy(other.gameObject);
+                    itemsPicked.Add(item.name);
+                    other.gameObject.SetActive(false);
                 }
                 else
                 {
                     inventory.AddItem(new Item(item.item), 1, false);
-                    Destroy(other.gameObject);
+                    itemsPicked.Add(item.name);
+                    other.gameObject.SetActive(false);
                 }
             }
         }
@@ -255,26 +265,28 @@ public class PlayerScript : MonoBehaviour
                 if (isPresent && item.item.Id >= 8 && item.item.Id <= 12)
                 {
                     inventory.AddItem(new Item(item.item), 1, true);
-                    Destroy(other.gameObject);
+                    itemsPicked.Add(item.name);
+                    other.gameObject.SetActive(false);
                 }
                 else if (isPresent && !(item.item.Id >= 8 && item.item.Id <= 12))
                 {
                     inventory.AddItem(new Item(item.item), 1, false);
-                    Destroy(other.gameObject);
+                    itemsPicked.Add(item.name);
+                    other.gameObject.SetActive(false);
 
                 }
                 else if (isPresentExp && item.item.Id >= 8 && item.item.Id <= 12)
                 {
                     expandedInventory.AddItem(new Item(item.item), 1, true);
-                    Destroy(other.gameObject);
-                    print("added to expanded");
+                    itemsPicked.Add(item.name);
+                    other.gameObject.SetActive(false);
                 }
                 else if (isPresentExp && !(item.item.Id >= 8 && item.item.Id <= 12))
                 {
 
                     expandedInventory.AddItem(new Item(item.item), 1, false);
-                    Destroy(other.gameObject);
-                    print("added to expanded");
+                    itemsPicked.Add(item.name);
+                    other.gameObject.SetActive(false);
                 }
                 else
                 {
@@ -284,15 +296,15 @@ public class PlayerScript : MonoBehaviour
                         journal.journal.Add(item.item.description);
                         Debug.Log(item.item.description);
                         expandedInventory.AddItem(new Item(item.item), 1, true);
-                        Destroy(other.gameObject);
-                        print("space in expanded");
+                        itemsPicked.Add(item.name);
+                        other.gameObject.SetActive(false);
                     }
                     else if (freeSlotsHotBar == 0 && freeSlotsExpanded > 0 &&
                        !(item.item.Id >= 8 && item.item.Id <= 12))
                     {
                         expandedInventory.AddItem(new Item(item.item), 1, false);
-                        Destroy(other.gameObject);
-                        print("space in expanded");
+                        itemsPicked.Add(item.name);
+                        other.gameObject.SetActive(false);
                     }
                     else if (freeSlotsExpanded == 0 && freeSlotsHotBar == 0)
                     {
@@ -301,14 +313,15 @@ public class PlayerScript : MonoBehaviour
                     else if (item.item.Id >= 8 && item.item.Id <= 12)
                     {
                         journal.journal.Add(item.item.description);
-                        Debug.Log(item.item.description);
                         inventory.AddItem(new Item(item.item), 1, true);
-                        Destroy(other.gameObject);
+                        itemsPicked.Add(item.name);
+                        other.gameObject.SetActive(false);
                     }
                     else
                     {
                         inventory.AddItem(new Item(item.item), 1, false);
-                        Destroy(other.gameObject);
+                        itemsPicked.Add(item.name);
+                        other.gameObject.SetActive(false);
                     }
                 }
 

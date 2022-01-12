@@ -17,6 +17,9 @@ public class JournalScript : MonoBehaviour
     [SerializeField] int currentIndex = 0;
     [SerializeField] int currentLength = 0;
     [SerializeField] int previousLength;
+    [SerializeField] DisplayInventory expandCheck;
+    [SerializeField] GameObject notifParent;
+    [SerializeField] GameObject notifUpdate;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +29,14 @@ public class JournalScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (expandCheck.IsExpanded)
+        {
+            expandedButton.SetActive(false);
+        }
+        else
+        {
+            expandedButton.SetActive(true);
+        }
         if (journal.Count==0)
         {
             nextButton.enabled = false;
@@ -43,6 +54,7 @@ public class JournalScript : MonoBehaviour
         if (previousLength < currentLength)
         {
             toArrayList();
+            Instantiate(notifUpdate, notifParent.transform);
             previousLength = currentLength;
         }
         if (currentIndex == currentLength - 1)
@@ -75,7 +87,10 @@ public class JournalScript : MonoBehaviour
     }
     public void DisplayCurrent()
     {
-        textBox.text = arrayOfStrings[currentIndex];
+        if (arrayOfStrings.Length != 0)
+        {
+            textBox.text = arrayOfStrings[currentIndex];
+        }
     }
     public void nextClick()
     {

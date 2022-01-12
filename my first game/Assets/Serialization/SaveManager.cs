@@ -33,6 +33,13 @@ public class SaveManager : MonoBehaviour
                 converter1.Serialize(dataStream1,item);
                 dataStream1.Close();
             }
+            foreach (string item in _player.itemsPicked)
+            {
+                FileStream dataStream2 = new FileStream(Application.persistentDataPath + "/TEMP" + "/" + item + ".item", FileMode.Create);
+                BinaryFormatter converter2 = new BinaryFormatter();
+                converter2.Serialize(dataStream2, item);
+                dataStream2.Close();
+            }
             GameObject temp = Instantiate(notification, notificationParent.transform);
             temp.GetComponentInChildren<Text>().text = "Saving...";
             pauseMenu.Resume();

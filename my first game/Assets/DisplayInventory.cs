@@ -35,7 +35,7 @@ public class DisplayInventory : MonoBehaviour
     [SerializeField] int NUMBER_OF_COLUMN_SPECIAL;
     [SerializeField] float Y_SPACE_BETWEEN_ITEMS_SPECIAL;
 
-    [SerializeField] bool IsExpanded = false;
+    public bool IsExpanded = false;
     [SerializeField] int idClicked = 0;
     [SerializeField] bool isOnInfo = false;
     [SerializeField] bool discarded = false;

@@ -16,12 +16,24 @@ public class GroundItem : MonoBehaviour,ISerializationCallbackReceiver
     //    }
     //}
     public ItemObject item;
-
+    string path;
     //private void Awake()
     //{
     //    Destroy(this.gameObject, 35f);
     //}
-
+    private void Awake()
+    {
+        path = Application.persistentDataPath + "/TEMP";
+        if (!Directory.Exists(path))
+        {
+            Directory.CreateDirectory(path);
+        }
+        string path2 = Application.persistentDataPath + "/TEMP" + "/" + this.gameObject.name + ".item";
+        if (File.Exists(path2))
+        {
+            this.gameObject.transform.gameObject.SetActive(false);
+        }
+    }
     public void OnAfterDeserialize()
     {
     }
