@@ -376,6 +376,10 @@ public class PlayerScript : MonoBehaviour
         expandedInventory.Load();
         specialInventory.Load();
     }
+    public void killPlayer()
+    {
+        healthSlider.value = 0;
+    }
     //public void restartLatest()
     //{
     //    if (File.Exists(Application.persistentDataPath + "/save.data"))

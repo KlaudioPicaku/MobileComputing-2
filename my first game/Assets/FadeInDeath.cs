@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -109,7 +110,10 @@ public class FadeInDeath : MonoBehaviour
 
     public void Agree()
     {
-        player.loadInventory();
+        if (File.Exists(Application.persistentDataPath + "/inventory.save"))
+        {
+            player.loadInventory();
+        }
         levelManager.LoadLevel("Persistent");
         Destroy(persistent);
     }
