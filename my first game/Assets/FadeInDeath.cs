@@ -114,6 +114,7 @@ public class FadeInDeath : MonoBehaviour
         {
             player.loadInventory();
         }
+        player.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
         levelManager.LoadLevel("Persistent");
         Destroy(persistent);
     }

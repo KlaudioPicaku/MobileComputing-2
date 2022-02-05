@@ -9,6 +9,7 @@ public class Character2Dcontroller : MonoBehaviour
     Rigidbody2D rb;
     Animator animator;
     [SerializeField] Transform groundCheckCollider;
+    [SerializeField] GameObject loadingScreen;
     [SerializeField] LayerMask groundLayer;
     [SerializeField] LayerMask ladderLayer;
     [SerializeField] float jmpPow = 500;
@@ -23,7 +24,10 @@ public class Character2Dcontroller : MonoBehaviour
     bool jumper = false;
     [SerializeField] bool isClimbing = false;
     [SerializeField] bool isClimbingDown = false;
-
+    private void Awake()
+    {
+        this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
+    }
     void Start()
     {
 
@@ -32,65 +36,67 @@ public class Character2Dcontroller : MonoBehaviour
     }
     void FixedUpdate()
     {
-        //Store horizontal and vertical value
-        horizontalValue = joystick.Horizontal;
-        verticalValue = joystick.Vertical;
+        if (!loadingScreen.activeInHierarchy){
+            //Store horizontal and vertical value
+            horizontalValue = joystick.Horizontal;
+            verticalValue = joystick.Vertical;
 
-        // if joystick is pushed beyond a certaing point(player is running)
-        if (Mathf.Abs(joystick.Horizontal) >= 0.2 && !animator.GetCurrentAnimatorStateInfo(0).IsName("player_hurt"))
-        {
-            isRunning = true;
-        }
-        else
-        {
-            isRunning = false;
-        }
-        if (jumper)
-        {
-            jumping = true;
-        }
-        else
-        {
-            jumping = false;
-        }
-        Collider2D[] hitinfo = Physics2D.OverlapCircleAll(transform.position, 0.2f, ladderLayer);
-        if (hitinfo.Length > 0)
-        {
-            if (verticalValue > 0)
+            // if joystick is pushed beyond a certaing point(player is running)
+            if (Mathf.Abs(joystick.Horizontal) >= 0.2 && !animator.GetCurrentAnimatorStateInfo(0).IsName("player_hurt"))
             {
-                isClimbing = true;
-                isClimbingDown = false;
+                isRunning = true;
             }
-            else if (verticalValue < 0)
+            else
+            {
+                isRunning = false;
+            }
+            if (jumper)
+            {
+                jumping = true;
+            }
+            else
+            {
+                jumping = false;
+            }
+            Collider2D[] hitinfo = Physics2D.OverlapCircleAll(transform.position, 0.2f, ladderLayer);
+            if (hitinfo.Length > 0)
+            {
+                if (verticalValue > 0)
+                {
+                    isClimbing = true;
+                    isClimbingDown = false;
+                }
+                else if (verticalValue < 0)
+                {
+                    isClimbing = false;
+                    isClimbingDown = true;
+                }
+            }
+            else if (hitinfo.Length == 0)
             {
                 isClimbing = false;
-                isClimbingDown = true;
+                isClimbingDown = false;
+                rb.gravityScale = 1f;
+                animator.ResetTrigger("isClimbing");
+                animator.SetFloat("yVelocity", 0f);
             }
+            if (isClimbing)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, verticalValue * MovementSpeed * 200 * Time.fixedDeltaTime);
+                rb.gravityScale = 0f;
+                animator.SetTrigger("isClimbing");
+                animator.SetFloat("yVelocity", verticalValue);
+            }
+            else if (isClimbingDown)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, verticalValue * MovementSpeed * 200 * Time.fixedDeltaTime);
+                rb.gravityScale = 0f;
+                animator.SetTrigger("isClimbing");
+                animator.SetFloat("yVelocity", verticalValue);
+            }
+            GroundCheck();
+            Move(horizontalValue, jumping);
         }
-        else if (hitinfo.Length == 0)
-        {
-            isClimbing = false;
-            isClimbingDown = false;
-            rb.gravityScale = 1f;
-            animator.ResetTrigger("isClimbing");
-            animator.SetFloat("yVelocity",0f);
-        }
-        if (isClimbing)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, verticalValue * MovementSpeed * 200 * Time.fixedDeltaTime);
-            rb.gravityScale = 0f;
-            animator.SetTrigger("isClimbing");
-            animator.SetFloat("yVelocity", verticalValue);
-        }
-        else if (isClimbingDown)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, verticalValue * MovementSpeed * 200 * Time.fixedDeltaTime);
-            rb.gravityScale = 0f;
-            animator.SetTrigger("isClimbing");
-            animator.SetFloat("yVelocity", verticalValue);
-        }
-        GroundCheck();
-        Move(horizontalValue, jumping);
     }
     void GroundCheck()
     {

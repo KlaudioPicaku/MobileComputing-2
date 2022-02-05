@@ -27,6 +27,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] Slider healthSlider;
     [SerializeField] Slider energySlider;
     [SerializeField] LevelManager levelManager;
+    [SerializeField] GameObject loadingScreen;
     SerializableVector3 position = new SerializableVector3();
     public List<string> enemiesKilled;
     public List<string> itemsPicked;
@@ -35,19 +36,18 @@ public class PlayerScript : MonoBehaviour
 
     [SerializeField]  int freeSlotsHotBar = 0;
     [SerializeField] int freeSlotsExpanded = 0;
-    Rigidbody2D gravity;
+
     int freeSlotsSpecial = 0;
     bool specialItem1 = false;
     bool cleared = false;
-    bool gravitySet = false;
+
     GroundItem item;
     SaveData localSave;
 
 
     private void Awake()
     {
-        gravity = GetComponent<Rigidbody2D>();
-        gravity.gravityScale = 0f;
+
         if (File.Exists(Application.persistentDataPath + "/save.data"))
         {
             FileStream dataStream = new FileStream(Application.persistentDataPath + "/save.data", FileMode.Open);
@@ -80,12 +80,9 @@ public class PlayerScript : MonoBehaviour
         freeSlotsSpecial = specialInventory.isFree();
 
     }
-    private void FixedUpdate()
+    private void Update()
     {
-        if (SceneManager.GetSceneByName("SampleScene").isLoaded && !gravitySet){
-            gravity.gravityScale = 1f;
-            gravitySet = true;
-        }
+        
         freeSlotsHotBar = inventory.isFree();
         freeSlotsExpanded = expandedInventory.isFree();
         freeSlotsSpecial = specialInventory.isFree();

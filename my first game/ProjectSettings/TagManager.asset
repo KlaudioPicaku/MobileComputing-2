@@ -21,6 +21,7 @@ TagManager:
   - Persistent
   - Canvas
   - LevelLoader
+  - Dialog
   layers:
   - Default
   - TransparentFX
