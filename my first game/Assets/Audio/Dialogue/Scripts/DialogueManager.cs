@@ -6,12 +6,15 @@ using UnityEngine.UI;
 public class DialogueManager : MonoBehaviour
 {
     [SerializeField] TMP_Text textBox;
-    [SerializeField] AudioClip typingClip;
+    public AudioClip typingClip;
     [SerializeField] AudioSourceGroup audioSourceGroup;
     [SerializeField] Transform positionCamera;
     [SerializeField] Transform currentCameraPosition;
     [SerializeField] GameObject camera;
     [SerializeField] GameObject dialogBox;
+    [SerializeField] GameObject controls;
+    [SerializeField] GameObject inventory;
+    [SerializeField] GameObject joystick;
     [SerializeField] float offsetNew = -2.6f;
     [SerializeField] float offsetPrev;
     public float smoothSpeed = 0.125f;
@@ -57,9 +60,17 @@ public class DialogueManager : MonoBehaviour
     public void closeDialog()
     {
         camera.GetComponent<CameraFollow>().offset.y -= offsetNew;
+        controls.SetActive(true);
+        inventory.SetActive(true);
+        joystick.SetActive(true);
+
     }
-    private void PlayDialogue1() {
+    public void PlayDialogue1() {
+        dialogBox.SetActive(true);
         PlayDialogue(dialogue1);
+        controls.SetActive(false);
+        inventory.SetActive(false);
+        joystick.SetActive(false);
     }
 
     private void PlayDialogue2() {

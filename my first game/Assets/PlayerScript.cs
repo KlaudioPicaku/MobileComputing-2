@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -20,6 +21,8 @@ public class PlayerScript : MonoBehaviour
 
     [SerializeField] LayerMask layerMask;
     [SerializeField] LayerMask checkPoints;
+    [SerializeField] LayerMask interactables;
+
     public bool isNearCheckPoint;
 
     [SerializeField] GameObject errorBox;
@@ -28,6 +31,14 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] Slider energySlider;
     [SerializeField] LevelManager levelManager;
     [SerializeField] GameObject loadingScreen;
+    [SerializeField] GameObject dialogBox;
+    [SerializeField] GameObject joystick;
+    public DialogueManager dialog;
+    public List<string> dialogToPassOver;
+    public int activeDialogIndex = 0;
+    public Button nextButton;
+    [SerializeField] GameObject Companion;
+    [SerializeField] LayerMask dialogLayer;
     SerializableVector3 position = new SerializableVector3();
     public List<string> enemiesKilled;
     public List<string> itemsPicked;
@@ -86,6 +97,16 @@ public class PlayerScript : MonoBehaviour
         freeSlotsHotBar = inventory.isFree();
         freeSlotsExpanded = expandedInventory.isFree();
         freeSlotsSpecial = specialInventory.isFree();
+        if (activeDialogIndex == dialogToPassOver.Count - 1 &&
+            dialogBox.activeInHierarchy) 
+        {
+            nextButton.gameObject.SetActive(false);
+        }
+        else if(activeDialogIndex<dialogToPassOver.Count-1 &&
+            dialogBox.activeInHierarchy)
+        {
+            nextButton.gameObject.SetActive(true);
+        }
     }
     public void OnTriggerEnter2D(Collider2D other)
     {
@@ -325,6 +346,15 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
+        Collider2D[] interactables = Physics2D.OverlapCircleAll(transform.position, 0.3f, dialogLayer);
+        if (interactables.Length > 0)
+        {
+            foreach (Collider2D item in interactables)
+            {
+                Companion.GetComponent<GroundInteractable>();
+            }
+        }
+
     }
     //private void FixedUpdate()
     //{
@@ -376,6 +406,40 @@ public class PlayerScript : MonoBehaviour
     public void killPlayer()
     {
         healthSlider.value = 0;
+    }
+    public void playThoughts()
+    {
+        var pointer = new PointerEventData(EventSystem.current);
+        joystick.GetComponent<FloatingJoystick>().OnPointerUp(pointer);
+        joystick.SetActive(false);
+        dialog.dialogue1 = dialogToPassOver[0];
+
+    }
+    public void Interact()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 0.4f, interactables);
+        if (colliders.Length > 0)
+        {
+            foreach (Collider2D item in colliders)
+            {
+
+                dialogToPassOver = item.gameObject.GetComponent<GroundInteractable>().item.DialogLines;
+                dialog.dialogue1 = dialogToPassOver[0];
+                activeDialogIndex = 0;
+                dialog.typingClip = item.gameObject.GetComponent<GroundInteractable>().item.dialogVoice;
+                dialog.PlayDialogue1();
+                break;
+            }
+        }
+    }
+    public void nextLine()
+    {
+        if (dialogToPassOver != null)
+        {
+            activeDialogIndex = (activeDialogIndex + 1) % dialogToPassOver.Count;
+            dialog.dialogue1 = dialogToPassOver[activeDialogIndex];
+            dialog.PlayDialogue1();
+        }
     }
     //public void restartLatest()
     //{
