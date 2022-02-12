@@ -16,7 +16,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] InventoryObject inventory;
     [SerializeField] ExpandedInventoryObject expandedInventory;
     [SerializeField] SpecialSlots specialInventory;
-
+    [SerializeField] SimulateSpaceClick scriptFadCam;
     [SerializeField] JournalScript journal;
 
     [SerializeField] LayerMask layerMask;
@@ -428,7 +428,24 @@ public class PlayerScript : MonoBehaviour
                 activeDialogIndex = 0;
                 dialog.typingClip = item.gameObject.GetComponent<GroundInteractable>().item.dialogVoice;
                 dialog.PlayDialogue1();
+                scriptFadCam = item.gameObject.GetComponent<SimulateSpaceClick>();
                 break;
+            }
+            if (scriptFadCam != null)
+            {
+                //if (Camera.main.gameObject.GetComponent<CameraFade>().fadeOut)
+                //{
+                //    Camera.main.gameObject.GetComponent<CameraFade>().fadeIn = true;
+                //    Camera.main.gameObject.GetComponent<CameraFade>().fadeOut = true;
+                //}
+                if (!Camera.main.gameObject.GetComponent<CameraFade>().fadeIn)
+                {
+                    Camera.main.gameObject.GetComponent<CameraFade>().fadeIn = true;
+                }
+                else
+                {
+                    Camera.main.gameObject.GetComponent<CameraFade>().fadeOut = true;
+                }
             }
         }
     }

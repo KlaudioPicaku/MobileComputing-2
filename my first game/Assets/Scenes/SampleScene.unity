@@ -2043,6 +2043,7 @@ GameObject:
   - component: {fileID: 583877169}
   - component: {fileID: 583877168}
   - component: {fileID: 583877170}
+  - component: {fileID: 583877171}
   m_Layer: 13
   m_Name: Tent
   m_TagString: Untagged
@@ -2177,6 +2178,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.48, y: 0.48}
   m_EdgeRadius: 0
+--- !u!114 &583877171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583877165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46b0fa5747979144e870ee8f8d16fd97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 0}
+  script: {fileID: 0}
 --- !u!1 &606434437
 GameObject:
   m_ObjectHideFlags: 0
