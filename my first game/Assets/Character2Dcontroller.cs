@@ -114,13 +114,16 @@ public class Character2Dcontroller : MonoBehaviour
         if (colliders.Length > 0)
         {
             isGrounded = true;
+
         }
     }
 
     public void Jump()
     {
         jumper = true;
+        animator.SetTrigger("jump");
         animator.SetBool("IsJumping", true);
+
     }
     public void stopJump()
     {

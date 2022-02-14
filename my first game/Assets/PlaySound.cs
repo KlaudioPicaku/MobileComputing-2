@@ -6,16 +6,8 @@ public class PlaySound : MonoBehaviour
 {
     public AudioSource audio;
     public AudioClip audioclip;
-    public GameObject lightning;
     public void playAudio()
     {
         audio.PlayOneShot(audioclip);
-    }
-    public void Deactivate()
-    {
-        if (!audio.isPlaying)
-        {
-            Destroy(lightning);
-        }
     }
 }

@@ -13,6 +13,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider soundFXSlider;
     [SerializeField] GameObject dialogQuit;
+    [SerializeField] GameObject joystick;
     private void Awake()
     {
         dialogQuit.SetActive(false);
@@ -50,6 +51,7 @@ public class PauseMenu : MonoBehaviour
         globalSoundFx.Play();
         Time.timeScale = 1f;
         GameIsPaused = false;
+        joystick.SetActive(true);
     }
     public void Pause()
     {
@@ -58,5 +60,6 @@ public class PauseMenu : MonoBehaviour
         globalSoundFx.Pause();
         Time.timeScale = 0f;
         GameIsPaused = true;
+        joystick.SetActive(false);
     }
 }

@@ -433,19 +433,9 @@ public class PlayerScript : MonoBehaviour
             }
             if (scriptFadCam != null)
             {
-                //if (Camera.main.gameObject.GetComponent<CameraFade>().fadeOut)
-                //{
-                //    Camera.main.gameObject.GetComponent<CameraFade>().fadeIn = true;
-                //    Camera.main.gameObject.GetComponent<CameraFade>().fadeOut = true;
-                //}
-                if (!Camera.main.gameObject.GetComponent<CameraFade>().fadeIn)
-                {
-                    Camera.main.gameObject.GetComponent<CameraFade>().fadeIn = true;
-                }
-                else
-                {
-                    Camera.main.gameObject.GetComponent<CameraFade>().fadeOut = true;
-                }
+                Debug.Log("Fade!=null");
+                scriptFadCam.activate();
+                scriptFadCam = null;
             }
         }
     }

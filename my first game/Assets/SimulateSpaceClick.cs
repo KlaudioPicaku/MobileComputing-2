@@ -4,16 +4,23 @@ using UnityEngine;
 
 public class SimulateSpaceClick : MonoBehaviour
 {
-    [SerializeField] GameObject mainCamera;
-    [SerializeField] CameraFade script;
+    [SerializeField] GameObject fadeInAndOut;
+    [SerializeField] bool faded = false;
     private void Awake()
     {
-        mainCamera = GameObject.Find("Main Camera");
-        script = mainCamera.GetComponent<CameraFade>();
+        fadeInAndOut = GameObject.FindGameObjectWithTag("Fading");
     }
-    public void simulate()
+    private void Start()
     {
-        //script.fade = true;
-        //script.fade = false;
+
+        fadeInAndOut.SetActive(false);
+    }
+    public void activate()
+    {
+        fadeInAndOut.GetComponent<fadeInAndOut>().fadeOutSpeed = 1f;
+        fadeInAndOut.GetComponent<fadeInAndOut>().speed = 0f;
+        fadeInAndOut.GetComponent<fadeInAndOut>().timeUp = 0f;
+        fadeInAndOut.GetComponent<fadeInAndOut>().delayedIn = 0f;
+        fadeInAndOut.SetActive(true);
     }
 }

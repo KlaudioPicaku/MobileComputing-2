@@ -63,6 +63,7 @@ public class DialogueManager : MonoBehaviour
         controls.SetActive(true);
         inventory.SetActive(true);
         joystick.SetActive(true);
+        dialogBox.SetActive(false);
 
     }
     public void PlayDialogue1() {
