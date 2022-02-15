@@ -6,6 +6,7 @@ using UnityEngine;
 public class SnakeAI : MonoBehaviour
 {
     public List<Transform> points;
+    public bool isDead = false;
     //The int value for next point index
     public int nextID = 0;
     //The value of that applies to ID for changing
@@ -38,11 +39,15 @@ public class SnakeAI : MonoBehaviour
 
     private void Update()
     {
-        MoveToNextPoint();
+        if (!isDead)
+        {
+            MoveToNextPoint();
+        }
     }
     private void stopMovement()
     {
         animator.SetBool("isMoving", false);
+        isDead = true;
     }
     void MoveToNextPoint()
     {

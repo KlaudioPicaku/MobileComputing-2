@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -8536103576442986248}
   - component: {fileID: -6590225418961442749}
   - component: {fileID: 7031991309914232154}
+  - component: {fileID: 5826720349702874957}
   m_Layer: 8
   m_Name: EnergyPoints
   m_TagString: EnergyPoints
@@ -139,6 +140,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audio: {fileID: 738972265972805314}
   audioclip: {fileID: 8300000, guid: 3497b2bd25fbefb4da3c2782c94a1b34, type: 3}
+--- !u!114 &5826720349702874957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494797352036343627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 028c367e817acf44a8aa012384f2ebf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  savePath: 
+  localSettings:
+    musicVolume: 0
+    soundFXvolume: 0
+  soundEffects: {fileID: 3853639113132468530}
 --- !u!1 &3853639113132468530
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,11 +16,14 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] GameObject joystick;
     private void Awake()
     {
-        dialogQuit.SetActive(false);
-        pauseMenuUI.SetActive(false);
         musicSlider.value = music.volume;
         soundFXSlider.value = globalSoundFx.volume;
 
+    }
+    private void Start()
+    {
+        dialogQuit.SetActive(false);
+        pauseMenuUI.SetActive(false);
     }
     private void Update()
     {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Character2Dcontroller : MonoBehaviour
 {
@@ -11,10 +12,13 @@ public class Character2Dcontroller : MonoBehaviour
     Animator animator;
     [SerializeField] Transform groundCheckCollider;
     [SerializeField] GameObject loadingScreen;
+    [SerializeField] Button interactButton;
+    [SerializeField] SettingsManager settings;
     [SerializeField] LayerMask groundLayer;
     [SerializeField] LayerMask ladderLayer;
     [SerializeField] float jmpPow = 500;
     [SerializeField] float distance;
+    public bool updated = false;
     float horizontalValue;
     float verticalValue;
     float runSpeedModifier = 2f;
@@ -27,6 +31,7 @@ public class Character2Dcontroller : MonoBehaviour
     [SerializeField] bool isClimbingDown = false;
     private void Awake()
     {
+        interactButton.interactable = false;
         this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
     }
     void Start()
@@ -37,7 +42,14 @@ public class Character2Dcontroller : MonoBehaviour
     }
     void FixedUpdate()
     {
+        
         if (!loadingScreen.activeInHierarchy){
+            if (!updated)
+            {
+                settings.updatedSettings = false;
+                updated = true;
+            }
+
             //Store horizontal and vertical value
             horizontalValue = joystick.Horizontal;
             verticalValue = joystick.Vertical;

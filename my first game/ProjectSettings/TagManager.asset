@@ -26,6 +26,7 @@ TagManager:
   - Fading
   - Music
   - SoundFx
+  - MusicSlider
   layers:
   - Default
   - TransparentFX

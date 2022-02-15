@@ -35,7 +35,6 @@ public class snakeHealth : MonoBehaviour
 
         if (currentHealth <= 0 && !isDead)
         {
-            player.eyesKilled++;
             DieSnake();
             isDead = true; //avoid animation loop
         }
@@ -70,7 +69,7 @@ public class snakeHealth : MonoBehaviour
     }
     public void kill()
     {
-        Destroy(root);
+        Destroy(root,10f);
     }
     public void setHealth(float health)
     {
