@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerSpecial : MonoBehaviour
 {
     [SerializeField] LayerMask enemyLayer;
+    [SerializeField] LayerMask snakeLayer;
     [SerializeField] Transform attackPoint;
     [SerializeField] float attackRange = 2f;
     [SerializeField] Animator animator;
@@ -30,21 +31,30 @@ public class PlayerSpecial : MonoBehaviour
     public void specialAttack()
     {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, 2*attackRange, enemyLayer);
+        Collider2D[] hitSnakes = Physics2D.OverlapCircleAll(attackPoint.position, 2 * attackRange, snakeLayer);
         if (energy.GetEnergy() == 100)
         {
             foreach (Collider2D enemy in hitEnemies)
             {
                 if (enemy.tag.Equals("Eye"))
                 {
-                    enemy.GetComponent<AllSeeingHealth>().setHealth(10f) ;
+                    enemy.GetComponent<AllSeeingHealth>().setHealth(10f);
                 }
-                else if (enemy.tag.Equals("Ground"))
+                else if (enemy.tag.Equals("Enemy"))
                 {
-                    enemy.GetComponent <EnemyHealthController>().setHealth(30f);
+                    enemy.GetComponent<EnemyHealthController>().setHealth(30f);
                 }
 
             }
-            energy.SetEnergy(-100);
+            foreach (Collider2D enemy in hitSnakes)
+            {
+                if (enemy.tag.Equals("Snake"))
+                {
+                    enemy.GetComponentInChildren<snakeHealth>().setHealth(10f);
+                }
+            }
+
+           energy.SetEnergy(-100);
             GameObject a = Instantiate(specialEffect, GetComponent<Transform>()) as GameObject;
         }
 

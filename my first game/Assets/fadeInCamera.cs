@@ -14,6 +14,13 @@ public class fadeInCamera : MonoBehaviour
     [SerializeField] GameObject loadingScreen;
     [SerializeField] GameObject fadeInAndOut;
     Color color1;
+    Color color2;
+    private void OnEnable()
+    {
+        speed = 0f;
+        fadeOutSpeed = 0.5f;
+        timeUp = 0f;
+    }
     // Start is called before the first frame update
     public void Awake()
     {

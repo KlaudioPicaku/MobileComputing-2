@@ -33,6 +33,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] GameObject loadingScreen;
     [SerializeField] GameObject dialogBox;
     [SerializeField] GameObject joystick;
+    [SerializeField] AudioSource pickupSound;
     public DialogueManager dialog;
     public List<string> dialogToPassOver;
     public int activeDialogIndex = 0;
@@ -73,7 +74,7 @@ public class PlayerScript : MonoBehaviour
         else
         {
             //inventory.Load();
-           levelManager.LoadLevel("SampleScene", "additive");
+           levelManager.LoadLevel("Act 1 Friends and Foes", "additive");
         }
 
     }
@@ -169,12 +170,14 @@ public class PlayerScript : MonoBehaviour
                 inventory.AddItem(new Item(item.item), 1, true);
                 itemsPicked.Add(item.name);
                 other.gameObject.SetActive(false);
+                pickupSound.Play();
             }
             else if (isPresent && !(item.item.Id >= 8 && item.item.Id <= 12))
             {
                 inventory.AddItem(new Item(item.item), 1, false);
                 itemsPicked.Add(item.name);
                 other.gameObject.SetActive(false);
+                pickupSound.Play();
 
             }
             else if (isPresentExp && item.item.Id >= 8 && item.item.Id <= 12)
@@ -183,6 +186,7 @@ public class PlayerScript : MonoBehaviour
                 expandedInventory.AddItem(new Item(item.item), 1, true);
                 itemsPicked.Add(item.name);
                 other.gameObject.SetActive(false);
+                pickupSound.Play();
             }
             else if (isPresentExp && !(item.item.Id >= 8 && item.item.Id <= 12))
             {
@@ -190,6 +194,7 @@ public class PlayerScript : MonoBehaviour
                 expandedInventory.AddItem(new Item(item.item), 1, false);
                 itemsPicked.Add(item.name);
                 other.gameObject.SetActive(false);
+                pickupSound.Play();
             }
             else
             {
@@ -200,6 +205,7 @@ public class PlayerScript : MonoBehaviour
                     journal.journal.Add(item.item.description);
                     itemsPicked.Add(item.name);
                     other.gameObject.SetActive(false);
+                    pickupSound.Play();
                 }
                 else if (freeSlotsHotBar == 0 && freeSlotsExpanded > 0 &&
                    !(item.item.Id >= 8 && item.item.Id <= 12))
@@ -207,6 +213,7 @@ public class PlayerScript : MonoBehaviour
                     expandedInventory.AddItem(new Item(item.item), 1, false);
                     itemsPicked.Add(item.name);
                     other.gameObject.SetActive(false);
+                    pickupSound.Play();
                 }
                 else if (freeSlotsExpanded == 0 && freeSlotsHotBar == 0)
                 {
@@ -218,12 +225,14 @@ public class PlayerScript : MonoBehaviour
                     inventory.AddItem(new Item(item.item), 1, true);
                     itemsPicked.Add(item.name);
                     other.gameObject.SetActive(false);
+                    pickupSound.Play();
                 }
                 else
                 {
                     inventory.AddItem(new Item(item.item), 1, false);
                     itemsPicked.Add(item.name);
                     other.gameObject.SetActive(false);
+                    pickupSound.Play();
                 }
             }
         }
@@ -285,12 +294,14 @@ public class PlayerScript : MonoBehaviour
                     inventory.AddItem(new Item(item.item), 1, true);
                     itemsPicked.Add(item.name);
                     other.gameObject.SetActive(false);
+                    pickupSound.Play();
                 }
                 else if (isPresent && !(item.item.Id >= 8 && item.item.Id <= 12))
                 {
                     inventory.AddItem(new Item(item.item), 1, false);
                     itemsPicked.Add(item.name);
                     other.gameObject.SetActive(false);
+                    pickupSound.Play();
 
                 }
                 else if (isPresentExp && item.item.Id >= 8 && item.item.Id <= 12)
@@ -298,6 +309,7 @@ public class PlayerScript : MonoBehaviour
                     expandedInventory.AddItem(new Item(item.item), 1, true);
                     itemsPicked.Add(item.name);
                     other.gameObject.SetActive(false);
+                    pickupSound.Play();
                 }
                 else if (isPresentExp && !(item.item.Id >= 8 && item.item.Id <= 12))
                 {
@@ -305,6 +317,7 @@ public class PlayerScript : MonoBehaviour
                     expandedInventory.AddItem(new Item(item.item), 1, false);
                     itemsPicked.Add(item.name);
                     other.gameObject.SetActive(false);
+                    pickupSound.Play();
                 }
                 else
                 {
@@ -316,6 +329,7 @@ public class PlayerScript : MonoBehaviour
                         expandedInventory.AddItem(new Item(item.item), 1, true);
                         itemsPicked.Add(item.name);
                         other.gameObject.SetActive(false);
+                        pickupSound.Play();
                     }
                     else if (freeSlotsHotBar == 0 && freeSlotsExpanded > 0 &&
                        !(item.item.Id >= 8 && item.item.Id <= 12))
@@ -323,6 +337,7 @@ public class PlayerScript : MonoBehaviour
                         expandedInventory.AddItem(new Item(item.item), 1, false);
                         itemsPicked.Add(item.name);
                         other.gameObject.SetActive(false);
+                        pickupSound.Play();
                     }
                     else if (freeSlotsExpanded == 0 && freeSlotsHotBar == 0)
                     {
@@ -334,12 +349,14 @@ public class PlayerScript : MonoBehaviour
                         inventory.AddItem(new Item(item.item), 1, true);
                         itemsPicked.Add(item.name);
                         other.gameObject.SetActive(false);
+                        pickupSound.Play();
                     }
                     else
                     {
                         inventory.AddItem(new Item(item.item), 1, false);
                         itemsPicked.Add(item.name);
                         other.gameObject.SetActive(false);
+                        pickupSound.Play();
                     }
                 }
 

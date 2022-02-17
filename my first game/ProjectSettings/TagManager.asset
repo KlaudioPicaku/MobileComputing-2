@@ -27,6 +27,8 @@ TagManager:
   - Music
   - SoundFx
   - MusicSlider
+  - Enemy
+  - Items
   layers:
   - Default
   - TransparentFX
@@ -72,6 +74,9 @@ TagManager:
     locked: 0
   - name: ForeGround
     uniqueID: 907553587
+    locked: 0
+  - name: Fog
+    uniqueID: 4078787033
     locked: 0
   - name: Inventory
     uniqueID: 906492367
