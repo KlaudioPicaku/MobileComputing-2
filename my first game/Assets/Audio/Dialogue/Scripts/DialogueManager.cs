@@ -64,6 +64,7 @@ public class DialogueManager : MonoBehaviour
         inventory.SetActive(true);
         joystick.SetActive(true);
         dialogBox.SetActive(false);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>().dialogToPassOver.Clear();
 
     }
     public void PlayDialogue1() {

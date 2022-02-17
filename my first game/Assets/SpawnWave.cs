@@ -7,7 +7,7 @@ public class SpawnWave : MonoBehaviour
     [SerializeField] GameObject enemyToSpawn;
     [SerializeField] float timeStarted;
     [SerializeField] int timeSpawn;
-    [SerializeField] int nextTime = 5;
+    [SerializeField] int nextTime;
     [SerializeField] LayerMask playerMask;
     [SerializeField] bool activated=false;
     [SerializeField] int spawned = 0;
@@ -25,6 +25,7 @@ public class SpawnWave : MonoBehaviour
         if (item.Length > 0 && !activated)
         {
             activated = true;
+            GameObject.FindGameObjectWithTag("Tutorial").GetComponent<Tutorial>().nearBush=true;
         }
         if (activated)
         {
@@ -33,18 +34,18 @@ public class SpawnWave : MonoBehaviour
             timeSpawn = Mathf.RoundToInt(timeStarted);
             if (timeSpawn>nextTime && spawned < 10)
             {
-                nextTime += timeSpawn;
+                nextTime = timeSpawn+2;
                 GameObject enemy = Instantiate(enemyToSpawn, pointsToSpawn[currentIndex]) as GameObject;
                 enemy.transform.position = pointsToSpawn[currentIndex].position;
                 enemy.transform.localScale = new Vector3(-1.5f,1.5f);
                 currentIndex = (currentIndex + 1) % pointsToSpawn.Length;
                 spawned++;
             }
-            else
+            if (spawned == 10)
             {
-                this.GetComponent<SpawnWave>().activated = false;
+                GameObject.FindGameObjectWithTag("Tutorial").GetComponent<Tutorial>().waveComplete = true;
+                activated = false;
             }
-
         }
     }
     private void OnDrawGizmos()

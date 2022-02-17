@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Food
   m_EditorClassIdentifier: 
   Id: 3
-  uiDisplay: {fileID: 3811710216997549189, guid: 4c8b856812c6ce742ae3a85c7cde4296, type: 3}
+  uiDisplay: {fileID: 6480003857161439598, guid: 4c8b856812c6ce742ae3a85c7cde4296, type: 3}
   type: 1
   description: Yummy!
   isSpecial: 0

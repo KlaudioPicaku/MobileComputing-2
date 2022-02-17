@@ -34,6 +34,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] GameObject dialogBox;
     [SerializeField] GameObject joystick;
     [SerializeField] AudioSource pickupSound;
+    public bool tutorialComplete = false;
     public DialogueManager dialog;
     public List<string> dialogToPassOver;
     public int activeDialogIndex = 0;
@@ -59,7 +60,7 @@ public class PlayerScript : MonoBehaviour
 
     private void Awake()
     {
-
+        Companion.SetActive(false);
         if (File.Exists(Application.persistentDataPath + "/save.data"))
         {
             FileStream dataStream = new FileStream(Application.persistentDataPath + "/save.data", FileMode.Open);
@@ -406,6 +407,7 @@ public class PlayerScript : MonoBehaviour
         energySlider.value = toBeSaved.energy;
         eyesKilled = toBeSaved.eyesKilled;
         journal.journal = toBeSaved.journal;
+        tutorialComplete = toBeSaved.tutorialComplete;
 
     }
     public void saveInventory()

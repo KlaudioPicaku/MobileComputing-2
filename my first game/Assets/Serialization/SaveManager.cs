@@ -15,6 +15,7 @@ public class SaveManager : MonoBehaviour
     [SerializeField] GameObject notificationParent;
     [SerializeField] GameObject notification;
     [SerializeField] GameObject persistentParent;
+    [SerializeField] LevelManager levelManager;
     SaveData localSave;
     public void SaveGame()
     {
@@ -84,7 +85,8 @@ public class SaveManager : MonoBehaviour
     }
     public void mainMenu()
     {
-        SceneManager.LoadSceneAsync("MainMenu");
+
+        levelManager.LoadLevel("MainMenu");
         Time.timeScale = 1f;
         Destroy(persistentParent);
     }
@@ -115,4 +117,5 @@ public class SaveData
     public int eyesKilled;
     public List<string> journal;
     public SerializableVector3 spawnPosition;
+    public bool tutorialComplete;
 }

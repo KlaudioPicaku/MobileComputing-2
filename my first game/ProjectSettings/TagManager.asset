@@ -29,6 +29,7 @@ TagManager:
   - MusicSlider
   - Enemy
   - Items
+  - Tutorial
   layers:
   - Default
   - TransparentFX
