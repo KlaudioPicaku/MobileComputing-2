@@ -30,6 +30,9 @@ TagManager:
   - Enemy
   - Items
   - Tutorial
+  - CompanionActivator
+  - CompanionSpeech
+  - BlueFeather
   layers:
   - Default
   - TransparentFX

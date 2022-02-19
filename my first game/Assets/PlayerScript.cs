@@ -33,6 +33,9 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] GameObject loadingScreen;
     [SerializeField] GameObject dialogBox;
     [SerializeField] GameObject joystick;
+    [SerializeField] GameObject storyLine;
+    public bool cameraFaded = false;
+
     [SerializeField] AudioSource pickupSound;
     public bool tutorialComplete = false;
     public DialogueManager dialog;
@@ -49,6 +52,8 @@ public class PlayerScript : MonoBehaviour
 
     [SerializeField]  int freeSlotsHotBar = 0;
     [SerializeField] int freeSlotsExpanded = 0;
+
+    [SerializeField] AudioClip mainCharacterVoice;
 
     int freeSlotsSpecial = 0;
     bool specialItem1 = false;
@@ -443,16 +448,28 @@ public class PlayerScript : MonoBehaviour
             {
 
                 dialogToPassOver = item.gameObject.GetComponent<GroundInteractable>().item.DialogLines;
-                dialog.dialogue1 = dialogToPassOver[0];
-                activeDialogIndex = 0;
-                dialog.typingClip = item.gameObject.GetComponent<GroundInteractable>().item.dialogVoice;
-                dialog.PlayDialogue1();
-                scriptFadCam = item.gameObject.GetComponent<SimulateSpaceClick>();
-                break;
+                if (dialogToPassOver != null)
+                {
+                    dialog.dialogue1 = dialogToPassOver[0];
+                    activeDialogIndex = 0;
+                    dialog.typingClip = item.gameObject.GetComponent<GroundInteractable>().item.dialogVoice;
+                    dialog.PlayDialogue1();
+                    scriptFadCam = item.gameObject.GetComponent<SimulateSpaceClick>();
+                    break;
+                }
+                else
+                {
+                    dialog.dialogue1 = "I am well rested!";
+                    dialog.typingClip = mainCharacterVoice;
+                    dialog.PlayDialogue1();
+                    break;
+                }
+                
             }
             if (scriptFadCam != null)
             {
                 Debug.Log("Fade!=null");
+                cameraFaded = true;
                 scriptFadCam.activate();
                 scriptFadCam = null;
             }

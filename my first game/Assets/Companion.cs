@@ -8,6 +8,7 @@ public class Companion : MonoBehaviour
     public Vector3 offset;
     public bool setLeft = false;
     public bool setRight = false;
+    public bool deactivate = false;
     // public Vector3 minValues, maxValues;
     //private void Start()
     //{
@@ -38,8 +39,12 @@ public class Companion : MonoBehaviour
             Vector3 newscale = new Vector3(1f, 1f, 1f);
             this.gameObject.transform.localScale = new Vector3(1f,1f,1f);
         }
-
-
+        if (deactivate)
+        {
+            deactivate = false;
+            this.GetComponent<Animator>().Play("Despawn");
+        }
+        
         Vector3 offsetPosition = target.position + offset;
 
         //verify target position out of bounds or not
@@ -53,5 +58,8 @@ public class Companion : MonoBehaviour
         //    );
 
     }
-
+   public void deactivateComp()
+    {
+        this.gameObject.SetActive(false);
+    }
 }

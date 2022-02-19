@@ -68,6 +68,10 @@ public class Tutorial : MonoBehaviour
             {
                 textBoxForTutorial.GetComponent<Text>().text = "Catch some sleep, go near the tent, \n it's interactable";
             }
+            if (interacted)
+            {
+                textBoxForTutorial.GetComponent<Text>().text = "Fight your way out of the woods!";
+            }
 
         }
         else

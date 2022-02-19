@@ -15,7 +15,7 @@ public class DialogFeed : MonoBehaviour
         {
             foreach (Collider2D item in other)
             {
-                item.gameObject.GetComponent<PlayerScript>().dialogToPassOver.AddRange(linesToFeed);
+                item.gameObject.GetComponent<PlayerScript>().dialogToPassOver = linesToFeed;
                 item.gameObject.GetComponent<PlayerScript>().dialog.typingClip = mainCharacterVoice;
                 item.gameObject.GetComponent<PlayerScript>().activeDialogIndex = 0;
                 item.gameObject.GetComponent<PlayerScript>().playThoughts();

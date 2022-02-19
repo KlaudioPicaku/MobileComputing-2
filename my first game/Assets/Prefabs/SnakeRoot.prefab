@@ -256,6 +256,7 @@ GameObject:
   - component: {fileID: 7158842116998138248}
   - component: {fileID: 7158842116998138263}
   - component: {fileID: 7158842116998138249}
+  - component: {fileID: 2911620822103642493}
   m_Layer: 15
   m_Name: snake
   m_TagString: Snake
@@ -462,6 +463,20 @@ MonoBehaviour:
   loadBaseValues: 0
   playerHealth: {fileID: 0}
   cooldown: 0.5
+--- !u!114 &2911620822103642493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7158842116998138256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2362cb3b873927643932752b08bdb39f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audio: {fileID: 7158842116952289017}
+  audioclip: {fileID: 8300000, guid: c37470878fb73424495e2bd9d40a5f9e, type: 3}
 --- !u!1 &7158842117228943720
 GameObject:
   m_ObjectHideFlags: 0

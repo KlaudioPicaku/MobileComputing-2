@@ -15,5 +15,6 @@ MonoBehaviour:
   Id: 8
   uiDisplay: {fileID: -41642693152946813, guid: cd1fbd75aa03ed04aaeb4f94dab2bf41, type: 3}
   type: 9
-  description: This item grants the player a special ability.
+  description: A blue feather...My grandma used to write her little adventure stories
+    with a feather like this one, reminds me of her...I really miss her...
   isSpecial: 1
