@@ -1,0 +1,114 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4030311769860826114
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 732534324666846280, guid: 6cc164ba19e1bc245969046476038c34, type: 3}
+      propertyPath: mainCharacterVoice
+      value: 
+      objectReference: {fileID: 8300000, guid: f77683dd05db1774e8085add0598fd2d, type: 3}
+    - target: {fileID: 732534324666846280, guid: 6cc164ba19e1bc245969046476038c34, type: 3}
+      propertyPath: linesToFeed.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 732534324666846280, guid: 6cc164ba19e1bc245969046476038c34, type: 3}
+      propertyPath: linesToFeed.Array.data[0]
+      value: ' Ok, <anim:shake> enough!</anim>'
+      objectReference: {fileID: 0}
+    - target: {fileID: 732534324666846280, guid: 6cc164ba19e1bc245969046476038c34, type: 3}
+      propertyPath: linesToFeed.Array.data[1]
+      value: You want answers? <p:long> Fine, so it shall be.
+      objectReference: {fileID: 0}
+    - target: {fileID: 732534324666846280, guid: 6cc164ba19e1bc245969046476038c34, type: 3}
+      propertyPath: linesToFeed.Array.data[2]
+      value: My name is Ivy, my light shall light this journey, I shall be your newfound
+        spirit.
+      objectReference: {fileID: 0}
+    - target: {fileID: 732534324666846280, guid: 6cc164ba19e1bc245969046476038c34, type: 3}
+      propertyPath: linesToFeed.Array.data[3]
+      value: 'Ivy: See that feather? Put it on your scarf.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 732534324666846280, guid: 6cc164ba19e1bc245969046476038c34, type: 3}
+      propertyPath: linesToFeed.Array.data[4]
+      value: 'Ivy: If your energy is right <p:long> you will release my power.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 732534324666846280, guid: 6cc164ba19e1bc245969046476038c34, type: 3}
+      propertyPath: linesToFeed.Array.data[5]
+      value: 'Ivy: I shall get to my own stuff, I''ll come around when you need me
+        I guess'
+      objectReference: {fileID: 0}
+    - target: {fileID: 732534324666846280, guid: 6cc164ba19e1bc245969046476038c34, type: 3}
+      propertyPath: linesToFeed.Array.data[6]
+      value: 'Ivy: Now I suppose you have to get out of this haunted forest.<p:long>
+        Yeah, it''s haunted, in case you didn''t notice. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 732534324666846283, guid: 6cc164ba19e1bc245969046476038c34, type: 3}
+      propertyPath: m_Name
+      value: DialogLineFeed (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 732534324666846283, guid: 6cc164ba19e1bc245969046476038c34, type: 3}
+      propertyPath: m_TagString
+      value: CompanionSpeech
+      objectReference: {fileID: 0}
+    - target: {fileID: 732534324666846326, guid: 6cc164ba19e1bc245969046476038c34, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 732534324666846326, guid: 6cc164ba19e1bc245969046476038c34, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 732534324666846326, guid: 6cc164ba19e1bc245969046476038c34, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 732534324666846326, guid: 6cc164ba19e1bc245969046476038c34, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 732534324666846326, guid: 6cc164ba19e1bc245969046476038c34, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -116.72005
+      objectReference: {fileID: 0}
+    - target: {fileID: 732534324666846326, guid: 6cc164ba19e1bc245969046476038c34, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 64.01599
+      objectReference: {fileID: 0}
+    - target: {fileID: 732534324666846326, guid: 6cc164ba19e1bc245969046476038c34, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 732534324666846326, guid: 6cc164ba19e1bc245969046476038c34, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 732534324666846326, guid: 6cc164ba19e1bc245969046476038c34, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 732534324666846326, guid: 6cc164ba19e1bc245969046476038c34, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 732534324666846326, guid: 6cc164ba19e1bc245969046476038c34, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 732534324666846326, guid: 6cc164ba19e1bc245969046476038c34, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 732534324666846326, guid: 6cc164ba19e1bc245969046476038c34, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 732534324666846326, guid: 6cc164ba19e1bc245969046476038c34, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6cc164ba19e1bc245969046476038c34, type: 3}

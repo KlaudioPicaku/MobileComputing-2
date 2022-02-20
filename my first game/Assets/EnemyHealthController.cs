@@ -9,6 +9,7 @@ public class EnemyHealthController : MonoBehaviour
     [SerializeField] GameObject energyPointsPrefab;
     [SerializeField] float previousHealth;
     [SerializeField] Transform playerLock;
+    [SerializeField] string deathAnimation;
     private Animator animator;
     private bool isDead = false;
     [SerializeField] float timeDead = 0f;
@@ -45,7 +46,7 @@ public class EnemyHealthController : MonoBehaviour
             timeDead += Time.deltaTime;
             if (timeDead >= 10f)
             {
-                GameObject.FindWithTag("SkeletonRoot").SetActive(false);
+                this.gameObject.transform.parent.gameObject.SetActive(false);
             }
 
         }
@@ -54,7 +55,7 @@ public class EnemyHealthController : MonoBehaviour
     {
         if (!isDead)
         {
-            animator.Play("basic_skeleton_dead");
+            animator.Play(deathAnimation);
             animator.SetBool("IsDead",true);
             GetComponent<EnemyAI>().enabled = false;
             GetComponent<BoxCollider2D>().enabled = false;

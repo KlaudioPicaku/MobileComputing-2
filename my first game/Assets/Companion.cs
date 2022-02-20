@@ -9,6 +9,10 @@ public class Companion : MonoBehaviour
     public bool setLeft = false;
     public bool setRight = false;
     public bool deactivate = false;
+    private void Start()
+    {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+    }
     // public Vector3 minValues, maxValues;
     //private void Start()
     //{

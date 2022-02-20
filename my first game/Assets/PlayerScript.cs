@@ -65,7 +65,7 @@ public class PlayerScript : MonoBehaviour
 
     private void Awake()
     {
-        Companion.SetActive(false);
+        //Companion.SetActive(false);
         if (File.Exists(Application.persistentDataPath + "/save.data"))
         {
             FileStream dataStream = new FileStream(Application.persistentDataPath + "/save.data", FileMode.Open);
@@ -369,14 +369,14 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
-        Collider2D[] interactables = Physics2D.OverlapCircleAll(transform.position, 0.3f, dialogLayer);
-        if (interactables.Length > 0)
-        {
-            foreach (Collider2D item in interactables)
-            {
-                Companion.GetComponent<GroundInteractable>();
-            }
-        }
+        //Collider2D[] interactables = Physics2D.OverlapCircleAll(transform.position, 0.3f, dialogLayer);
+        //if (interactables.Length > 0)
+        //{
+        //    foreach (Collider2D item in interactables)
+        //    {
+        //        Companion.GetComponent<GroundInteractable>();
+        //    }
+        //}
 
     }
     //private void FixedUpdate()

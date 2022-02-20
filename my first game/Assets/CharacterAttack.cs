@@ -10,10 +10,14 @@ public class CharacterAttack : MonoBehaviour
     [SerializeField] float attackRange = 0.5f;
     [SerializeField] LayerMask enemyLayer;
     [SerializeField] LayerMask snakesLayer;
+    [SerializeField] LayerMask SpecialLayer;
+    [SerializeField] LayerMask bossLayer;
     [SerializeField] int attackIndex = 0;
 
     private EnemyHealthController enemyHealth;
     private snakeHealth snakeHealth;
+    private specialEnemyHealth specialHealth;
+    [SerializeField] bossHealth bossHealth;
     private bool attacker = false;
     public void Start()
     {
@@ -52,6 +56,18 @@ public class CharacterAttack : MonoBehaviour
                 snakeHealth = snake.GetComponent<snakeHealth>();
                 break;
             }
+            Collider2D[] hitSpecial = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, SpecialLayer);
+            foreach (Collider2D special in hitSpecial)
+            {
+                specialHealth = special.GetComponent<specialEnemyHealth>();
+                break;
+            }
+            Collider2D[] hitBoss = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, bossLayer);
+            foreach (Collider2D boss in hitBoss)
+            {
+                bossHealth = boss.GetComponent<bossHealth>();
+                break;
+            }
         }
     }
     public void setEnemyHealth()
@@ -65,6 +81,16 @@ public class CharacterAttack : MonoBehaviour
         {
             snakeHealth.setHealth(10f);
         }
+        if (enemyHealth != null)
+        {
+            enemyHealth.setHealth(Random.Range(5f, 25f));
+        }
+        if (bossHealth != null)
+        {
+            bossHealth.setHealth(Random.Range(20f, 25f));
+            bossHealth = null;
+        }
+
         return;
     }
     public void startAttack()

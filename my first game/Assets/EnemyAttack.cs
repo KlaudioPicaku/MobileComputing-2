@@ -12,6 +12,7 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField] LayerMask enemyLayer;
     [SerializeField] bool referenceSceneHasLoaded = false;
     [SerializeField] bool loadBaseValues = false;
+    [SerializeField] string currentScene;
     //[SerializeField] bool isAttacking = false;
    // bool playerInCloseRange = false;
     [SerializeField] HealthBarController playerHealth;
@@ -35,7 +36,7 @@ public class EnemyAttack : MonoBehaviour
     {
         if (!referenceSceneHasLoaded )
         {
-            Scene reference = SceneManager.GetSceneByName("Persistent");
+            Scene reference = SceneManager.GetSceneByName(currentScene);
             if ((reference.IsValid() && reference.isLoaded) || FindObjectOfType<PlayerScript>().transform !=null)
             {
                 referenceSceneHasLoaded = true;
