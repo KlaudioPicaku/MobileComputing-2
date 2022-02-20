@@ -11,10 +11,15 @@ public class bossAttack : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] float coolDown;
     [SerializeField] float timeSinceLast=0;
+    [SerializeField] float timeSinceLastSpell = 0;
     [SerializeField] float nextFireTime = 0;
+    [SerializeField] float nextSpellTime = 30;
     [SerializeField] float attackRange;
     [SerializeField] HealthBarController playerHealth;
     [SerializeField] LayerMask enemyLayer;
+    [SerializeField] GameObject special;
+    [SerializeField] Transform[] spawnPoints;
+    [SerializeField] int currentIndex = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +32,7 @@ public class bossAttack : MonoBehaviour
     void Update()
     {
         timeSinceLast = timeSinceLast + Time.deltaTime;
+        timeSinceLastSpell = timeSinceLastSpell + Time.deltaTime;
         goalPost = goal;
         if (timeSinceLast > nextFireTime)
         {
@@ -36,9 +42,9 @@ public class bossAttack : MonoBehaviour
                 animator.SetTrigger("attack");
             }
         }
-        //else
+        // if (timeSinceLast > nextSpellTime)
         //{
-        //    animator.SetBool("isAttacking", false);
+        //    animator.SetTrigger("spell");
         //}
 
     }
@@ -64,5 +70,11 @@ public class bossAttack : MonoBehaviour
     {
         if (Vector2.Distance(transform.position, goalPost.position) <= 2.2f) return true;
         return false;
+    }
+    public void specialAttack()
+    {
+        nextSpellTime = nextSpellTime + timeSinceLastSpell;
+        currentIndex = (currentIndex + 1) % spawnPoints.Length;
+        Instantiate(special, spawnPoints[currentIndex]);
     }
 }

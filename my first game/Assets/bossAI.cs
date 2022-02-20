@@ -26,7 +26,7 @@ public class bossAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 direction = new Vector3(player.transform.position.x, transform.position.y);
+        Vector3 direction = new Vector3(player.transform.position.x, 66f);
 
         //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         //rb.rotation = angle;

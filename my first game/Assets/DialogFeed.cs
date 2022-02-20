@@ -7,7 +7,7 @@ public class DialogFeed : MonoBehaviour
     [SerializeField] List<string> linesToFeed;
     [SerializeField] LayerMask playerMask;
     [SerializeField] AudioClip mainCharacterVoice;
-    [SerializeField] bool linesFed = false;
+    public bool linesFed = false;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Collider2D[] other = Physics2D.OverlapCircleAll(transform.position, 3f, playerMask);
