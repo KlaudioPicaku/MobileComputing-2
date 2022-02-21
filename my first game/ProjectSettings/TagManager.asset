@@ -35,6 +35,7 @@ TagManager:
   - BlueFeather
   - SpecialSkeletonRoot
   - Boss
+  - LeaderBoard
   layers:
   - Default
   - TransparentFX
