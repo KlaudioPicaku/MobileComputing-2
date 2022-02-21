@@ -1,13 +1,56 @@
 {
-    "m_SelectedDeviceId": "",
+    "m_SelectedDeviceId": "221c79d8840c7ece",
     "m_SelectedPackage": {
-        "deviceId": "",
-        "name": "",
-        "processId": 0,
+        "deviceId": "221c79d8840c7ece",
+        "name": "com.OddCrowInteractive.com.unity.WindingValley.mobile2D",
+        "processId": 31720,
         "exited": false
     },
     "m_SelectedPriority": 0,
-    "m_KnownPackagesForSerialization": [],
+    "m_KnownPackagesForSerialization": [
+        {
+            "deviceId": "221c79d8840c7ece",
+            "name": "com.OddCrowInteractive.com.unity.WindingValley.mobile2D",
+            "processId": 5976,
+            "exited": true
+        },
+        {
+            "deviceId": "221c79d8840c7ece",
+            "name": "com.sec.android.app.launcher",
+            "processId": 1784,
+            "exited": false
+        },
+        {
+            "deviceId": "221c79d8840c7ece",
+            "name": "com.OddCrowInteractive.com.unity.WindingValley.mobile2D",
+            "processId": 15164,
+            "exited": true
+        },
+        {
+            "deviceId": "221c79d8840c7ece",
+            "name": "com.OddCrowInteractive.com.unity.WindingValley.mobile2D",
+            "processId": 16405,
+            "exited": true
+        },
+        {
+            "deviceId": "221c79d8840c7ece",
+            "name": "com.OddCrowInteractive.com.unity.WindingValley.mobile2D",
+            "processId": 6570,
+            "exited": true
+        },
+        {
+            "deviceId": "221c79d8840c7ece",
+            "name": "com.OddCrowInteractive.com.unity.WindingValley.mobile2D",
+            "processId": 10513,
+            "exited": true
+        },
+        {
+            "deviceId": "221c79d8840c7ece",
+            "name": "com.OddCrowInteractive.com.unity.WindingValley.mobile2D",
+            "processId": 31720,
+            "exited": false
+        }
+    ],
     "m_Tags": {
         "m_Entries": [
             {
@@ -41,9 +84,20 @@
         ]
     },
     "m_MemoryViewerState": {
-        "MemoryWindowHeight": 0.0,
-        "MemoryWindowWidth": 0.0,
-        "MemoryTypeEnabled": [],
+        "MemoryWindowHeight": 300.0,
+        "MemoryWindowWidth": 170.0,
+        "MemoryTypeEnabled": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+        ],
         "MemoryGroup": 2,
         "Behavior": 0
     },

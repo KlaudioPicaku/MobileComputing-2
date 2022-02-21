@@ -75,7 +75,7 @@ public class ContinueInsideGame : MonoBehaviour
             File.Delete(Application.persistentDataPath + "/inventory.save");
             File.Delete(Application.persistentDataPath + "/expanded.save");
             File.Delete(Application.persistentDataPath + "/specialInventory.save");
-            FileUtil.DeleteFileOrDirectory(Application.persistentDataPath + "/TEMP");
+            Directory.Delete(Application.persistentDataPath + "/TEMP",true);
             for (int i = 0; i < inventory.Container.Items.Length; i++)
             {
                 if (inventory.Container.Items[i].ID >= 0)
